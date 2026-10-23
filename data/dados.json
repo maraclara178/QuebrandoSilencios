@@ -1,0 +1,28 @@
+{
+  "dados": [
+    {
+      "numero": "50,1%",
+      "descricao": "das escolas públicas brasileiras tinham alguma abordagem do tema étnico-racial",
+      "fonte": "Saeb/Inep",
+      "ano": "2021"
+    },
+    {
+      "numero": "23,1 mi",
+      "descricao": "de matrículas de estudantes pretos e pardos na educação básica",
+      "fonte": "Censo Escolar/Inep",
+      "ano": "2025"
+    },
+    {
+      "numero": "68%",
+      "descricao": "de conclusão do Ensino Médio até os 19 anos entre estudantes pretos",
+      "fonte": "IBGE/Pnad Contínua",
+      "ano": "2023"
+    },
+    {
+      "numero": "84%",
+      "descricao": "dos municípios brasileiros adotavam medidas para combater o racismo",
+      "fonte": "IBGE/Munic",
+      "ano": "2021"
+    }
+  ]
+}
