@@ -1,28 +1,28 @@
 {
   "dados": [
     {
-      "numero": "50,1%",
-      "descricao": "das escolas públicas brasileiras tinham alguma abordagem do tema étnico-racial",
-      "fonte": "Saeb/Inep",
-      "ano": "2021"
-    },
-    {
-      "numero": "23,1 mi",
-      "descricao": "de matrículas de estudantes pretos e pardos na educação básica",
-      "fonte": "Censo Escolar/Inep",
-      "ano": "2025"
-    },
-    {
-      "numero": "68%",
-      "descricao": "de conclusão do Ensino Médio até os 19 anos entre estudantes pretos",
-      "fonte": "IBGE/Pnad Contínua",
+      "numero": "7,1%",
+      "descricao": "É a taxa de analfabetismo entre pessoas pretas ou pardas de 15 anos ou mais no Brasil. Entre as pessoas brancas, a taxa cai para 3,2%.",
+      "fonte": "IBGE - PNAD Contínua",
       "ano": "2023"
     },
     {
-      "numero": "84%",
-      "descricao": "dos municípios brasileiros adotavam medidas para combater o racismo",
-      "fonte": "IBGE/Munic",
-      "ano": "2021"
+      "numero": "14,1 p.p.",
+      "descricao": "É a diferença de aprendizado adequado em Língua Portuguesa no 9º ano entre estudantes brancos e pretos/pardos. Em 2013, essa diferença era de 9,6 pontos percentuais, mostrando que a desigualdade aumentou.",
+      "fonte": "Saeb/Inep",
+      "ano": "2023"
+    },
+    {
+      "numero": "9,2 anos",
+      "descricao": "É a média de anos de estudo da população preta ou parda com 25 anos ou mais. A população branca na mesma faixa etária possui média de 10,8 anos de estudo.",
+      "fonte": "IBGE - PNAD Contínua",
+      "ano": "2023"
+    },
+    {
+      "numero": "55%",
+      "descricao": "É a proporção de professores da educação básica que se autodeclaram brancos. Em contrapartida, pretos e pardos representam 55,5% da população brasileira, evidenciando a falta de representatividade negra no magistério.",
+      "fonte": "Censo Escolar/Inep",
+      "ano": "2023"
     }
   ]
 }

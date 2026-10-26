@@ -37,36 +37,81 @@ if (botaoTema) {
   });
 }
 
-// ===================== Slides =====================
+// ===================== Slides (Carrossel estilo Instagram) =====================
 document.querySelectorAll('[data-slide]').forEach((slide) => {
   const itens = slide.querySelectorAll('.slide-item');
-  const anterior = slide.querySelector('.slide-anterior');
-  const proximo = slide.querySelector('.slide-proximo');
+  const indicadoresContainer = slide.querySelector('.slide-indicadores');
   let atual = 0;
   let intervalo;
+  
+  // Variáveis para o Swipe (Touch)
+  let startX = 0;
+  let endX = 0;
+
+  // Criar os tracinhos (indicadores) dinamicamente
+  if (indicadoresContainer && itens.length > 0) {
+    itens.forEach((_, index) => {
+      const ponto = document.createElement('button');
+      ponto.className = 'slide-ponto' + (index === 0 ? ' ativo' : '');
+      ponto.setAttribute('aria-label', `Ir para imagem ${index + 1}`);
+      ponto.addEventListener('click', () => {
+        mostrar(index);
+        reiniciar();
+      });
+      indicadoresContainer.appendChild(ponto);
+    });
+  }
 
   function mostrar(i) {
     if (i < 0) i = itens.length - 1;
     if (i >= itens.length) i = 0;
+    
+    // Atualiza as imagens
     itens.forEach((item, idx) => item.classList.toggle('ativo', idx === i));
+    
+    // Atualiza os tracinhos
+    if (indicadoresContainer) {
+      const pontos = indicadoresContainer.querySelectorAll('.slide-ponto');
+      pontos.forEach((ponto, idx) => ponto.classList.toggle('ativo', idx === i));
+    }
     atual = i;
   }
-  function proxima() { mostrar(atual + 1); }
-  function anteriorFn() { mostrar(atual - 1); }
 
-  if (proximo) proximo.addEventListener('click', () => { proxima(); reiniciar(); });
-  if (anterior) anterior.addEventListener('click', () => { anteriorFn(); reiniciar(); });
+  function proxima() { mostrar(atual + 1); }
+  function anterior() { mostrar(atual - 1); }
 
   function reiniciar() {
     clearInterval(intervalo);
-    if (itens.length > 1) intervalo = setInterval(proxima, 7000);
+    if (itens.length > 1) {
+      intervalo = setInterval(proxima, 5000); // Passa a cada 5 segundos
+    }
   }
   reiniciar();
 
+  // --- Lógica de Touch (Swipe para celular) ---
+  slide.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    clearInterval(intervalo);
+  }, { passive: true });
+
+  slide.addEventListener('touchmove', (e) => {
+    endX = e.touches[0].clientX;
+  }, { passive: true });
+
+  slide.addEventListener('touchend', () => {
+    if (startX - endX > 50) { // Arrastou para a esquerda (próxima)
+      proxima();
+    } else if (endX - startX > 50) { // Arrastou para a direita (anterior)
+      anterior();
+    }
+    startX = 0;
+    endX = 0;
+    reiniciar();
+  });
+
+  // Pausar autoplay ao passar o mouse (Desktop)
   slide.addEventListener('mouseenter', () => clearInterval(intervalo));
   slide.addEventListener('mouseleave', reiniciar);
-  slide.addEventListener('focusin', () => clearInterval(intervalo));
-  slide.addEventListener('focusout', reiniciar);
 });
 
 // ===================== Animações ao rolar =====================
@@ -117,7 +162,6 @@ async function carregarStats() {
     if (!resp.ok) throw new Error('Planilha indisponível');
     const texto = await resp.text();
 
-    // Cabeçalho esperado: campo,valor,descricao
     const linhas = texto.trim().split('\n').slice(1);
 
     linhas.forEach((linha) => {
@@ -178,4 +222,42 @@ if (lista) {
     .catch((erro) => {
       lista.innerHTML = '<p class="dados-aviso">Não foi possível carregar os dados. (' + erro.message + ')</p>';
     });
+}
+
+// ===================== Gráficos (Chart.js) =====================
+const ctxAnalfabetismo = document.getElementById('graficoAnalfabetismo');
+
+if (ctxAnalfabetismo && typeof Chart !== 'undefined') {
+  new Chart(ctxAnalfabetismo, {
+    type: 'bar',
+    data: {
+      labels: ['Brancos', 'Pretos/Pardos'],
+      datasets: [{
+        label: 'Taxa de Analfabetismo (%)',
+        data: [3.2, 7.1], // Dados do IBGE 2023
+        backgroundColor: ['#faf6ee', '#c8932b'], 
+        borderWidth: 0,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 10,
+          ticks: { color: '#a0a0a0' },
+          grid: { color: 'rgba(250, 246, 238, 0.1)' }
+        },
+        x: {
+          ticks: { color: '#faf6ee', font: { weight: 'bold' } },
+          grid: { display: false }
+        }
+      }
+    }
+  });
 }
