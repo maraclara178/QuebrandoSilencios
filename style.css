@@ -905,60 +905,24 @@ img.capa { padding: 0; display: block; border: none; }
   padding: 24px;
   display: flex;
   flex-direction: column;
-  /* Efeito de elevação ao passar o mouse */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.grafico-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(200, 147, 43, 0.15); /* Brilho laranja suave */
 }
 
 .grafico-card h3 {
   color: var(--creme);
   font-size: 1.1rem;
   margin-bottom: 20px;
-  line-height: 1.3;
 }
 
 .canvas-container {
   position: relative;
   width: 100%;
-  height: 250px;
-  margin-bottom: 20px;
-}
-
-/* Estilos para o texto no meio do gráfico de rosca */
-.doughnut-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.doughnut-center {
-  position: absolute;
-  text-align: center;
-  pointer-events: none; /* Impede que o texto atrapalhe o mouse no gráfico */
-}
-
-.doughnut-center strong {
-  display: block;
-  font-size: 2rem;
-  color: var(--ocre);
-  line-height: 1;
-  font-family: var(--font-body);
-}
-
-.doughnut-center span {
-  font-size: 0.75rem;
-  color: var(--creme);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  height: 250px; /* Altura fixa para os gráficos não ficarem gigantes */
+  margin-bottom: 16px;
 }
 
 .grafico-card p {
   font-size: 0.8rem;
   color: #a0a0a0;
-  margin-top: auto;
-  line-height: 1.5;
+  margin-top: auto; /* Empurra o texto da fonte para o final do cartão */
+  line-height: 1.4;
 }

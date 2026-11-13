@@ -232,45 +232,6 @@ if (typeof Chart !== 'undefined') {
   Chart.defaults.font.family = 'ui-sans-serif, system-ui, sans-serif';
   Chart.defaults.scale.grid.color = 'rgba(250, 246, 238, 0.1)';
   
-// ===================== Gráficos (Chart.js) =====================
-if (typeof Chart !== 'undefined') {
-  
-  // Configurações globais de Design do Chart.js
-  Chart.defaults.color = '#a0a0a0';
-  Chart.defaults.font.family = 'ui-sans-serif, system-ui, sans-serif';
-  Chart.defaults.font.size = 13;
-  
-  // Estilo da caixa de informação (Tooltip)
-  Chart.defaults.plugins.tooltip.backgroundColor = '#c8932b'; // Cor Ocre
-  Chart.defaults.plugins.tooltip.titleColor = '#000000';
-  Chart.defaults.plugins.tooltip.bodyColor = '#000000';
-  Chart.defaults.plugins.tooltip.titleFont = { weight: 'bold' };
-  Chart.defaults.plugins.tooltip.padding = 10;
-  Chart.defaults.plugins.tooltip.cornerRadius = 4;
-
-  // Opções padrão para os gráficos de barra não terem linhas de grade poluindo
-  const opcoesBarra = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: { 
-      legend: { display: false } 
-    },
-    scales: {
-      x: {
-        grid: { display: false, drawBorder: false }
-      },
-      y: {
-        grid: { color: 'rgba(250, 246, 238, 0.05)' },
-        border: { display: false },
-        beginAtZero: true
-      }
-    },
-    // Animação suave ao carregar
-    animation: {
-      y: { easing: 'easeOutQuart', duration: 1200 }
-    }
-  };
-
   // Gráfico 1: Analfabetismo
   const ctxAnalfabetismo = document.getElementById('graficoAnalfabetismo');
   if (ctxAnalfabetismo) {
@@ -279,18 +240,17 @@ if (typeof Chart !== 'undefined') {
       data: {
         labels: ['Brancos', 'Pretos/Pardos'],
         datasets: [{
+          label: 'Taxa (%)',
           data: [3.2, 7.1],
           backgroundColor: ['#faf6ee', '#c8932b'],
-          borderRadius: 6, // Bordas arredondadas nas barras
-          maxBarThickness: 60 // Impede que as barras fiquem gordas demais
+          borderRadius: 4
         }]
       },
       options: {
-        ...opcoesBarra,
-        scales: {
-          ...opcoesBarra.scales,
-          y: { ...opcoesBarra.scales.y, max: 10 }
-        }
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, max: 10 } }
       }
     });
   }
@@ -303,18 +263,17 @@ if (typeof Chart !== 'undefined') {
       data: {
         labels: ['Brancos', 'Pretos/Pardos'],
         datasets: [{
+          label: 'Média de anos',
           data: [10.8, 9.2],
           backgroundColor: ['#faf6ee', '#c8932b'],
-          borderRadius: 6,
-          maxBarThickness: 60
+          borderRadius: 4
         }]
       },
       options: {
-        ...opcoesBarra,
-        scales: {
-          ...opcoesBarra.scales,
-          y: { ...opcoesBarra.scales.y, max: 12 }
-        }
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, max: 12 } }
       }
     });
   }
@@ -327,18 +286,17 @@ if (typeof Chart !== 'undefined') {
       data: {
         labels: ['Brancos', 'Pretos/Pardos'],
         datasets: [{
+          label: 'Aprendizado adequado (%)',
           data: [45.6, 31.5],
           backgroundColor: ['#faf6ee', '#c8932b'],
-          borderRadius: 6,
-          maxBarThickness: 60
+          borderRadius: 4
         }]
       },
       options: {
-        ...opcoesBarra,
-        scales: {
-          ...opcoesBarra.scales,
-          y: { ...opcoesBarra.scales.y, max: 50 }
-        }
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, max: 50 } }
       }
     });
   }
@@ -353,26 +311,20 @@ if (typeof Chart !== 'undefined') {
         datasets: [{
           data: [55, 45],
           backgroundColor: ['#faf6ee', '#c8932b'],
-          borderColor: '#141414', // A cor do fundo do cartão
-          borderWidth: 4, // Cria um espaço entre as fatias
-          hoverOffset: 6
+          borderWidth: 0,
+          hoverOffset: 4
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: '70%', // Deixa o buraco do meio maior
         plugins: {
           legend: { 
             position: 'bottom',
-            labels: { 
-              color: '#faf6ee',
-              padding: 20,
-              usePointStyle: true, // Bolinhas em vez de quadrados na legenda
-              boxWidth: 8
-            } 
+            labels: { color: '#faf6ee' } 
           }
-        }
+        },
+        cutout: '65%' // Deixa o buraco do meio maior, estilo anel
       }
     });
   }
