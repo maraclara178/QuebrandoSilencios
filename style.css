@@ -883,3 +883,46 @@ img.capa { padding: 0; display: block; border: none; }
   color: var(--texto-suave);
   max-width: 640px;
 }
+
+/* ---------- Gráficos de Dados ---------- */
+.graficos-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+@media (min-width: 768px) {
+  .graficos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.grafico-card {
+  background: #141414;
+  border-radius: var(--raio);
+  border-top: 4px solid var(--ocre);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.grafico-card h3 {
+  color: var(--creme);
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.canvas-container {
+  position: relative;
+  width: 100%;
+  height: 250px; /* Altura fixa para os gráficos não ficarem gigantes */
+  margin-bottom: 16px;
+}
+
+.grafico-card p {
+  font-size: 0.8rem;
+  color: #a0a0a0;
+  margin-top: auto; /* Empurra o texto da fonte para o final do cartão */
+  line-height: 1.4;
+}

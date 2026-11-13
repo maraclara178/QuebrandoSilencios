@@ -225,39 +225,107 @@ if (lista) {
 }
 
 // ===================== Gráficos (Chart.js) =====================
-const ctxAnalfabetismo = document.getElementById('graficoAnalfabetismo');
-
-if (ctxAnalfabetismo && typeof Chart !== 'undefined') {
-  new Chart(ctxAnalfabetismo, {
-    type: 'bar',
-    data: {
-      labels: ['Brancos', 'Pretos/Pardos'],
-      datasets: [{
-        label: 'Taxa de Analfabetismo (%)',
-        data: [3.2, 7.1], // Dados do IBGE 2023
-        backgroundColor: ['#faf6ee', '#c8932b'], 
-        borderWidth: 0,
-        borderRadius: 4
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false }
+if (typeof Chart !== 'undefined') {
+  
+  // Configurações globais para deixar todos os gráficos com o tema escuro
+  Chart.defaults.color = '#a0a0a0';
+  Chart.defaults.font.family = 'ui-sans-serif, system-ui, sans-serif';
+  Chart.defaults.scale.grid.color = 'rgba(250, 246, 238, 0.1)';
+  
+  // Gráfico 1: Analfabetismo
+  const ctxAnalfabetismo = document.getElementById('graficoAnalfabetismo');
+  if (ctxAnalfabetismo) {
+    new Chart(ctxAnalfabetismo, {
+      type: 'bar',
+      data: {
+        labels: ['Brancos', 'Pretos/Pardos'],
+        datasets: [{
+          label: 'Taxa (%)',
+          data: [3.2, 7.1],
+          backgroundColor: ['#faf6ee', '#c8932b'],
+          borderRadius: 4
+        }]
       },
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 10,
-          ticks: { color: '#a0a0a0' },
-          grid: { color: 'rgba(250, 246, 238, 0.1)' }
-        },
-        x: {
-          ticks: { color: '#faf6ee', font: { weight: 'bold' } },
-          grid: { display: false }
-        }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, max: 10 } }
       }
-    }
-  });
+    });
+  }
+
+  // Gráfico 2: Anos de Estudo
+  const ctxAnosEstudo = document.getElementById('graficoAnosEstudo');
+  if (ctxAnosEstudo) {
+    new Chart(ctxAnosEstudo, {
+      type: 'bar',
+      data: {
+        labels: ['Brancos', 'Pretos/Pardos'],
+        datasets: [{
+          label: 'Média de anos',
+          data: [10.8, 9.2],
+          backgroundColor: ['#faf6ee', '#c8932b'],
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, max: 12 } }
+      }
+    });
+  }
+
+  // Gráfico 3: Aprendizado
+  const ctxAprendizado = document.getElementById('graficoAprendizado');
+  if (ctxAprendizado) {
+    new Chart(ctxAprendizado, {
+      type: 'bar',
+      data: {
+        labels: ['Brancos', 'Pretos/Pardos'],
+        datasets: [{
+          label: 'Aprendizado adequado (%)',
+          data: [45.6, 31.5],
+          backgroundColor: ['#faf6ee', '#c8932b'],
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, max: 50 } }
+      }
+    });
+  }
+
+  // Gráfico 4: Professores (Gráfico de Rosca)
+  const ctxProfessores = document.getElementById('graficoProfessores');
+  if (ctxProfessores) {
+    new Chart(ctxProfessores, {
+      type: 'doughnut',
+      data: {
+        labels: ['Brancos', 'Pretos/Pardos/Outros'],
+        datasets: [{
+          data: [55, 45],
+          backgroundColor: ['#faf6ee', '#c8932b'],
+          borderWidth: 0,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { 
+            position: 'bottom',
+            labels: { color: '#faf6ee' } 
+          }
+        },
+        cutout: '65%' // Deixa o buraco do meio maior, estilo anel
+      }
+    });
+  }
 }

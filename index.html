@@ -184,7 +184,7 @@
       </div>
     </section>
 
-    <!-- ============ DADOS ============ -->
+        <!-- ============ DADOS ============ -->
     <section id="dados" class="secao secao-escura">
       <div class="container">
         <p class="selo selo-claro">O problema em números</p>
@@ -194,21 +194,50 @@
           abaixo ajudam a dimensionar o problema.
         </p>
 
+        <!-- Cartões (lidos do JSON) -->
         <div id="lista-dados" class="dados-grade">
           <p class="dados-aviso">Carregando dados…</p>
         </div>
 
-        <!-- Container do Gráfico -->
-        <div class="graficos-container" style="margin-top: 40px;">
-          <div class="grafico-card" style="background: #141414; padding: 25px; border-radius: 6px; border-top: 4px solid var(--ocre);">
-            <h3 style="color: var(--creme); font-size: 1.2rem; margin-bottom: 15px;">Analfabetismo (15 anos ou mais)</h3>
-            <div style="position: relative; height: 300px; width: 100%;">
-              <canvas id="graficoAnalfabetismo" aria-label="Gráfico comparando taxa de analfabetismo entre brancos e negros" role="img"></canvas>
+        <!-- Área dos Gráficos -->
+        <div class="graficos-grid">
+          
+          <!-- Gráfico 1 -->
+          <div class="grafico-card">
+            <h3>Analfabetismo (15 anos ou mais)</h3>
+            <div class="canvas-container">
+              <canvas id="graficoAnalfabetismo" role="img" aria-label="Gráfico de barras comparando a taxa de analfabetismo: 3,2% entre brancos e 7,1% entre pretos e pardos."></canvas>
             </div>
-            <p style="font-size: 0.85rem; color: #a0a0a0; margin-top: 15px;">
-              Fonte: IBGE - PNAD Contínua (2023). Pessoas pretas/pardas têm mais que o dobro da taxa de analfabetismo de pessoas brancas.
-            </p>
+            <p>Fonte: IBGE - PNAD Contínua (2023). Pessoas pretas/pardas têm mais que o dobro da taxa de analfabetismo de pessoas brancas.</p>
           </div>
+
+          <!-- Gráfico 2 -->
+          <div class="grafico-card">
+            <h3>Média de anos de estudo (25 anos ou mais)</h3>
+            <div class="canvas-container">
+              <canvas id="graficoAnosEstudo" role="img" aria-label="Gráfico de barras comparando a média de anos de estudo: 10,8 anos para brancos e 9,2 anos para pretos e pardos."></canvas>
+            </div>
+            <p>Fonte: IBGE - PNAD Contínua (2023). A população branca estuda em média 1,6 anos a mais que a população preta e parda.</p>
+          </div>
+
+          <!-- Gráfico 3 -->
+          <div class="grafico-card">
+            <h3>Aprendizado adequado (9º ano - Língua Portuguesa)</h3>
+            <div class="canvas-container">
+              <canvas id="graficoAprendizado" role="img" aria-label="Gráfico de barras comparando o aprendizado adequado em Língua Portuguesa: 45,6% entre brancos e 31,5% entre pretos e pardos."></canvas>
+            </div>
+            <p>Fonte: Saeb/Inep (2023). A diferença entre brancos e negros no aprendizado aumentou 14,1 pontos percentuais na última década.</p>
+          </div>
+
+          <!-- Gráfico 4 -->
+          <div class="grafico-card">
+            <h3>Perfil racial dos docentes da educação básica</h3>
+            <div class="canvas-container">
+              <canvas id="graficoProfessores" role="img" aria-label="Gráfico de rosca mostrando que 55% dos professores são brancos e 45% são de outras raças."></canvas>
+            </div>
+            <p>Fonte: Censo Escolar/Inep (2023). A maioria dos docentes é branca, enquanto pretos e pardos são 55,5% da população.</p>
+          </div>
+
         </div>
       </div>
     </section>
