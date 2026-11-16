@@ -529,7 +529,15 @@ p + p { margin-top: 1em; }
 }
 @media (min-width: 640px) { .resenhas-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .resenhas-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.resenha { display: grid; gap: 16px; min-width: 0; }
+
+/* CORREÇÃO DO ALINHAMENTO DAS RESENHAS AQUI */
+.resenha { 
+  display: grid; 
+  gap: 16px; 
+  min-width: 0; 
+  align-items: start; /* Força todos os itens a começarem no topo */
+}
+
 .capa {
   aspect-ratio: 2 / 3;
   width: 100%;
@@ -559,12 +567,6 @@ img.capa { padding: 0; display: block; border: none; }
 /* ---------- Extras ---------- */
 .bloco { padding-block: 50px; border-top: 1px solid var(--linha); }
 .bloco:first-child { border-top: 0; padding-top: 0; }
-.galeria {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  margin-top: 24px;
-}
 
 .lista-materiais { margin-top: 20px; border-top: 1px solid var(--linha); }
 .lista-materiais a {
@@ -734,124 +736,4 @@ img.capa { padding: 0; display: block; border: none; }
 .animar.visivel { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) {
   .animar { opacity: 1; transform: none; transition: none; }
-}
-
-/* =========================================================
-   TECNOLOGIA SOCIAL (accordion)
-   ========================================================= */
-.ts-lista {
-  display: grid;
-  gap: 0;
-  border-top: 1px solid var(--linha);
-  margin-top: 32px;
-}
-.ts-card {
-  border-bottom: 1px solid var(--linha);
-  padding: 0;
-}
-.ts-card summary {
-  display: grid;
-  grid-template-columns: 60px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 16px;
-  padding: 24px 8px;
-  cursor: pointer;
-  list-style: none;
-  transition: padding 0.15s ease, color 0.15s ease;
-}
-.ts-card summary::-webkit-details-marker { display: none; }
-.ts-card summary:hover,
-.ts-card summary:focus-visible { color: var(--ocre); }
-.ts-card[open] summary {
-  color: var(--ocre);
-  padding-bottom: 8px;
-}
-.ts-numero {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--ocre);
-  line-height: 1;
-}
-.ts-titulo {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: inherit;
-}
-.ts-seta {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--linha);
-  border-radius: 50%;
-  font-size: 1.2rem;
-  font-weight: 400;
-  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
-}
-.ts-card[open] .ts-seta {
-  transform: rotate(45deg);
-  background: var(--ocre);
-  color: #000;
-  border-color: var(--ocre);
-}
-.ts-conteudo {
-  padding: 0 8px 24px 76px;
-}
-.ts-conteudo p {
-  color: var(--texto-suave);
-  max-width: 720px;
-}
-@media (max-width: 640px) {
-  .ts-card summary { grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; }
-  .ts-conteudo { padding-left: 52px; }
-}
-
-/* =========================================================
-   LINHA DO TEMPO
-   ========================================================= */
-.timeline {
-  position: relative;
-  margin-top: 40px;
-  padding-left: 0;
-}
-.timeline-item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 8px;
-  padding-left: 32px;
-  padding-bottom: 40px;
-  position: relative;
-  border-left: 2px solid var(--linha);
-  margin-left: 8px;
-}
-.timeline-item:last-child {
-  border-left-color: transparent;
-  padding-bottom: 0;
-}
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  left: -9px;
-  top: 4px;
-  width: 16px;
-  height: 16px;
-  background: var(--ocre);
-  border-radius: 50%;
-  border: 3px solid var(--fundo-secao-clara);
-}
-.timeline-data {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--ocre);
-}
-.timeline-conteudo h3 {
-  margin-bottom: 6px;
-  font-size: 1.1rem;
-}
-.timeline-conteudo p {
-  color: var(--texto-suave);
-  max-width: 640px;
 }
