@@ -21,22 +21,23 @@
     </div>
     
     <nav class="sidebar-nav">
-      <a href="#introducao" class="nav-item active" title="Início">
+      <!-- Botão Início (Home) -->
+      <a href="#" class="nav-item active" data-target="page-home" title="Início e Dados">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
       </a>
-      <a href="#metodos" class="nav-item" title="Métodos">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-      </a>
-      <a href="#dados" class="nav-item" title="Dados">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-      </a>
-      <a href="#resenhas" class="nav-item" title="Livros">
+      
+      <!-- Botão Livros -->
+      <a href="#" class="nav-item" data-target="page-livros" title="Estante de Livros">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
       </a>
-      <a href="#cineblues" class="nav-item" title="Cineblues">
+      
+      <!-- Botão Cineblues -->
+      <a href="#" class="nav-item" data-target="page-cineblues" title="Cineblues">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
       </a>
-      <a href="#materiais" class="nav-item" title="Materiais">
+      
+      <!-- Botão Materiais / Referências -->
+      <a href="#" class="nav-item" data-target="page-materiais" title="Materiais e Referências">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
       </a>
     </nav>
@@ -65,152 +66,154 @@
       </div>
     </header>
 
-    <!-- ============ INTRODUÇÃO ============ -->
-    <section id="introducao" class="dashboard-section glass-card">
-      <div class="split-texto">
-        <div class="split-texto-interno animar">
+    <!-- ========================================== -->
+    <!-- PÁGINA 1: HOME (INTRODUÇÃO, MÉTODOS E DADOS) -->
+    <!-- ========================================== -->
+    <div id="page-home" class="dashboard-page active">
+      
+      <!-- Introdução -->
+      <section class="home-hero glass-card">
+        <div class="hero-text">
           <p class="selo">Sobre o projeto</p>
           <h2>Quebrando Silêncios</h2>
           <p>O projeto surgiu da necessidade de discutir as relações raciais no ambiente escolar, fundamentando-se na <strong>Lei Federal nº 10.639/2003</strong>.</p>
-          <p>A partir disso, percebemos a importância de criar espaços de diálogo e reflexão sobre o racismo, contribuindo para que a comunidade escolar compreenda melhor essas questões.</p>
-          <p>Nesta edição, direcionamos nossas ações ao <strong>público infantil</strong>, utilizando a literatura como ferramenta para promover o letramento racial desde a infância.</p>
+          <p>Nesta edição, direcionamos nossas ações ao público infantil, utilizando a literatura como ferramenta para promover o letramento racial.</p>
         </div>
-      </div>
-      <div class="split-imagem">
-        <div class="slide" data-slide>
-          <div class="slide-item ativo"><img src="assets/posters/lelia.png" alt="Lélia Gonzalez"></div>
-          <div class="slide-item"><img src="assets/posters/2.png" alt="Foto 2"></div>
-          <div class="slide-item"><img src="assets/posters/3.png" alt="Foto 3"></div>
-          <div class="slide-item"><img src="assets/posters/4.png" alt="Foto 4"></div>
-          <div class="slide-indicadores"></div>
+        <div class="hero-image">
+          <div class="slide" data-slide>
+            <!-- Substitua o src pelas suas imagens -->
+            <div class="slide-item ativo"><img src="assets/posters/lelia.png" alt="Lélia Gonzalez"></div>
+            <div class="slide-item"><img src="assets/posters/2.png" alt="Foto 2"></div>
+            <div class="slide-item"><img src="assets/posters/3.png" alt="Foto 3"></div>
+            <div class="slide-indicadores"></div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ============ MÉTODOS ============ -->
-    <section id="metodos" class="dashboard-section glass-card">
-      <div class="section-header">
-        <h2>Métodos de Atuação</h2>
-        <span class="badge">Como funciona</span>
-      </div>
-      
-      <ol class="passos">
-        <li>
-          <span class="passo-numero">01</span>
-          <div>
-            <h3>Formação da equipe do projeto</h3>
-            <p>Estudos e discussões com os membros do projeto sobre as relações raciais e a educação antirracista.</p>
+      <!-- Métodos -->
+      <section class="glass-card mt-24">
+        <div class="section-header">
+          <h2>Métodos de Atuação</h2>
+        </div>
+        <div class="metodos-grid">
+          <div class="metodo-card">
+            <span class="passo-numero">01</span>
+            <h3>Formação da equipe</h3>
+            <p>Estudos e discussões sobre relações raciais e educação antirracista.</p>
           </div>
-        </li>
-        <li>
-          <span class="passo-numero">02</span>
-          <div>
-            <h3>Letramento racial com estudantes</h3>
-            <p>Ações voltadas aos estudantes do IFPB – Campus Pedras de Fogo, por meio do Cineblues e de palestras.</p>
+          <div class="metodo-card">
+            <span class="passo-numero">02</span>
+            <h3>Letramento racial</h3>
+            <p>Ações voltadas aos estudantes do IFPB por meio do Cineblues e palestras.</p>
           </div>
-        </li>
-        <li>
-          <span class="passo-numero">03</span>
-          <div>
+          <div class="metodo-card">
+            <span class="passo-numero">03</span>
             <h3>Formação de professores</h3>
-            <p>Formações com professores de uma escola parceira, proporcionando troca de experiências.</p>
+            <p>Formações com professores de escolas parceiras sobre práticas antirracistas.</p>
           </div>
-        </li>
-      </ol>
-    </section>
-
-    <!-- ============ DADOS ============ -->
-    <section id="dados" class="dashboard-section">
-      <div class="section-header">
-        <h2>Dados e Estatísticas</h2>
-        <span class="badge">Fontes Oficiais</span>
-      </div>
-
-      <div id="lista-dados" class="dados-grade">
-        <p class="dados-aviso">Carregando dados…</p>
-      </div>
-
-      <div class="graficos-grid">
-        <div class="grafico-card glass-card">
-          <h3>Analfabetismo (15 anos ou mais)</h3>
-          <div class="canvas-container"><canvas id="graficoAnalfabetismo"></canvas></div>
         </div>
-        <div class="grafico-card glass-card">
-          <h3>Média de anos de estudo (25 anos ou mais)</h3>
-          <div class="canvas-container"><canvas id="graficoAnosEstudo"></canvas></div>
-        </div>
-        <div class="grafico-card glass-card">
-          <h3>Aprendizado adequado (9º ano - Língua Portuguesa)</h3>
-          <div class="canvas-container"><canvas id="graficoAprendizado"></canvas></div>
-        </div>
-        <div class="grafico-card glass-card">
-          <h3>Perfil racial dos docentes</h3>
-          <div class="canvas-container"><canvas id="graficoProfessores"></canvas></div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ============ RESENHAS (Estante) ============ -->
-    <section id="resenhas" class="dashboard-section glass-card">
-      <div class="section-header">
-        <h2>Estante de Livros</h2>
-        <span class="badge">Literatura Infantil</span>
-      </div>
-      
-      <!-- Espaço reservado para a Estante da Fase 2 -->
-      <div class="estante-placeholder">
-        <p>🚧 Construindo a Estante Virtual (Estilo Kindle)...</p>
-      </div>
-    </section>
-
-    <!-- ============ CINEBLUES ============ -->
-    <section id="cineblues" class="dashboard-section glass-card">
-      <div class="section-header">
-        <h2>Cineblues</h2>
-        <span class="badge">Cinema e Consciência</span>
-      </div>
-      
-      <div class="cineblues-grid">
-        <div class="split-texto-interno">
-          <p>O <strong>Cineblues</strong> é um projeto de cinema voltado à conscientização racial, promovendo reflexões sobre o racismo, a cultura negra e suas representações na sociedade.</p>
-          <p>A ideia do nome surgiu a partir do gênero musical <strong>Blues</strong> e da música <em>Bluesman</em>, de Baco Exu do Blues, questionando a desvalorização da cultura negra.</p>
-          <p style="margin-top: 20px; font-style: italic; color: var(--primary);">
-            * Espaço para o cartaz da Paola
-          </p>
+      <!-- Dados e Gráficos -->
+      <section class="mt-24">
+        <div class="section-header">
+          <h2>Dados e Estatísticas</h2>
+          <span class="badge">Fontes Oficiais</span>
         </div>
-        <div class="split-imagem cineblues-img">
-          <div class="slide-placeholder ocre" style="border-radius: 16px;"><span>Cartaz Cineblues</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ MATERIAIS E REFERÊNCIAS ============ -->
-    <section id="materiais" class="dashboard-section glass-card">
-      <div class="section-header">
-        <h2>Materiais e Referências</h2>
-      </div>
-
-      <div class="extras-grid">
-        <div>
-          <h3 style="margin-bottom: 16px; color: #fff;">Leve o projeto</h3>
-          <ul class="lista-materiais">
-            <li><a href="#" target="_blank">Cartilha de Ações Antirracistas <span>PDF</span></a></li>
-            <li><a href="#" target="_blank">Guia de Literatura Infantil <span>PDF</span></a></li>
-            <li><a href="https://www.instagram.com/quebrandosilencios.ifpb" target="_blank">Instagram do projeto <span>LINK</span></a></li>
-          </ul>
+        <div id="lista-dados" class="dados-grade">
+          <p class="dados-aviso">Carregando dados…</p>
         </div>
 
-        <div>
-          <h3 style="margin-bottom: 16px; color: #fff;">Referências Teóricas</h3>
-          <ul class="lista-referencias">
-            <li>BRASIL. <strong>Lei nº 10.639/2003</strong>.</li>
-            <li>GOMES, Nilma Lino. <strong>O movimento negro educador</strong>.</li>
-            <li>CAVALLEIRO, Eliane. <strong>Agir com propósito e compromisso</strong>.</li>
-            <li>IBGE. <strong>Pnad Contínua — Educação</strong>.</li>
-          </ul>
+        <div class="graficos-grid">
+          <div class="grafico-card glass-card">
+            <h3>Analfabetismo (15 anos ou mais)</h3>
+            <div class="canvas-container"><canvas id="graficoAnalfabetismo"></canvas></div>
+          </div>
+          <div class="grafico-card glass-card">
+            <h3>Média de anos de estudo</h3>
+            <div class="canvas-container"><canvas id="graficoAnosEstudo"></canvas></div>
+          </div>
+          <div class="grafico-card glass-card">
+            <h3>Aprendizado adequado (Língua Portuguesa)</h3>
+            <div class="canvas-container"><canvas id="graficoAprendizado"></canvas></div>
+          </div>
+          <div class="grafico-card glass-card">
+            <h3>Perfil racial dos docentes</h3>
+            <div class="canvas-container"><canvas id="graficoProfessores"></canvas></div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PÁGINA 2: ESTANTE DE LIVROS -->
+    <!-- ========================================== -->
+    <div id="page-livros" class="dashboard-page">
+      <section class="glass-card">
+        <div class="section-header">
+          <h2>Estante de Livros</h2>
+          <span class="badge">Literatura Infantil</span>
+        </div>
+        <div class="estante-placeholder">
+          <p>🚧 Construindo a Estante Virtual (Estilo Kindle)...</p>
+          <p style="font-size: 0.9rem; margin-top: 10px; color: #666;">Esta será a página exclusiva das resenhas.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PÁGINA 3: CINEBLUES -->
+    <!-- ========================================== -->
+    <div id="page-cineblues" class="dashboard-page">
+      <section class="glass-card">
+        <div class="section-header">
+          <h2>Cineblues</h2>
+          <span class="badge">Cinema e Consciência</span>
+        </div>
+        <div class="cineblues-grid">
+          <div class="cineblues-text">
+            <p>O <strong>Cineblues</strong> é um projeto de cinema voltado à conscientização racial, promovendo reflexões sobre o racismo, a cultura negra e suas representações na sociedade.</p>
+            <p>A ideia do nome surgiu a partir do gênero musical <strong>Blues</strong> e da música <em>Bluesman</em>, de Baco Exu do Blues, questionando a desvalorização da cultura negra.</p>
+            <p style="margin-top: 20px; font-style: italic; color: var(--primary);">
+              * Espaço reservado para o cartaz escolhido.
+            </p>
+          </div>
+          <div class="cineblues-img">
+            <div class="slide-placeholder ocre"><span>Cartaz Cineblues</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PÁGINA 4: MATERIAIS E REFERÊNCIAS -->
+    <!-- ========================================== -->
+    <div id="page-materiais" class="dashboard-page">
+      <section class="glass-card">
+        <div class="section-header">
+          <h2>Materiais e Referências</h2>
+        </div>
+        <div class="extras-grid">
+          <div>
+            <h3 style="margin-bottom: 16px; color: #fff;">Leve o projeto</h3>
+            <ul class="lista-materiais">
+              <li><a href="#" target="_blank">Cartilha de Ações Antirracistas <span>PDF</span></a></li>
+              <li><a href="#" target="_blank">Guia de Literatura Infantil <span>PDF</span></a></li>
+              <li><a href="https://www.instagram.com/quebrandosilencios.ifpb" target="_blank">Instagram do projeto <span>LINK</span></a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 style="margin-bottom: 16px; color: #fff;">Referências Teóricas</h3>
+            <ul class="lista-referencias">
+              <li>BRASIL. <strong>Lei nº 10.639/2003</strong>.</li>
+              <li>GOMES, Nilma Lino. <strong>O movimento negro educador</strong>.</li>
+              <li>CAVALLEIRO, Eliane. <strong>Agir com propósito e compromisso</strong>.</li>
+              <li>IBGE. <strong>Pnad Contínua — Educação</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
 
   </main>
 

@@ -1,23 +1,6 @@
-// ===================== Menu cell =====================
-const botaoMenu = document.querySelector('.menu-botao');
-const nav = document.querySelector('.nav-principal');
+// ===================== Menu mobile (Não usado no dashboard, mas mantido por segurança) =====================
 
-if (botaoMenu && nav) {
-  botaoMenu.addEventListener('click', () => {
-    const aberto = botaoMenu.getAttribute('aria-expanded') === 'true';
-    botaoMenu.setAttribute('aria-expanded', String(!aberto));
-    nav.classList.toggle('aberto', !aberto);
-  });
-
-  nav.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      botaoMenu.setAttribute('aria-expanded', 'false');
-      nav.classList.remove('aberto');
-    });
-  });
-}
-
-// ===================== slides (carrossel estilo Instagram) =====================
+// ===================== Slides (Carrossel) =====================
 document.querySelectorAll('[data-slide]').forEach((slide) => {
   const itens = slide.querySelectorAll('.slide-item');
   const indicadoresContainer = slide.querySelector('.slide-indicadores');
@@ -30,11 +13,7 @@ document.querySelectorAll('[data-slide]').forEach((slide) => {
     itens.forEach((_, index) => {
       const ponto = document.createElement('button');
       ponto.className = 'slide-ponto' + (index === 0 ? ' ativo' : '');
-      ponto.setAttribute('aria-label', `Ir para imagem ${index + 1}`);
-      ponto.addEventListener('click', () => {
-        mostrar(index);
-        reiniciar();
-      });
+      ponto.addEventListener('click', () => { mostrar(index); reiniciar(); });
       indicadoresContainer.appendChild(ponto);
     });
   }
@@ -55,48 +34,25 @@ document.querySelectorAll('[data-slide]').forEach((slide) => {
 
   function reiniciar() {
     clearInterval(intervalo);
-    if (itens.length > 1) {
-      intervalo = setInterval(proxima, 5000);
-    }
+    if (itens.length > 1) intervalo = setInterval(proxima, 5000);
   }
   reiniciar();
 
-  slide.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    clearInterval(intervalo);
-  }, { passive: true });
-
-  slide.addEventListener('touchmove', (e) => {
-    endX = e.touches[0].clientX;
-  }, { passive: true });
-
+  // Touch para celular
+  slide.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; clearInterval(intervalo); }, { passive: true });
+  slide.addEventListener('touchmove', (e) => { endX = e.touches[0].clientX; }, { passive: true });
   slide.addEventListener('touchend', () => {
     if (startX - endX > 50) { proxima(); } 
     else if (endX - startX > 50) { anterior(); }
-    startX = 0;
-    endX = 0;
-    reiniciar();
+    startX = 0; endX = 0; reiniciar();
   });
 
   slide.addEventListener('mouseenter', () => clearInterval(intervalo));
   slide.addEventListener('mouseleave', reiniciar);
 });
 
-// ===================== Animações ao rolar =====================
-const observador = new IntersectionObserver((entradas) => {
-  entradas.forEach((entrada) => {
-    if (entrada.isIntersecting) {
-      entrada.target.classList.add('visivel');
-      observador.unobserve(entrada.target);
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.animar').forEach((el) => observador.observe(el));
-
 // ===================== Dados do JSON =====================
 const lista = document.getElementById('lista-dados');
-
 if (lista) {
   fetch('data/dados.json')
     .then((resposta) => {
@@ -116,123 +72,65 @@ if (lista) {
       });
     })
     .catch((erro) => {
-      lista.innerHTML = '<p class="dados-aviso">Não foi possível carregar os dados. (' + erro.message + ')</p>';
+      lista.innerHTML = '<p class="dados-aviso">Erro ao carregar dados. (' + erro.message + ')</p>';
     });
 }
 
 // ===================== Gráficos (Chart.js) =====================
 if (typeof Chart !== 'undefined') {
   Chart.defaults.color = '#a0a0a0';
-  Chart.defaults.font.family = 'ui-sans-serif, system-ui, sans-serif';
-  Chart.defaults.font.size = 13;
+  Chart.defaults.font.family = 'Inter, sans-serif';
   
   Chart.defaults.plugins.tooltip.backgroundColor = '#c8932b';
   Chart.defaults.plugins.tooltip.titleColor = '#000000';
   Chart.defaults.plugins.tooltip.bodyColor = '#000000';
   Chart.defaults.plugins.tooltip.titleFont = { weight: 'bold' };
-  Chart.defaults.plugins.tooltip.padding = 10;
-  Chart.defaults.plugins.tooltip.cornerRadius = 4;
 
-  const opcoesBarra = {
+  const opcoesBase = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: { legend: { display: false } },
     scales: {
-      x: { grid: { display: false, drawBorder: false } },
-      y: {
-        grid: { color: 'rgba(250, 246, 238, 0.05)' },
-        border: { display: false },
-        beginAtZero: true
-      }
-    },
-    animation: { y: { easing: 'easeOutQuart', duration: 1200 } }
+      x: { grid: { display: false, drawBorder: false }, ticks: { color: '#fff' } },
+      y: { grid: { color: 'rgba(250, 246, 238, 0.05)' }, border: { display: false }, beginAtZero: true }
+    }
   };
 
-  const ctxAnalfabetismo = document.getElementById('graficoAnalfabetismo');
-  if (ctxAnalfabetismo) {
-    new Chart(ctxAnalfabetismo, {
-      type: 'bar',
-      data: {
-        labels: ['Brancos', 'Pretos/Pardos'],
-        datasets: [{
-          data: [3.2, 7.1],
-          backgroundColor: ['#faf6ee', '#c8932b'],
-          borderRadius: 6,
-          maxBarThickness: 60
-        }]
-      },
-      options: {
-        ...opcoesBarra,
-        scales: { ...opcoesBarra.scales, y: { ...opcoesBarra.scales.y, max: 10 } }
-      }
-    });
-  }
+  const ctx1 = document.getElementById('graficoAnalfabetismo');
+  if (ctx1) new Chart(ctx1, { type: 'bar', data: { labels: ['Brancos', 'Pretos/Pardos'], datasets: [{ data: [3.2, 7.1], backgroundColor: ['#faf6ee', '#c8932b'], borderRadius: 6 }] }, options: opcoesBase });
 
-  const ctxAnosEstudo = document.getElementById('graficoAnosEstudo');
-  if (ctxAnosEstudo) {
-    new Chart(ctxAnosEstudo, {
-      type: 'bar',
-      data: {
-        labels: ['Brancos', 'Pretos/Pardos'],
-        datasets: [{
-          data: [10.8, 9.2],
-          backgroundColor: ['#faf6ee', '#c8932b'],
-          borderRadius: 6,
-          maxBarThickness: 60
-        }]
-      },
-      options: {
-        ...opcoesBarra,
-        scales: { ...opcoesBarra.scales, y: { ...opcoesBarra.scales.y, max: 12 } }
-      }
-    });
-  }
+  const ctx2 = document.getElementById('graficoAnosEstudo');
+  if (ctx2) new Chart(ctx2, { type: 'bar', data: { labels: ['Brancos', 'Pretos/Pardos'], datasets: [{ data: [10.8, 9.2], backgroundColor: ['#faf6ee', '#c8932b'], borderRadius: 6 }] }, options: opcoesBase });
 
-  const ctxAprendizado = document.getElementById('graficoAprendizado');
-  if (ctxAprendizado) {
-    new Chart(ctxAprendizado, {
-      type: 'bar',
-      data: {
-        labels: ['Brancos', 'Pretos/Pardos'],
-        datasets: [{
-          data: [45.6, 31.5],
-          backgroundColor: ['#faf6ee', '#c8932b'],
-          borderRadius: 6,
-          maxBarThickness: 60
-        }]
-      },
-      options: {
-        ...opcoesBarra,
-        scales: { ...opcoesBarra.scales, y: { ...opcoesBarra.scales.y, max: 50 } }
-      }
-    });
-  }
+  const ctx3 = document.getElementById('graficoAprendizado');
+  if (ctx3) new Chart(ctx3, { type: 'bar', data: { labels: ['Brancos', 'Pretos/Pardos'], datasets: [{ data: [45.6, 31.5], backgroundColor: ['#faf6ee', '#c8932b'], borderRadius: 6 }] }, options: opcoesBase });
 
-  const ctxProfessores = document.getElementById('graficoProfessores');
-  if (ctxProfessores) {
-    new Chart(ctxProfessores, {
-      type: 'doughnut',
-      data: {
-        labels: ['Brancos', 'Pretos/Pardos/Outros'],
-        datasets: [{
-          data: [55, 45],
-          backgroundColor: ['#faf6ee', '#c8932b'],
-          borderColor: '#141414', 
-          borderWidth: 4, 
-          hoverOffset: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '70%', 
-        plugins: {
-          legend: { 
-            position: 'bottom',
-            labels: { color: '#faf6ee', padding: 20, usePointStyle: true, boxWidth: 8 } 
-          }
-        }
-      }
-    });
-  }
+  const ctx4 = document.getElementById('graficoProfessores');
+  if (ctx4) new Chart(ctx4, { type: 'doughnut', data: { labels: ['Brancos', 'Pretos/Pardos'], datasets: [{ data: [55, 45], backgroundColor: ['#faf6ee', '#c8932b'], borderWidth: 0 }] }, options: { ...opcoesBase, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { color: '#fff' } } } } });
 }
+
+// =========================================================
+// NAVEGAÇÃO DO DASHBOARD (TROCA DE PÁGINAS SEM RECARREGAR)
+// =========================================================
+const navItems = document.querySelectorAll('.nav-item[data-target]');
+const pages = document.querySelectorAll('.dashboard-page');
+
+navItems.forEach(item => {
+  item.addEventListener('click', (e) => {
+    e.preventDefault(); // Impede o link de pular na tela
+    
+    // 1. Remove a classe 'active' de todos os botões e páginas
+    navItems.forEach(nav => nav.classList.remove('active'));
+    pages.forEach(page => page.classList.remove('active'));
+    
+    // 2. Adiciona 'active' no botão clicado
+    item.classList.add('active');
+    
+    // 3. Encontra e mostra a página correspondente
+    const targetId = item.getAttribute('data-target');
+    const targetPage = document.getElementById(targetId);
+    if (targetPage) {
+      targetPage.classList.add('active');
+    }
+  });
+});
