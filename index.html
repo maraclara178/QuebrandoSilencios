@@ -14,11 +14,10 @@
 </head>
 <body>
 
-  <!-- ============ SIDEBAR (MENU LATERAL) ============ -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <!-- A Logo agora é o botão de Referências -->
     <a href="#" class="sidebar-logo nav-item" data-target="page-referencias" title="Referências e Agradecimentos">
-      <img src="assets/logo.jpeg" alt="Logo Quebrando Silêncios">
+      <img src="assets/logo.jpeg" alt="Logo">
     </a>
     
     <nav class="sidebar-nav">
@@ -43,7 +42,7 @@
     </div>
   </aside>
 
-  <!-- ============ ÁREA PRINCIPAL ============ -->
+  <!-- ÁREA PRINCIPAL -->
   <main class="main-content">
     
     <header class="dashboard-header">
@@ -53,12 +52,10 @@
       </div>
     </header>
 
-    <!-- ========================================== -->
-    <!-- PÁGINA 1: HOME -->
-    <!-- ========================================== -->
+    <!-- HOME -->
     <div id="page-home" class="dashboard-page active">
       
-      <!-- Introdução (Split Layout) -->
+      <!-- INTRODUÇÃO (Texto Esquerda, Imagem Direita) -->
       <section class="glass-card hero-split">
         <div class="hero-content">
           <p class="selo">Sobre o projeto</p>
@@ -67,6 +64,8 @@
           <p>A partir disso, percebemos a importância de criar espaços de diálogo e reflexão sobre o racismo, contribuindo para que a comunidade escolar compreenda melhor essas questões.</p>
           <p>Nesta edição, o projeto direciona suas ações ao <strong>público infantil</strong>, utilizando a literatura como ferramenta para promover o letramento racial desde a infância.</p>
         </div>
+        
+        <!-- A caixa da imagem agora tem fundo transparente -->
         <div class="hero-image-wrapper">
           <div class="slide" data-slide>
             <div class="slide-item ativo"><img src="assets/posters/lelia.png" alt="Lélia Gonzalez" class="poster-img"></div>
@@ -78,12 +77,13 @@
         </div>
       </section>
 
-      <div class="home-grid mt-24">
-        <!-- Dados e Gráficos (Esquerda) -->
+      <!-- DADOS E MÉTODOS -->
+      <div class="home-grid">
+        <!-- Dados (Esquerda) -->
         <div class="home-col-left">
           <div class="section-header">
             <h2>Dados e Estatísticas</h2>
-            <span class="badge">Clique no cartão para ver o gráfico</span>
+            <span class="badge">Clique no cartão</span>
           </div>
           <div id="lista-dados" class="dados-grade">
             <p class="dados-aviso">Carregando dados…</p>
@@ -118,48 +118,32 @@
       </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- PÁGINA 2: ESTANTE -->
-    <!-- ========================================== -->
+    <!-- ESTANTE -->
     <div id="page-livros" class="dashboard-page">
       <section class="glass-card">
-        <div class="section-header">
-          <h2>Estante de Livros</h2>
-        </div>
-        <div class="estante-placeholder">
-          <p>🚧 Construindo a Estante Virtual (Estilo Kindle)...</p>
-        </div>
+        <div class="section-header"><h2>Estante de Livros</h2></div>
+        <div class="estante-placeholder"><p>🚧 Construindo a Estante Virtual...</p></div>
       </section>
     </div>
 
-    <!-- ========================================== -->
-    <!-- PÁGINA 3: CINEBLUES -->
-    <!-- ========================================== -->
+    <!-- CINEBLUES -->
     <div id="page-cineblues" class="dashboard-page">
       <section class="glass-card">
-        <div class="section-header">
-          <h2>Cineblues</h2>
-        </div>
+        <div class="section-header"><h2>Cineblues</h2></div>
         <div class="cineblues-grid">
           <div class="cineblues-text">
             <p>O <strong>Cineblues</strong> é um projeto de cinema voltado à conscientização racial, promovendo reflexões sobre o racismo, a cultura negra e suas representações na sociedade.</p>
             <p>A ideia do nome surgiu a partir do gênero musical <strong>Blues</strong> e da música <em>Bluesman</em>, de Baco Exu do Blues.</p>
           </div>
-          <div class="cineblues-img">
-            <div class="slide-placeholder ocre"><span>Cartaz Cineblues</span></div>
-          </div>
+          <div class="cineblues-img"><div class="slide-placeholder ocre"><span>Cartaz Cineblues</span></div></div>
         </div>
       </section>
     </div>
 
-    <!-- ========================================== -->
-    <!-- PÁGINA 4: MATERIAIS -->
-    <!-- ========================================== -->
+    <!-- MATERIAIS -->
     <div id="page-materiais" class="dashboard-page">
       <section class="glass-card">
-        <div class="section-header">
-          <h2>Materiais para Download</h2>
-        </div>
+        <div class="section-header"><h2>Materiais</h2></div>
         <ul class="lista-materiais">
           <li><a href="#" target="_blank">Cartilha de Ações Antirracistas <span>PDF</span></a></li>
           <li><a href="#" target="_blank">Guia de Literatura Infantil <span>PDF</span></a></li>
@@ -167,39 +151,28 @@
       </section>
     </div>
 
-    <!-- ========================================== -->
-    <!-- PÁGINA 5: REFERÊNCIAS -->
-    <!-- ========================================== -->
+    <!-- REFERÊNCIAS -->
     <div id="page-referencias" class="dashboard-page">
       <section class="glass-card">
-        <div class="section-header">
-          <h2>Referências Teóricas</h2>
-        </div>
+        <div class="section-header"><h2>Referências</h2></div>
         <ul class="lista-referencias">
           <li>BRASIL. <strong>Lei nº 10.639/2003</strong>.</li>
           <li>GOMES, Nilma Lino. <strong>O movimento negro educador</strong>.</li>
           <li>CAVALLEIRO, Eliane. <strong>Agir com propósito e compromisso</strong>.</li>
           <li>IBGE. <strong>Pnad Contínua — Educação</strong>.</li>
         </ul>
-        
-        <div class="section-header mt-24" style="margin-top: 40px;">
-          <h2>Agradecimentos</h2>
-        </div>
-        <p style="color: var(--text-muted); line-height: 1.6;">Espaço reservado para os agradecimentos ao IFPB, aos professores e à equipe envolvida no projeto.</p>
       </section>
     </div>
 
   </main>
 
-  <!-- MODAL DOS GRÁFICOS -->
+  <!-- MODAL -->
   <div id="modal-grafico" class="modal-overlay">
     <div class="modal-content glass-card">
       <button class="modal-close" id="fechar-modal">&times;</button>
-      <h3 id="titulo-grafico" style="color: #fff; margin-bottom: 20px; font-size: 1.4rem;">Título</h3>
-      <div class="canvas-container" style="height: 350px;">
-        <canvas id="canvas-modal"></canvas>
-      </div>
-      <p id="fonte-grafico" style="color: var(--primary); font-size: 0.85rem; margin-top: 20px; text-align: right; text-transform: uppercase; letter-spacing: 1px;"></p>
+      <h3 id="titulo-grafico" style="color: #fff; margin-bottom: 20px;">Título</h3>
+      <div class="canvas-container" style="height: 350px;"><canvas id="canvas-modal"></canvas></div>
+      <p id="fonte-grafico" style="color: var(--primary); font-size: 0.85rem; text-align: right;"></p>
     </div>
   </div>
 
