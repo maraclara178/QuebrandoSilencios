@@ -1,4 +1,4 @@
-// ===================== Menu mobile =====================
+// ===================== Menu cell =====================
 const botaoMenu = document.querySelector('.menu-botao');
 const nav = document.querySelector('.nav-principal');
 
@@ -17,7 +17,7 @@ if (botaoMenu && nav) {
   });
 }
 
-// ===================== Slides (Carrossel estilo Instagram) =====================
+// ===================== slides (carrossel estilo Instagram) =====================
 document.querySelectorAll('[data-slide]').forEach((slide) => {
   const itens = slide.querySelectorAll('.slide-item');
   const indicadoresContainer = slide.querySelector('.slide-indicadores');
