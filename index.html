@@ -14,11 +14,10 @@
 </head>
 <body>
 
-  <!-- ============ SIDEBAR (MENU LATERAL) ============ -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <!-- A Logo agora é o botão de Referências -->
     <a href="#" class="sidebar-logo nav-item" data-target="page-referencias" title="Referências e Agradecimentos">
-      <img src="assets/logo.jpeg" alt="Logo Quebrando Silêncios">
+      <img src="assets/logo.jpeg" alt="Logo">
     </a>
     
     <nav class="sidebar-nav">
@@ -30,6 +29,9 @@
       </a>
       <a href="#" class="nav-item" data-target="page-cineblues" title="Cineblues">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+      </a>
+      <a href="#" class="nav-item" data-target="page-laboratorio" title="Laboratório de Letramento">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
       </a>
       <a href="#" class="nav-item" data-target="page-materiais" title="Materiais">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
@@ -43,7 +45,7 @@
     </div>
   </aside>
 
-  <!-- ============ ÁREA PRINCIPAL ============ -->
+  <!-- ÁREA PRINCIPAL -->
   <main class="main-content">
     
     <header class="dashboard-header">
@@ -53,21 +55,16 @@
       </div>
     </header>
 
-    <!-- ========================================== -->
     <!-- PÁGINA 1: HOME -->
-    <!-- ========================================== -->
     <div id="page-home" class="dashboard-page active">
-      
-      <!-- INTRODUÇÃO (Texto Esquerda, Imagem Direita) -->
       <section class="glass-card hero-split">
         <div class="hero-content">
           <p class="selo">Sobre o projeto</p>
           <h2>Quebrando Silêncios</h2>
-          <p>O Quebrando Silêncios surgiu da necessidade de discutir as relações raciais no ambiente escolar, considerando que a escola também pode reproduzir desigualdades presentes na sociedade. O projeto também se fundamenta na <strong>Lei Federal nº 10.639/2003</strong>, que tornou obrigatório o ensino da história e da cultura afro-brasileira e africana nas escolas públicas e privadas de ensino fundamental e médio no Brasil.</p>
+          <p>O Quebrando Silêncios surgiu da necessidade de discutir as relações raciais no ambiente escolar, considerando que a escola também pode reproduzir desigualdades presentes na sociedade. O projeto também se fundamenta na <a href="https://www.planalto.gov.br/ccivil_03/leis/2003/l10.639.htm" target="_blank" class="link-texto">Lei Federal nº 10.639/2003</a>, que tornou obrigatório o ensino da história e da cultura afro-brasileira e africana nas escolas públicas e privadas de ensino fundamental e médio no Brasil.</p>
           <p>A partir disso, percebemos a importância de criar espaços de diálogo e reflexão sobre o racismo, contribuindo para que a comunidade escolar compreenda melhor essas questões.</p>
           <p>Nesta edição, o projeto direciona suas ações ao <strong>público infantil</strong>, utilizando a literatura como ferramenta para promover o letramento racial desde a infância.</p>
         </div>
-        
         <div class="hero-image-wrapper">
           <div class="slide" data-slide>
             <div class="slide-item ativo"><img src="assets/posters/lelia.png" alt="Lélia Gonzalez" class="poster-img"></div>
@@ -79,9 +76,7 @@
         </div>
       </section>
 
-      <!-- DADOS E MÉTODOS -->
-      <div class="home-grid">
-        <!-- Dados (Esquerda) -->
+      <div class="home-grid mt-24">
         <div class="home-col-left">
           <div class="section-header">
             <h2>Dados e Estatísticas</h2>
@@ -92,105 +87,190 @@
           </div>
         </div>
 
-        <!-- Métodos (Direita) -->
         <div class="home-col-right">
           <div class="glass-card h-100">
-            <div class="section-header">
-              <h2>Métodos de Atuação</h2>
-            </div>
+            <div class="section-header"><h2>Métodos de Atuação</h2></div>
             <div class="metodos-list">
-              <div class="metodo-card">
-                <span class="passo-numero">01</span>
-                <h3>Formação da equipe</h3>
-                <p>Estudos e discussões sobre relações raciais e educação antirracista.</p>
-              </div>
-              <div class="metodo-card">
-                <span class="passo-numero">02</span>
-                <h3>Letramento racial</h3>
-                <p>Ações voltadas aos estudantes do IFPB por meio do Cineblues e palestras.</p>
-              </div>
-              <div class="metodo-card">
-                <span class="passo-numero">03</span>
-                <h3>Formação de professores</h3>
-                <p>Formações com professores de escolas parceiras sobre práticas antirracistas.</p>
-              </div>
+              <div class="metodo-card"><span class="passo-numero">01</span><h3>Formação da equipe</h3><p>Estudos e discussões sobre relações raciais e educação antirracista.</p></div>
+              <div class="metodo-card"><span class="passo-numero">02</span><h3>Letramento racial</h3><p>Ações voltadas aos estudantes do IFPB por meio do Cineblues e palestras.</p></div>
+              <div class="metodo-card"><span class="passo-numero">03</span><h3>Formação de professores</h3><p>Formações com professores de escolas parceiras sobre práticas antirracistas.</p></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ========================================== -->
     <!-- PÁGINA 2: ESTANTE DE LIVROS -->
-    <!-- ========================================== -->
     <div id="page-livros" class="dashboard-page">
       <div class="livros-layout">
         
-        <!-- Coluna Esquerda (Principal) -->
         <div class="livros-main">
           <div class="livros-header">
             <h2>Boas leituras!</h2>
-            <p>Seja bem-vindo(a) à nossa coletânea. Aqui você encontra livros infantis selecionados para discutir pautas sociais, promover o letramento racial e valorizar a diversidade desde a infância.</p>
+            <p>Esta coleção reúne obras da literatura infantil que valorizam a diversidade, a identidade e a representatividade. Por meio de diferentes narrativas e personagens, os livros abrem espaço para conversas sobre relações étnico-raciais, pertencimento, respeito e valorização das diferenças desde a infância.</p>
+            <p>Mais do que incentivar o hábito da leitura, buscamos apresentar histórias nas quais diferentes crianças possam reconhecer suas identidades, conhecer outras realidades e ampliar sua compreensão sobre o mundo.</p>
           </div>
 
           <div class="livros-section-header">
             <h3>Nossa Coleção</h3>
-            <div class="livros-nav">
-              <button id="btn-prev-livro">&#10094;</button>
-              <button id="btn-next-livro">&#10095;</button>
-            </div>
           </div>
-
-          <div class="livros-carrossel" id="livros-carrossel">
-            <!-- Os livros serão injetados aqui pelo JavaScript -->
-          </div>
+          
+          <div class="livros-grid" id="livros-grid"></div>
         </div>
 
-        <!-- Coluna Direita (Widgets) -->
         <div class="livros-sidebar">
+          
           <div class="widget-card glass-card">
-            <h3>Por que ler?</h3>
-            <p>A literatura infantil é uma ferramenta poderosa para desconstruir preconceitos e construir uma sociedade mais justa desde os primeiros anos de vida.</p>
+            <h3>Por que a leitura importa?</h3>
+            <p>Em 2024, apenas <strong>47%</strong> da população brasileira foi classificada como leitora, enquanto <strong>53%</strong> foi classificada como não leitora (Retratos da Leitura no Brasil - Instituto Pró-Livro).</p>
+            
+            <hr class="divisor-sidebar">
+            
+            <p>A leitura é essencial para a formação de cidadãos críticos, conscientes de seus direitos e respeitosos com a diversidade. Ela amplia o repertório cultural e desenvolve a empatia, permitindo que a criança compreenda diferentes realidades e construa uma visão de mundo mais justa e igualitária.</p>
           </div>
           
           <div class="widget-card glass-card mt-24">
-            <h3>Sobre a Coletânea</h3>
-            <p>Os livros foram cuidadosamente escolhidos pela equipe do projeto Quebrando Silêncios para abordar temas como identidade, diversidade e representatividade negra.</p>
-            <p class="mt-24" style="font-size: 0.85rem; color: var(--primary);">* Clique em qualquer capa para ler a resenha e ver onde comprar.</p>
+            <h3>Representatividade importa</h3>
+            <p>A literatura é um espaço de construção de identidade. Ver personagens negros como protagonistas amplia as referências das crianças, valorizando diferentes culturas e histórias. A diversidade de autores e personagens evita que a literatura reproduza uma visão única de sociedade.</p>
           </div>
+
+          <div class="widget-card glass-card mt-24 card-interativo">
+            <h3>Explore nossa coleção</h3>
+            <p>Selecione a capa de um livro para ler a resenha completa e descobrir onde encontrá-lo.</p>
+            <div class="icone-clique">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+
         </div>
 
       </div>
     </div>
 
-    <!-- ========================================== -->
     <!-- PÁGINA 3: CINEBLUES -->
-    <!-- ========================================== -->
     <div id="page-cineblues" class="dashboard-page">
+      <div class="cine-hero" id="cine-hero">
+        <div class="cine-hero-overlay"></div>
+        <div class="cine-hero-content">
+          <p class="selo">Próxima Sessão</p>
+          <h1 id="hero-titulo">Histórias Cruzadas</h1>
+          <p class="cine-hero-meta" id="hero-meta">2011 · Drama · 12 anos</p>
+          <p class="cine-hero-sinopse" id="hero-sinopse">Uma jovem escritora decide entrevistar as mulheres negras que passaram a vida cuidando de famílias brancas nos anos 60. O que começa como um projeto de escrita se transforma em um ato de coragem e amizade.</p>
+          
+          <div class="cine-hero-botoes">
+            <button class="btn-assistir" onclick="abrirModalFilme(0)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Ver Detalhes e Sinopse
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cine-lista-section">
+        <div class="section-header">
+          <h2>Nossas Sessões</h2>
+          <span class="badge">Cinema e Consciência Racial</span>
+        </div>
+        <div class="cine-grid" id="cine-grid"></div>
+      </div>
+    </div>
+
+    <!-- PÁGINA 4: LABORATÓRIO -->
+    <div id="page-laboratorio" class="dashboard-page">
       <section class="glass-card">
         <div class="section-header">
-          <h2>Cineblues</h2>
+          <h2>O Laboratório do Letramento Racial</h2>
+          <span class="badge">Demonstração Prática</span>
         </div>
-        <div class="cineblues-grid">
-          <div class="cineblues-text">
-            <p>O <strong>Cineblues</strong> é um projeto de cinema voltado à conscientização racial, promovendo reflexões sobre o racismo, a cultura negra e suas representações na sociedade.</p>
-            <p>A ideia do nome surgiu a partir do gênero musical <strong>Blues</strong> e da música <em>Bluesman</em>, de Baco Exu do Blues.</p>
+        <p class="lab-intro">Conceituação do Estande Interativo: um espaço de sensibilização, diagnóstico e transferência de tecnologia, estruturado em quatro estações pedagógicas.</p>
+
+        <div class="estacoes-grid mt-24">
+          <div class="estacao-card">
+            <div class="estacao-numero">Estação 1</div>
+            <h3>O Espelho do Racismo Estrutural</h3>
+            <p class="estacao-sub">Sensibilização Sensorial e Diagnóstico</p>
+            <p><strong>Painel das Ausências e Presenças:</strong> Materializa o conceito de epistemocídio contrastando livros didáticos tradicionais (onde rostos negros são ausentes/subalternizados) com o "Mural da Ancestralidade, Ciência e Potência" (Lélia Gonzalez, Milton Santos, etc).</p>
+            <p><strong>Caixinha dos Estereótipos:</strong> Arquivo interativo com frases cotidianas naturalizadas. Ao virar a ficha, o participante lê a desconstrução sociológica (baseada em Silvio Almeida) e uma proposta prática.</p>
           </div>
-          <div class="cineblues-img">
-            <div class="slide-placeholder ocre"><span>Cartaz Cineblues</span></div>
+
+          <div class="estacao-card">
+            <div class="estacao-numero">Estação 2</div>
+            <h3>Hub Digital e Verificabilidade</h3>
+            <p class="estacao-sub">Comunicação Extensionista</p>
+            <p><strong>Navegação Guiada no Dashboard:</strong> Totem com tablet para exploração da seção de indicadores oficiais (Inep, Saeb, IBGE), comprovando o rigor acadêmico da tecnologia social.</p>
+            <p><strong>Quiz de 1 Minuto:</strong> Cards físicos dinâmicos com termos racistas. O verso traz a explicação etimológica e um QR-Code direto para o nosso dashboard.</p>
+            <p><strong>Mural de Engajamento:</strong> Moldura simulando uma rede social para registro fotográfico e difusão das hashtags do projeto.</p>
+          </div>
+
+          <div class="estacao-card">
+            <div class="estacao-numero">Estação 3</div>
+            <h3>Acervo de Literatura Infantil</h3>
+            <p class="estacao-sub">Produto Pedagógico Prático</p>
+            <p><strong>Exposição Física:</strong> Estante com obras afro-centradas ("O Cabelo de Lelê", "Sulwe", etc). Cada livro possui etiquetas com faixa etária, eixos temáticos e perguntas disparadoras.</p>
+            <p><strong>Resenhas no Dashboard:</strong> O público é instruído a acessar a nossa página de "Livros" para consultar análises críticas e roteiros de exploração.</p>
+            <p><strong>Contação de Histórias Flash:</strong> Demonstrações relâmpago (2 a 3 min) de mediação de leitura antirracista.</p>
+          </div>
+
+          <div class="estacao-card">
+            <div class="estacao-numero">Estação 4</div>
+            <h3>Gameficação e Autoavaliação</h3>
+            <p class="estacao-sub">O Desafio "E se Fosse Com Você?"</p>
+            <p><strong>Tabuleiro e Questionário:</strong> Dilemas reais do cotidiano escolar (piadas racistas, exclusão em grupos) para o visitante escolher como intervir.</p>
+            <p><strong>Devolutiva Pedagógica:</strong> O participante descobre seu perfil de reação (Omissão, Reação, Reflexão ou Ação) e recebe o selo digital "Agente de Letramento Racial Escolar".</p>
+            <p><strong>Painel Participativo:</strong> Mural de post-its onde visitantes propõem ações antirracistas para suas próprias escolas.</p>
+          </div>
+        </div>
+
+        <div class="section-header mt-48">
+          <h2>Matriz de Reaplicação em 5 Passos</h2>
+          <span class="badge">Guia para Educadores</span>
+        </div>
+        <p class="lab-intro">Roteiro sintético para que qualquer educador ou gestor público possa implementar a Tecnologia Social em sua própria instituição.</p>
+
+        <div class="matriz-timeline mt-24">
+          <div class="matriz-item">
+            <div class="matriz-marker">A</div>
+            <div class="matriz-content">
+              <h4>Sensibilização e Pactuação Institucional</h4>
+              <p>Reunião pedagógica com a gestão escolar e ativação da plataforma digital do projeto para engajar a comunidade.</p>
+            </div>
+          </div>
+          <div class="matriz-item">
+            <div class="matriz-marker">B</div>
+            <div class="matriz-content">
+              <h4>Curadoria de Materiais e Diagnóstico Local</h4>
+              <p>Mapeamento de livros com temática afro-brasileira disponíveis na escola e consulta aos indicadores educacionais do município no Dashboard.</p>
+            </div>
+          </div>
+          <div class="matriz-item">
+            <div class="matriz-marker">C</div>
+            <div class="matriz-content">
+              <h4>Círculos de Estudo e Gameficação Formativa</h4>
+              <p>Oficinas-ação com professores utilizando o Questionário Interativo, a Caixinha dos Estereótipos e as cartas de dilemas.</p>
+            </div>
+          </div>
+          <div class="matriz-item">
+            <div class="matriz-marker">D</div>
+            <div class="matriz-content">
+              <h4>Intervenção no Espaço Escolar e Sala de Aula</h4>
+              <p>Aplicação de sequências didáticas co-criadas e realização de sessões de cinema-debate (Cineblues) com os estudantes.</p>
+            </div>
+          </div>
+          <div class="matriz-item">
+            <div class="matriz-marker">E</div>
+            <div class="matriz-content">
+              <h4>Avaliação Participativa Continuada</h4>
+              <p>Monitoramento do clima escolar e da redução de episódios discriminatórios por meio de indicadores qualitativos e rodas de escuta ativa.</p>
+            </div>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- ========================================== -->
-    <!-- PÁGINA 4: MATERIAIS -->
-    <!-- ========================================== -->
+    <!-- PÁGINA 5: MATERIAIS -->
     <div id="page-materiais" class="dashboard-page">
       <section class="glass-card">
-        <div class="section-header">
-          <h2>Materiais para Download</h2>
-        </div>
+        <div class="section-header"><h2>Materiais</h2></div>
         <ul class="lista-materiais">
           <li><a href="#" target="_blank">Cartilha de Ações Antirracistas <span>PDF</span></a></li>
           <li><a href="#" target="_blank">Guia de Literatura Infantil <span>PDF</span></a></li>
@@ -198,70 +278,89 @@
       </section>
     </div>
 
-    <!-- ========================================== -->
-    <!-- PÁGINA 5: REFERÊNCIAS -->
-    <!-- ========================================== -->
+    <!-- PÁGINA 6: REFERÊNCIAS -->
     <div id="page-referencias" class="dashboard-page">
       <section class="glass-card">
-        <div class="section-header">
-          <h2>Referências Teóricas</h2>
-        </div>
+        <div class="section-header"><h2>Referências</h2></div>
         <ul class="lista-referencias">
           <li>BRASIL. <strong>Lei nº 10.639/2003</strong>.</li>
           <li>GOMES, Nilma Lino. <strong>O movimento negro educador</strong>.</li>
           <li>CAVALLEIRO, Eliane. <strong>Agir com propósito e compromisso</strong>.</li>
           <li>IBGE. <strong>Pnad Contínua — Educação</strong>.</li>
         </ul>
-        
-        <div class="section-header mt-24" style="margin-top: 40px;">
-          <h2>Agradecimentos</h2>
-        </div>
-        <p style="color: var(--text-muted); line-height: 1.6;">Espaço reservado para os agradecimentos ao IFPB, aos professores e à equipe envolvida no projeto.</p>
       </section>
     </div>
 
   </main>
 
-  <!-- ========================================== -->
-  <!-- MODAIS -->
-  <!-- ========================================== -->
-  
-  <!-- Modal de Gráficos -->
+  <!-- MODAL DE DADOS -->
   <div id="modal-grafico" class="modal-overlay">
     <div class="modal-content glass-card">
       <button class="modal-close" id="fechar-modal">&times;</button>
-      <h3 id="titulo-grafico" style="color: #fff; margin-bottom: 20px; font-size: 1.4rem;">Título</h3>
-      <div class="canvas-container" style="height: 350px;">
-        <canvas id="canvas-modal"></canvas>
-      </div>
-      <p id="fonte-grafico" style="color: var(--primary); font-size: 0.85rem; margin-top: 20px; text-align: right; text-transform: uppercase; letter-spacing: 1px;"></p>
+      <h3 id="titulo-grafico" style="color: #fff; margin-bottom: 20px;">Título</h3>
+      <div class="canvas-container" style="height: 350px;"><canvas id="canvas-modal"></canvas></div>
+      <p id="fonte-grafico" style="color: var(--primary); font-size: 0.85rem; text-align: right;"></p>
     </div>
   </div>
 
-  <!-- Modal de Livros -->
+  <!-- MODAL DA RESENHA DO LIVRO -->
   <div id="modal-livro" class="modal-overlay">
-    <div class="modal-content glass-card">
+    <div class="modal-content-resenha glass-card">
       <button class="modal-close" id="fechar-modal-livro">&times;</button>
       
-      <div class="livro-modal-grid">
-        <div class="livro-modal-capa">
-          <img id="modal-livro-capa" src="" alt="Capa do livro">
+      <div class="resenha-header">
+        <div class="resenha-capa">
+          <img id="modal-livro-capa" src="" alt="Capa">
         </div>
-        <div class="livro-modal-info">
-          <h2 id="modal-livro-titulo" class="detalhe-titulo">Título</h2>
-          <p id="modal-livro-autor" class="detalhe-autor">Autor</p>
+        <div class="resenha-info-principal">
+          <p class="selo">RESENHA</p>
+          <h2 id="modal-livro-titulo">Título</h2>
+          <p id="modal-livro-autor" class="autor">Autora</p>
           
-          <div class="detalhe-meta">
-            <span id="modal-livro-editora">Editora</span>
-            <span id="modal-livro-ano">Ano</span>
+          <div class="resenha-meta-tags">
+            <span class="tag">Editora: <strong id="modal-livro-editora"></strong></span>
+            <span class="tag">Ano: <strong id="modal-livro-ano"></strong></span>
+            <span class="tag">Categoria: <strong>Infantil</strong></span>
           </div>
-          
-          <p id="modal-livro-sinopse" class="detalhe-sinopse">Sinopse...</p>
-          
-          <a id="modal-livro-amazon" href="#" target="_blank" class="btn-amazon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-            Comprar na Amazon
+        </div>
+      </div>
+
+      <hr class="resenha-divisor">
+
+      <div class="resenha-corpo">
+        <div class="resenha-secao">
+          <h3>Resenha</h3>
+          <p id="modal-livro-resenha-texto"></p>
+        </div>
+        
+        <div class="resenha-acao-final">
+          <a id="modal-livro-amazon" href="#" target="_blank" class="btn-encontrar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            Onde Encontrar
           </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DO FILME -->
+  <div id="modal-filme" class="modal-overlay">
+    <div class="modal-content-resenha glass-card">
+      <button class="modal-close" id="fechar-modal-filme">&times;</button>
+      
+      <div class="filme-modal-header">
+        <img id="modal-filme-poster" src="" alt="Pôster do Filme">
+        <div class="filme-modal-info">
+          <p class="selo">Cineblues</p>
+          <h2 id="modal-filme-titulo">Título</h2>
+          <p id="modal-filme-meta" class="autor">Ano · Gênero</p>
+          
+          <p id="modal-filme-sinopse" class="detalhe-sinopse" style="margin-top: 15px; font-size: 0.95rem;"></p>
+          
+          <div style="margin-top: auto; padding-top: 20px;">
+            <p style="font-size: 0.8rem; color: var(--primary); text-transform: uppercase; font-weight: bold; margin-bottom: 5px;">Temas para Debate</p>
+            <p id="modal-filme-temas" style="font-size: 0.9rem; color: #fff;"></p>
+          </div>
         </div>
       </div>
       

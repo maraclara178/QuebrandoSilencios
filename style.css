@@ -29,7 +29,10 @@ body {
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; border: none; cursor: pointer; }
 .mt-24 { margin-top: 24px; }
+.mt-48 { margin-top: 48px; }
 .h-100 { height: 100%; }
+.link-texto { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; font-weight: 500; transition: color 0.2s; }
+.link-texto:hover { color: #fff; }
 
 /* =========================================================
    SIDEBAR
@@ -71,7 +74,7 @@ button { font-family: inherit; border: none; cursor: pointer; }
   height: 100vh;
   overflow-y: auto; 
   padding: 32px;
-  width: calc(100vw - var(--sidebar-width)); 
+  width: calc(100vw - var(--sidebar-width));
   -ms-overflow-style: none;  
   scrollbar-width: none;  
 }
@@ -101,34 +104,17 @@ button { font-family: inherit; border: none; cursor: pointer; }
 .badge { background: rgba(200, 147, 43, 0.15); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
 
 /* =========================================================
-   HOME: INTRODUÇÃO
+   INTRODUÇÃO
    ========================================================= */
-.hero-split {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
-  align-items: stretch;
-  margin-bottom: 24px;
-}
-
+.hero-split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: stretch; margin-bottom: 24px; }
 .hero-content { display: flex; flex-direction: column; justify-content: center; }
 .hero-content h2 { color: #fff; font-size: 2.2rem; margin-bottom: 16px; }
 .hero-content p { color: var(--text-muted); margin-bottom: 16px; line-height: 1.7; font-size: 1rem; text-align: justify; }
-
-.hero-image-wrapper {
-  position: relative;
-  width: 100%;
-  height: 400px;
-  background: transparent; 
-  border-radius: 16px;
-  overflow: hidden;
-}
-
+.hero-image-wrapper { position: relative; width: 100%; height: 380px; background: transparent; border-radius: 16px; overflow: hidden; }
 .slide { position: absolute; inset: 0; }
 .slide-item { position: absolute; inset: 0; opacity: 0; transition: 0.5s; display: flex; align-items: center; justify-content: center; }
 .slide-item.ativo { opacity: 1; }
 .slide-item img.poster-img { width: 100%; height: 100%; object-fit: contain; }
-
 .slide-indicadores { position: absolute; bottom: 16px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; z-index: 10; }
 .slide-ponto { width: 24px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; border: none; cursor: pointer; }
 .slide-ponto.ativo { background: var(--primary); }
@@ -139,139 +125,173 @@ button { font-family: inherit; border: none; cursor: pointer; }
 .home-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; }
 .home-col-left, .home-col-right { display: flex; flex-direction: column; }
 
-/* Cartões de Dados */
 .dados-grade { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.cartao-dado {
-  background: linear-gradient(145deg, rgba(39, 39, 42, 0.8) 0%, rgba(24, 24, 27, 0.9) 100%);
-  border: 1px solid var(--border-color);
-  padding: 20px; border-radius: 16px;
-  display: flex; flex-direction: column; cursor: pointer;
-  transition: transform 0.2s, border-color 0.2s;
-}
+.cartao-dado { background: linear-gradient(145deg, rgba(39, 39, 42, 0.8) 0%, rgba(24, 24, 27, 0.9) 100%); border: 1px solid var(--border-color); padding: 20px; border-radius: 16px; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
 .cartao-dado:hover { transform: translateY(-3px); border-color: var(--primary); }
 .dado-numero { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
 .dado-descricao { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 16px; flex: 1; }
 .dado-fonte { font-size: 0.7rem; color: var(--primary); display: flex; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 12px; text-transform: uppercase; font-weight: 600; }
+.dado-fonte a { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; transition: color 0.2s; }
+.dado-fonte a:hover { color: #fff; }
 
-/* Métodos */
 .metodos-list { display: flex; flex-direction: column; gap: 16px; }
-.metodo-card {
-  background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
-  padding: 20px; border-radius: 16px; transition: background 0.3s;
-}
+.metodo-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 20px; border-radius: 16px; transition: background 0.3s; }
 .metodo-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(200, 147, 43, 0.3); }
 .passo-numero { font-size: 1.2rem; font-weight: 800; color: var(--primary); display: block; margin-bottom: 6px; }
 .metodo-card h3 { font-size: 1rem; color: #fff; margin-bottom: 8px; }
 .metodo-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
 
 /* =========================================================
-   ESTANTE DE LIVROS (ESTILO REFERÊNCIA)
+   ESTANTE DE LIVROS
    ========================================================= */
-.livros-layout { display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
-.livros-header h2 { font-size: 2.2rem; color: #fff; margin-bottom: 12px; }
-.livros-header p { color: var(--text-muted); line-height: 1.6; font-size: 1rem; max-width: 800px; margin-bottom: 40px; }
+.livros-layout { display: grid; grid-template-columns: 1fr 400px; gap: 40px; align-items: start; }
+.livros-header h2 { font-size: 2.2rem; color: #fff; margin-bottom: 16px; }
+.livros-header p { color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; margin-bottom: 12px; text-align: justify; }
+.livros-section-header { margin-bottom: 24px; margin-top: 32px; }
+.livros-section-header h3 { font-size: 1.3rem; color: var(--primary); font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em;}
 
-.livros-section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.livros-section-header h3 { font-size: 1.2rem; color: #fff; font-weight: 600; }
-.livros-nav { display: flex; gap: 8px; }
-.livros-nav button {
-  background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
-  color: #fff; width: 36px; height: 36px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
-}
-.livros-nav button:hover { background: var(--primary); color: #000; border-color: var(--primary); }
-
-.livros-carrossel {
-  display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px;
-  scroll-behavior: smooth; scrollbar-width: none; 
-}
-.livros-carrossel::-webkit-scrollbar { display: none; }
-
-.livro-card { flex: 0 0 160px; cursor: pointer; transition: transform 0.3s ease; }
-.livro-card:hover { transform: translateY(-8px); }
-.livro-card img {
-  width: 100%; height: 240px; object-fit: cover; border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4); margin-bottom: 12px; border: 1px solid var(--border-color);
-}
-.livro-card h4 { font-size: 0.9rem; color: #fff; line-height: 1.2; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.livro-card p { font-size: 0.75rem; color: var(--text-muted); }
+.livros-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.livro-card { cursor: pointer; transition: transform 0.3s ease; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; }
+.livro-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 25px rgba(200, 147, 43, 0.1); }
+.livro-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 6px; margin-bottom: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.4); }
+.livro-card h4 { font-size: 0.95rem; color: #fff; line-height: 1.3; margin-bottom: 4px; }
+.livro-card p { font-size: 0.8rem; color: var(--primary); margin-top: auto; }
 
 .livros-sidebar { display: flex; flex-direction: column; }
 .widget-card { padding: 24px; }
-.widget-card h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 12px; }
-.widget-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; font-style: italic; }
+.widget-card h3 { color: var(--primary); font-size: 1.15rem; margin-bottom: 12px; font-weight: 700; }
+.widget-card p { color: #d4d4d8; font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0;}
+
+.divisor-sidebar { border: none; border-top: 1px solid var(--border-color); margin: 16px 0; }
+
+.card-interativo { position: relative; overflow: hidden; }
+.icone-clique { position: absolute; bottom: 15px; right: 15px; color: var(--primary); opacity: 0.3; animation: pulse 2s infinite; }
+@keyframes pulse { 0% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.1); opacity: 0.8; } 100% { transform: scale(1); opacity: 0.3; } }
 
 /* =========================================================
-   MODAIS (Gráficos e Livros)
+   CINEBLUES
    ========================================================= */
-.modal-overlay {
-  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 1000; opacity: 0; pointer-events: none; transition: 0.3s;
-}
+.cine-hero { position: relative; width: 100%; height: 450px; border-radius: 20px; overflow: hidden; background-size: cover; background-position: center 20%; display: flex; align-items: flex-end; margin-bottom: 40px; }
+.cine-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, #09090b 0%, rgba(9, 9, 11, 0.6) 50%, rgba(9, 9, 11, 0.1) 100%); z-index: 1; }
+.cine-hero-content { position: relative; z-index: 2; padding: 40px; max-width: 700px; }
+.cine-hero-content h1 { font-size: 3rem; color: #fff; font-weight: 800; line-height: 1.1; margin-bottom: 12px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+.cine-hero-meta { color: var(--primary); font-weight: 600; font-size: 0.95rem; margin-bottom: 16px; }
+.cine-hero-sinopse { color: #d4d4d8; font-size: 1.05rem; line-height: 1.6; margin-bottom: 24px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.btn-assistir { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: #000; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.2s, transform 0.2s; border: none; }
+.btn-assistir:hover { background: #e0a337; transform: scale(1.05); }
+
+.cine-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; }
+.filme-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform 0.3s, border-color 0.3s; }
+.filme-card:hover { transform: translateY(-8px); border-color: var(--primary); }
+.filme-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
+.filme-card-info { padding: 16px; }
+.filme-card-info h4 { color: #fff; font-size: 1rem; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filme-card-info p { color: var(--text-muted); font-size: 0.8rem; }
+
+/* =========================================================
+   LABORATÓRIO
+   ========================================================= */
+.lab-intro { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; max-width: 800px; }
+.estacoes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.estacao-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; transition: transform 0.3s ease, border-color 0.3s ease; }
+.estacao-card:hover { transform: translateY(-4px); border-color: var(--primary); }
+.estacao-numero { display: inline-block; background: rgba(200, 147, 43, 0.15); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+.estacao-card h3 { color: #fff; font-size: 1.3rem; margin-bottom: 4px; }
+.estacao-sub { color: var(--text-muted); font-size: 0.85rem; font-style: italic; margin-bottom: 16px; display: block; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;}
+.estacao-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 10px; }
+.estacao-card strong { color: #fff; }
+
+.matriz-timeline { display: flex; flex-direction: column; gap: 20px; margin-left: 10px; position: relative; }
+.matriz-timeline::before { content: ""; position: absolute; left: 18px; top: 10px; bottom: 10px; width: 2px; background: rgba(200, 147, 43, 0.3); }
+.matriz-item { display: flex; gap: 24px; position: relative; z-index: 2; }
+.matriz-marker { width: 38px; height: 38px; background: #111; border: 2px solid var(--primary); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; flex-shrink: 0; }
+.matriz-content { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; flex: 1; }
+.matriz-content h4 { color: #fff; font-size: 1.05rem; margin-bottom: 6px; }
+.matriz-content p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+
+/* =========================================================
+   MODAIS
+   ========================================================= */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: 0.3s; padding: 20px; }
 .modal-overlay.active { opacity: 1; pointer-events: auto; }
-.modal-content {
-  width: 90%; max-width: 750px; position: relative;
-  transform: scale(0.9); transition: transform 0.3s;
-  background: #111; border: 1px solid var(--primary); border-radius: 24px; padding: 32px;
-}
-.modal-overlay.active .modal-content { transform: scale(1); }
-.modal-close { position: absolute; top: 16px; right: 20px; background: none; color: #fff; font-size: 2rem; transition: 0.2s; }
+.modal-close { position: absolute; top: 20px; right: 24px; background: none; color: #fff; font-size: 2rem; transition: 0.2s; z-index: 10; }
 .modal-close:hover { color: var(--primary); }
 .canvas-container { position: relative; width: 100%; }
 
-/* Modal de Livro Específico */
-.livro-modal-grid { display: grid; grid-template-columns: 200px 1fr; gap: 30px; align-items: start; }
-.livro-modal-capa img { width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.livro-modal-info { display: flex; flex-direction: column; height: 100%; }
-.detalhe-titulo { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.1; }
-.detalhe-autor { font-size: 1rem; color: var(--primary); font-weight: 600; margin-bottom: 16px; }
-.detalhe-meta { display: flex; gap: 15px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
-.detalhe-sinopse { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 30px; flex: 1; text-align: justify; }
+/* Modal de Gráficos */
+.modal-content { width: 100%; max-width: 700px; position: relative; transform: scale(0.9); transition: transform 0.3s; background: #111; border: 1px solid var(--primary); border-radius: 24px; }
+.modal-overlay.active .modal-content { transform: scale(1); }
 
-.btn-amazon {
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  background: #ff9900; color: #000; padding: 14px 24px; border-radius: 8px;
-  font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-top: auto;
+/* Modal de Resenha e Filme */
+.modal-content-resenha { width: 100%; max-width: 800px; max-height: 90vh; overflow-y: auto; position: relative; transform: scale(0.9); transition: transform 0.3s; background: #111; border: 1px solid var(--border-color); border-radius: 20px; padding: 40px; -ms-overflow-style: none; scrollbar-width: none; }
+.modal-content-resenha::-webkit-scrollbar { display: none; }
+.modal-overlay.active .modal-content-resenha { transform: scale(1); }
+
+.resenha-header { display: flex; gap: 30px; margin-bottom: 30px; align-items: center;}
+.resenha-capa { flex: 0 0 180px; }
+.resenha-capa img { width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+.resenha-info-principal { display: flex; flex-direction: column; justify-content: center; flex: 1; }
+.selo { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--primary); margin-bottom: 8px; }
+.resenha-info-principal h2 { font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.1; }
+.resenha-info-principal .autor { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; }
+
+.resenha-meta-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+.tag { background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; color: var(--text-muted); }
+.tag strong { color: #fff; }
+
+.resenha-divisor { border: none; border-top: 1px solid var(--border-color); margin: 0 0 30px 0; }
+.resenha-corpo { display: flex; flex-direction: column; gap: 24px; }
+.resenha-secao h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;}
+.resenha-secao p { color: #d4d4d8; font-size: 1.05rem; line-height: 1.8; text-align: justify; }
+
+.resenha-acao-final { display: flex; justify-content: flex-end; margin-top: 10px; padding-top: 20px; border-top: 1px solid var(--border-color); }
+.btn-encontrar { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: #000; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; transition: 0.2s; border: none; }
+.btn-encontrar:hover { background: #e0a337; transform: translateY(-2px); }
+
+/* Modal do Filme */
+.filme-modal-header { display: flex; gap: 30px; align-items: stretch; }
+#modal-filme-poster { width: 220px; border-radius: 12px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.filme-modal-info { display: flex; flex-direction: column; flex: 1; }
+.filme-modal-info h2 { font-size: 2.2rem; color: #fff; margin-bottom: 8px; line-height: 1.1; }
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+@media (max-width: 1200px) {
+  .livros-layout { grid-template-columns: 1fr 340px; gap: 20px; }
 }
-.btn-amazon:hover { background: #e68a00; transform: translateY(-2px); }
 
-/* =========================================================
-   OUTRAS PÁGINAS (Cineblues, Materiais, Referências)
-   ========================================================= */
-.cineblues-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
-.cineblues-text p { color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
-.cineblues-img { height: 300px; background: rgba(0,0,0,0.5); border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--border-color); }
-.slide-placeholder.ocre { color: var(--primary); font-weight: bold; text-transform: uppercase; }
-
-.lista-materiais { list-style: none; }
-.lista-materiais a { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border-color); color: #fff; transition: 0.2s; }
-.lista-materiais a:hover { color: var(--primary); padding-left: 10px; }
-.lista-materiais span { font-size: 0.75rem; color: var(--primary); background: rgba(200,147,43,0.1); padding: 4px 8px; border-radius: 4px; }
-
-.lista-referencias { list-style: none; max-width: 800px; }
-.lista-referencias li { padding-left: 20px; border-left: 2px solid var(--primary); margin-bottom: 16px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
-
-/* =========================================================
-   RESPONSIVIDADE (Celular e Tablet)
-   ========================================================= */
 @media (max-width: 1024px) {
-  .hero-split, .home-grid, .livros-layout { grid-template-columns: 1fr; } 
+  .hero-split, .home-grid { grid-template-columns: 1fr; } 
   .hero-image-wrapper { height: 350px; }
+  .livros-layout { grid-template-columns: 1fr; } 
+  .livros-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;}
+  .livros-sidebar .mt-24 { margin-top: 0; }
+  .resenha-header, .filme-modal-header { flex-direction: column; text-align: center; gap: 20px; }
+  .resenha-meta-tags { justify-content: center; }
+  .resenha-capa { max-width: 150px; margin: 0 auto; }
+  .estacoes-grid { grid-template-columns: 1fr; }
+  #modal-filme-poster { width: 180px; margin: 0 auto; }
 }
 
 @media (max-width: 768px) {
-  html, body { height: auto; overflow: auto; } 
+  html, body { height: auto; overflow: auto; }
   body { flex-direction: column; }
   .main-content { padding: 20px; padding-bottom: 90px; height: auto; overflow: visible; width: 100vw; }
-  
   .sidebar { width: 100%; height: 70px; position: fixed; bottom: 0; top: auto; flex-direction: row; justify-content: space-around; padding: 0 10px; border-top: 1px solid var(--border-color); border-right: none; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
   .sidebar-logo, .sidebar-bottom { display: none; }
   .sidebar-nav { flex-direction: row; justify-content: space-around; width: 100%; }
   .nav-item { width: 50px; height: 50px; }
-  
   .dados-grade { grid-template-columns: 1fr; }
-  .cineblues-grid { grid-template-columns: 1fr; }
-  .livro-modal-grid { grid-template-columns: 1fr; }
-  .livro-modal-capa { max-width: 200px; margin: 0 auto; text-align: center; }
+  .livros-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+  .livros-sidebar { grid-template-columns: 1fr; }
+  .modal-content-resenha { padding: 24px; }
+  .resenha-acao-final { justify-content: center; }
+  .cine-hero { height: 350px; }
+  .cine-hero-content { padding: 20px; }
+  .cine-hero-content h1 { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+  .livros-grid { grid-template-columns: 1fr; }
 }
