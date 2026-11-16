@@ -3,424 +3,216 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quebrando Silêncios — Educação Antirracista | IFPB Pedras de Fogo</title>
-  <meta name="description" content="Projeto de extensão Quebrando Silêncios: formação de docentes e discentes para uma Educação Antirracista. IFPB Campus Pedras de Fogo.">
+  <title>Dashboard | Quebrando Silêncios</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
-  
-  <!-- Chart.js para os gráficos -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
-
-  <!-- ============ CABEÇALHO ============ -->
-  <header class="cabecalho">
-    <div class="container cabecalho-interno">
-      <a class="logo" href="#conteudo" aria-label="Quebrando Silêncios — início">
-        <img src="assets/logo.jpeg" alt="Logotipo do projeto Quebrando Silêncios">
-        <span class="logo-texto">Quebrando Silêncios</span>
-      </a>
-
-      <button class="menu-botao" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
-        <span class="hamburguer" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </span>
-      </button>
-
-      <nav class="nav-principal" aria-label="Navegação principal">
-        <ul id="menu">
-          <li><a href="#introducao">Introdução</a></li>
-          <li><a href="#metodos">Métodos</a></li>
-          <li><a href="#dados">Dados</a></li>
-          <li><a href="#resenhas">Resenhas</a></li>
-          <li><a href="#cineblues">Cineblues</a></li>
-          <li><a href="#extras">Extras</a></li>
-        </ul>
-      </nav>
+  <!-- ============ SIDEBAR (MENU LATERAL) ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="assets/logo.jpeg" alt="Logo Quebrando Silêncios">
     </div>
-  </header>
+    
+    <nav class="sidebar-nav">
+      <a href="#introducao" class="nav-item active" title="Início">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      </a>
+      <a href="#metodos" class="nav-item" title="Métodos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+      </a>
+      <a href="#dados" class="nav-item" title="Dados">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      </a>
+      <a href="#resenhas" class="nav-item" title="Livros">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      </a>
+      <a href="#cineblues" class="nav-item" title="Cineblues">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+      </a>
+      <a href="#materiais" class="nav-item" title="Materiais">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      </a>
+    </nav>
 
-  <main id="conteudo">
+    <div class="sidebar-bottom">
+      <a href="https://www.instagram.com/quebrandosilencios.ifpb" target="_blank" class="nav-item" title="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </a>
+    </div>
+  </aside>
 
-    <!-- ============ HERO ============ -->
-    <section class="hero">
-      <div class="container hero-grade">
-        <div class="hero-texto">
-          <p class="selo selo-claro">Projeto de Extensão · IFPB Campus Pedras de Fogo</p>
-          <h1>Quebrando<br>Silêncios</h1>
-          <p class="hero-descricao">
-            Formação de docentes e discentes para uma Educação Antirracista.
-            Literatura, cinema e diálogo para construir uma escola que não silencia.
-          </p>
-          <div class="hero-botoes">
-            <a class="botao botao-principal" href="#introducao">Conheça o projeto</a>
-            <a class="botao botao-contorno" href="#resenhas">Ver resenhas</a>
-          </div>
-        </div>
-        <div class="hero-logo">
-          <img src="assets/logo.jpeg" alt="Logotipo do projeto Quebrando Silêncios">
-        </div>
+  <!-- ============ ÁREA PRINCIPAL ============ -->
+  <main class="main-content">
+    
+    <header class="dashboard-header">
+      <div class="header-title">
+        <h1>Dashboard do Projeto</h1>
+        <p>Quebrando Silêncios · IFPB Pedras de Fogo</p>
       </div>
-    </section>
+      <div class="header-profile">
+        <div class="profile-info">
+          <span>Projeto de Extensão</span>
+          <strong>Educação Antirracista</strong>
+        </div>
+        <img src="assets/logo.jpeg" alt="Perfil" class="profile-avatar">
+      </div>
+    </header>
 
     <!-- ============ INTRODUÇÃO ============ -->
-    <section id="introducao" class="split">
+    <section id="introducao" class="dashboard-section glass-card">
       <div class="split-texto">
         <div class="split-texto-interno animar">
           <p class="selo">Sobre o projeto</p>
-          <h2>Introdução</h2>
-          <p>
-            O <strong>Quebrando Silêncios</strong> surgiu da necessidade de discutir as
-            relações raciais no ambiente escolar, considerando que a escola também pode
-            reproduzir desigualdades presentes na sociedade. O projeto também se fundamenta
-            na <strong>Lei Federal nº 10.639/2003</strong>, que tornou obrigatório o ensino
-            da história e da cultura afro-brasileira e africana nas escolas públicas e
-            privadas de ensino fundamental e médio no Brasil.
-          </p>
-          <p>
-            A partir disso, percebemos a importância de criar espaços de diálogo e reflexão
-            sobre o racismo, contribuindo para que a comunidade escolar compreenda melhor
-            essas questões.
-          </p>
-          <p>
-            Nesta edição, o projeto direciona suas ações ao <strong>público infantil</strong>,
-            utilizando a literatura como ferramenta para promover o letramento racial desde
-            a infância.
-          </p>
+          <h2>Quebrando Silêncios</h2>
+          <p>O projeto surgiu da necessidade de discutir as relações raciais no ambiente escolar, fundamentando-se na <strong>Lei Federal nº 10.639/2003</strong>.</p>
+          <p>A partir disso, percebemos a importância de criar espaços de diálogo e reflexão sobre o racismo, contribuindo para que a comunidade escolar compreenda melhor essas questões.</p>
+          <p>Nesta edição, direcionamos nossas ações ao <strong>público infantil</strong>, utilizando a literatura como ferramenta para promover o letramento racial desde a infância.</p>
         </div>
       </div>
-
       <div class="split-imagem">
         <div class="slide" data-slide>
-          
-          <div class="slide-item ativo">
-            <img src="assets/posters/lelia.png" alt="Retrato de Lélia Gonzalez">
-          </div>
-          
-          <div class="slide-item">
-            <img src="assets/posters/2.png" alt="Retrato de Nelson Mandela">
-          </div>
-          
-          <div class="slide-item">
-            <img src="assets/posters/3.png" alt="Retrato de Angela Davis">
-          </div>
-
-          <div class="slide-item">
-            <img src="assets/posters/4.png" alt="Retrato de Martin Luther King Jr.">
-          </div>
-          
-          <div class="slide-indicadores" aria-label="Navegação do carrossel"></div>
+          <div class="slide-item ativo"><img src="assets/posters/lelia.png" alt="Lélia Gonzalez"></div>
+          <div class="slide-item"><img src="assets/posters/2.png" alt="Foto 2"></div>
+          <div class="slide-item"><img src="assets/posters/3.png" alt="Foto 3"></div>
+          <div class="slide-item"><img src="assets/posters/4.png" alt="Foto 4"></div>
+          <div class="slide-indicadores"></div>
         </div>
-      </div>
-    </section>
-
-    <!-- ============ CITAÇÃO ============ -->
-    <section class="secao-citacao">
-      <div class="container">
-        <blockquote>
-          <p>“Quando mais se nega a existência do racismo no Brasil, mais esse racismo se propaga.”</p>
-          <cite>Nilma Lino Gomes</cite>
-        </blockquote>
       </div>
     </section>
 
     <!-- ============ MÉTODOS ============ -->
-    <section id="metodos" class="secao secao-clara">
-      <div class="container">
-        <p class="selo">Como funciona</p>
-        <h2>Métodos</h2>
-
-        <ol class="passos">
-          <li>
-            <span class="passo-numero">01</span>
-            <div>
-              <h3>Formação da equipe do projeto</h3>
-              <p>
-                Inicialmente, foram realizados estudos e discussões com os membros do projeto
-                sobre as relações raciais e a educação antirracista, buscando aprofundar os
-                conhecimentos da própria equipe para o desenvolvimento das ações.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span class="passo-numero">02</span>
-            <div>
-              <h3>Letramento racial com os estudantes do campus</h3>
-              <p>
-                Em seguida, promovemos ações de letramento racial voltadas aos estudantes do
-                IFPB – Campus Pedras de Fogo, criando espaços de diálogo e reflexão sobre o
-                racismo, a valorização das identidades negras e o respeito à diversidade,
-                por meio do Cineblues e de palestras.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span class="passo-numero">03</span>
-            <div>
-              <h3>Formação dos professores da escola parceira</h3>
-              <p>
-                Por fim, foram realizadas formações com os professores de uma escola
-                parceira, proporcionando espaços de diálogo, reflexão e troca de
-                experiências sobre a educação antirracista e a construção de práticas
-                pedagógicas inclusivas.
-              </p>
-            </div>
-          </li>
-        </ol>
+    <section id="metodos" class="dashboard-section glass-card">
+      <div class="section-header">
+        <h2>Métodos de Atuação</h2>
+        <span class="badge">Como funciona</span>
       </div>
+      
+      <ol class="passos">
+        <li>
+          <span class="passo-numero">01</span>
+          <div>
+            <h3>Formação da equipe do projeto</h3>
+            <p>Estudos e discussões com os membros do projeto sobre as relações raciais e a educação antirracista.</p>
+          </div>
+        </li>
+        <li>
+          <span class="passo-numero">02</span>
+          <div>
+            <h3>Letramento racial com estudantes</h3>
+            <p>Ações voltadas aos estudantes do IFPB – Campus Pedras de Fogo, por meio do Cineblues e de palestras.</p>
+          </div>
+        </li>
+        <li>
+          <span class="passo-numero">03</span>
+          <div>
+            <h3>Formação de professores</h3>
+            <p>Formações com professores de uma escola parceira, proporcionando troca de experiências.</p>
+          </div>
+        </li>
+      </ol>
     </section>
 
     <!-- ============ DADOS ============ -->
-    <section id="dados" class="secao secao-escura">
-      <div class="container">
-        <p class="selo selo-claro">O problema em números</p>
-        <h2>Dados</h2>
-        <p class="subtitulo-claro">
-          O racismo no ambiente escolar é um desafio histórico e persistente. Os números
-          abaixo ajudam a dimensionar o problema.
-        </p>
+    <section id="dados" class="dashboard-section">
+      <div class="section-header">
+        <h2>Dados e Estatísticas</h2>
+        <span class="badge">Fontes Oficiais</span>
+      </div>
 
-        <div id="lista-dados" class="dados-grade">
-          <p class="dados-aviso">Carregando dados…</p>
+      <div id="lista-dados" class="dados-grade">
+        <p class="dados-aviso">Carregando dados…</p>
+      </div>
+
+      <div class="graficos-grid">
+        <div class="grafico-card glass-card">
+          <h3>Analfabetismo (15 anos ou mais)</h3>
+          <div class="canvas-container"><canvas id="graficoAnalfabetismo"></canvas></div>
         </div>
-
-        <div class="graficos-grid">
-          <div class="grafico-card">
-            <h3>Analfabetismo (15 anos ou mais)</h3>
-            <div class="canvas-container">
-              <canvas id="graficoAnalfabetismo" role="img" aria-label="Gráfico de barras comparando a taxa de analfabetismo: 3,2% entre brancos e 7,1% entre pretos e pardos."></canvas>
-            </div>
-            <p>Fonte: IBGE - PNAD Contínua (2023). Pessoas pretas/pardas têm mais que o dobro da taxa de analfabetismo de pessoas brancas.</p>
-          </div>
-
-          <div class="grafico-card">
-            <h3>Média de anos de estudo (25 anos ou mais)</h3>
-            <div class="canvas-container">
-              <canvas id="graficoAnosEstudo" role="img" aria-label="Gráfico de barras comparando a média de anos de estudo: 10,8 anos para brancos e 9,2 anos para pretos e pardos."></canvas>
-            </div>
-            <p>Fonte: IBGE - PNAD Contínua (2023). A população branca estuda em média 1,6 anos a mais que a população preta e parda.</p>
-          </div>
-
-          <div class="grafico-card">
-            <h3>Aprendizado adequado (9º ano - Língua Portuguesa)</h3>
-            <div class="canvas-container">
-              <canvas id="graficoAprendizado" role="img" aria-label="Gráfico de barras comparando o aprendizado adequado em Língua Portuguesa: 45,6% entre brancos e 31,5% entre pretos e pardos."></canvas>
-            </div>
-            <p>Fonte: Saeb/Inep (2023). A diferença entre brancos e negros no aprendizado aumentou 14,1 pontos percentuais na última década.</p>
-          </div>
-
-          <div class="grafico-card">
-            <h3>Perfil racial dos docentes da educação básica</h3>
-            <div class="canvas-container doughnut-container">
-              <canvas id="graficoProfessores" role="img" aria-label="Gráfico de rosca mostrando que 55% dos professores são brancos e 45% são de outras raças."></canvas>
-              <div class="doughnut-center">
-                <strong>55%</strong>
-                <span>Brancos</span>
-              </div>
-            </div>
-            <p>Fonte: Censo Escolar/Inep (2023). A maioria dos docentes é branca, enquanto pretos e pardos são 55,5% da população.</p>
-          </div>
+        <div class="grafico-card glass-card">
+          <h3>Média de anos de estudo (25 anos ou mais)</h3>
+          <div class="canvas-container"><canvas id="graficoAnosEstudo"></canvas></div>
+        </div>
+        <div class="grafico-card glass-card">
+          <h3>Aprendizado adequado (9º ano - Língua Portuguesa)</h3>
+          <div class="canvas-container"><canvas id="graficoAprendizado"></canvas></div>
+        </div>
+        <div class="grafico-card glass-card">
+          <h3>Perfil racial dos docentes</h3>
+          <div class="canvas-container"><canvas id="graficoProfessores"></canvas></div>
         </div>
       </div>
     </section>
 
-    <!-- ============ RESENHAS ============ -->
-    <section id="resenhas" class="secao secao-clara">
-      <div class="container">
-        <p class="selo">Literatura infantil</p>
-        <h2>Resenhas</h2>
-        <p class="subtitulo">
-          Livros escolhidos para trabalhar o letramento racial desde a infância.
-        </p>
-
-        <div class="resenhas-grade">
-          <article class="resenha">
-            <img class="capa" src="assets/capas/cor-de-coraline.jpg" alt="Capa do livro A Cor de Coraline, de Alexandre Rampazo">
-            <div>
-              <h3>A Cor de Coraline</h3>
-              <p class="resenha-meta">Alexandre Rampazo · Rocco Pequenos Leitores · 2017</p>
-              <p class="resenha-resumo">
-                Coraline ouve do amigo Pedrinho o pedido “me empresta o lápis cor de pele?”
-                e fica intrigada: qual é, afinal, a cor da pele? Ao revisitar sua caixa de
-                lápis, ela descobre que cada tom é bonito e que é a diversidade que dá beleza
-                ao mundo. Vencedor do Selo Seleção Cátedra 10 Unesco e finalista do Prêmio
-                Jabuti 2018, o livro de Alexandre Rampazo propõe uma conversa sensível sobre
-                identidade, diversidade e pertencimento desde a primeira infância.
-              </p>
-            </div>
-          </article>
-
-          <article class="resenha">
-            <img class="capa" src="assets/capas/pequeno-principe-preto.jpg" alt="Capa do livro O Pequeno Príncipe Preto, de Rodrigo França">
-            <div>
-              <h3>O Pequeno Príncipe Preto</h3>
-              <p class="resenha-meta">Rodrigo França · Nova Fronteira · 2020</p>
-              <p class="resenha-resumo">
-                Em um minúsculo planeta, o Pequeno Príncipe Preto vive ao lado de sua única
-                companheira, uma árvore Baobá. Quando as ventanias chegam, ele viaja por
-                outros planetas espalhando amor e empatia. Adaptação de uma peça infantil de
-                Rodrigo França, o livro celebra a importância de valorizar quem somos e de
-                onde viemos, mostrando a força dos laços de afeto e da coletividade.
-              </p>
-            </div>
-          </article>
-
-          <article class="resenha">
-            <img class="capa" src="assets/capas/da-minha-janela.jpg" alt="Capa do livro Da Minha Janela, de Otávio Júnior">
-            <div>
-              <h3>Da Minha Janela</h3>
-              <p class="resenha-meta">Otávio Júnior · Companhia das Letrinhas · 2019</p>
-              <p class="resenha-resumo">
-                Sentado à janela de uma casa em uma favela do Rio de Janeiro, o narrador
-                observa o mundo: pessoas, cores, gestos, bichos. Cada cena vira uma pequena
-                descoberta sobre a vida que acontece ao redor. Com texto sensível de Otávio
-                Júnior e ilustrações vibrantes de Vanina Starkoff, o livro convida o leitor
-                a olhar com atenção para as vidas que muitas vezes passam despercebidas.
-                Vencedor do Prêmio Jabuti 2020 na categoria Infantil.
-              </p>
-            </div>
-          </article>
-
-          <article class="resenha">
-            <img class="capa" src="assets/capas/amor-de-cabelo.jpg" alt="Capa do livro Amor de Cabelo, de Matthew A. Cherry">
-            <div>
-              <h3>Amor de Cabelo</h3>
-              <p class="resenha-meta">Matthew A. Cherry · Galerinha Record · 2020</p>
-              <p class="resenha-resumo">
-                A obra Amor de Cabelo, de Matthew A. Cherry, é ideal para trabalhar a educação antirracista infantil por apresentar, de maneira recreativa e acessível, a construção da autoestima e a valorização da identidade negra. Nessa perspectiva, pode estimular crianças negras a reconhecerem seus cabelos, traços e características como elementos de sua identidade e cultura. A relação afetiva com o cabelo possibilita discussões sobre autoaceitação, representatividade e padrões estéticos que historicamente desvalorizam características negras.
-              </p>
-            </div>
-          </article>
-
-          <article class="resenha">
-            <img class="capa" src="assets/capas/flavia-e-o-bolo-de-chocolate.jpg" alt="Capa do livro Flávia e o Bolo de Chocolate, de Míriam Leitão">
-            <div>
-              <h3>Flávia e o Bolo de Chocolate</h3>
-              <p class="resenha-meta">Míriam Leitão · Rocco · [ano — confirmar]</p>
-              <p class="resenha-resumo">
-                Flávia e o Bolo de Chocolate, de Míriam Leitão, pode ser uma ferramenta importante para a educação antirracista na infância por tratar, de forma sensível e próxima do universo infantil, da descoberta e da aceitação da própria identidade. A história permite conversar sobre as características físicas de Flávia e sobre o reconhecimento de sua identidade negra, abrindo espaço para que as crianças percebam que diferentes aparências e origens fazem parte da diversidade humana.
-              </p>
-            </div>
-          </article>
-
-          <article class="resenha">
-            <img class="capa" src="assets/capas/ave-alegria.jpg" alt="Capa do livro Ave Alegria, de Sylvia Orthof">
-            <div>
-              <h3>Ave Alegria</h3>
-              <p class="resenha-meta">Sylvia Orthof · Editora Gaia · 2014</p>
-              <p class="resenha-resumo">
-                Recomendamos o livro Ave Alegria, de Sylvia Orthof, para ser utilizado como recurso para a educação antirracista infantil por apresentar, de maneira lúdica e acessível às crianças, valores relacionados à justiça, à igualdade e à diversidade cultural. A partir desses princípios, a obra pode ser trabalhada sob uma ótica antirracista, estimulando crianças a reconhecer diferentes culturas e identidades negras não valorizadas. Sua valorização daquilo que é "bom, justo e belo", associada aos temas de diversidade cultural e justiça social indicados pela própria proposta pedagógica da obra, possibilita ao educador criar discussões que relacionem literatura, diversidade e respeito às diferenças.
-              </p>
-            </div>
-          </article>
-        </div>
+    <!-- ============ RESENHAS (Estante) ============ -->
+    <section id="resenhas" class="dashboard-section glass-card">
+      <div class="section-header">
+        <h2>Estante de Livros</h2>
+        <span class="badge">Literatura Infantil</span>
+      </div>
+      
+      <!-- Espaço reservado para a Estante da Fase 2 -->
+      <div class="estante-placeholder">
+        <p>🚧 Construindo a Estante Virtual (Estilo Kindle)...</p>
       </div>
     </section>
 
     <!-- ============ CINEBLUES ============ -->
-    <section id="cineblues" class="split split-claro">
-      <div class="split-texto">
-        <div class="split-texto-interno animar">
-          <p class="selo">Cinema e consciência racial</p>
-          <h2>Cineblues</h2>
-          <p>
-            O <strong>Cineblues</strong> é um projeto de cinema voltado à conscientização
-            racial, por meio da exibição de filmes que abordam questões étnico-raciais e
-            promovem reflexões sobre o racismo, a cultura negra e suas representações na
-            sociedade.
-          </p>
-          <p>
-            A ideia do nome surgiu a partir do gênero musical <strong>Blues</strong> — que tem suas raízes na comunidade negra escravizada dos Estados Unidos — e da música <em>Bluesman</em>, de Baco Exu do Blues. O artista questiona a desvalorização da cultura negra e a valorização de manifestações culturais quando associadas à branquitude.
-          </p>
-          <p>
-            Assim, o Cineblues busca ir além da exibição de filmes: é um espaço de reflexão, valorização da cultura negra e questionamento do racismo e dos padrões culturais impostos pela sociedade.
+    <section id="cineblues" class="dashboard-section glass-card">
+      <div class="section-header">
+        <h2>Cineblues</h2>
+        <span class="badge">Cinema e Consciência</span>
+      </div>
+      
+      <div class="cineblues-grid">
+        <div class="split-texto-interno">
+          <p>O <strong>Cineblues</strong> é um projeto de cinema voltado à conscientização racial, promovendo reflexões sobre o racismo, a cultura negra e suas representações na sociedade.</p>
+          <p>A ideia do nome surgiu a partir do gênero musical <strong>Blues</strong> e da música <em>Bluesman</em>, de Baco Exu do Blues, questionando a desvalorização da cultura negra.</p>
+          <p style="margin-top: 20px; font-style: italic; color: var(--primary);">
+            * Espaço para o cartaz da Paola
           </p>
         </div>
-      </div>
-
-      <div class="split-imagem">
-        <div class="slide" data-slide>
-          <!-- Cartaz da Paola -->
-          <div class="slide-item ativo">
-            <div class="slide-placeholder ocre" role="img" aria-label="Espaço para o Cartaz do Cineblues"><span>Cartaz Cineblues</span></div>
-          </div>
-          <div class="slide-indicadores" aria-label="Navegação do carrossel"></div>
+        <div class="split-imagem cineblues-img">
+          <div class="slide-placeholder ocre" style="border-radius: 16px;"><span>Cartaz Cineblues</span></div>
         </div>
       </div>
     </section>
 
-    <!-- ============ EXTRAS ============ -->
-    <section id="extras" class="secao">
-      <div class="container">
-        <article id="material" class="bloco">
-          <p class="selo">Leve o projeto</p>
-          <h2>Materiais para Download</h2>
-          <p class="subtitulo">Acesse os materiais de apoio e ações antirracistas elaborados pela equipe.</p>
-          
+    <!-- ============ MATERIAIS E REFERÊNCIAS ============ -->
+    <section id="materiais" class="dashboard-section glass-card">
+      <div class="section-header">
+        <h2>Materiais e Referências</h2>
+      </div>
+
+      <div class="extras-grid">
+        <div>
+          <h3 style="margin-bottom: 16px; color: #fff;">Leve o projeto</h3>
           <ul class="lista-materiais">
-            <li>
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                Cartilha de Ações Antirracistas <span>PDF</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                Guia de Literatura Infantil e Letramento Racial <span>PDF</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://www.instagram.com/quebrandosilencios.ifpb" target="_blank" rel="noopener noreferrer">
-                Instagram do projeto (Novidades e Materiais) <span>LINK</span>
-              </a>
-            </li>
+            <li><a href="#" target="_blank">Cartilha de Ações Antirracistas <span>PDF</span></a></li>
+            <li><a href="#" target="_blank">Guia de Literatura Infantil <span>PDF</span></a></li>
+            <li><a href="https://www.instagram.com/quebrandosilencios.ifpb" target="_blank">Instagram do projeto <span>LINK</span></a></li>
           </ul>
-        </article>
+        </div>
 
-        <article id="referencias" class="bloco">
-          <p class="selo">De onde vêm as ideias</p>
-          <h2>Referências</h2>
+        <div>
+          <h3 style="margin-bottom: 16px; color: #fff;">Referências Teóricas</h3>
           <ul class="lista-referencias">
-            <li>BRASIL. <strong>Lei nº 10.639, de 9 de janeiro de 2003</strong>. Altera a Lei nº 9.394/1996 para incluir a obrigatoriedade da temática “História e Cultura Afro-Brasileira”.</li>
-            <li>GOMES, Nilma Lino. <strong>O movimento negro educador</strong>. Petrópolis: Vozes, 2017.</li>
-            <li>CAVALLEIRO, Eliane. <strong>Agir com propósito e compromisso</strong>: o caminho para a equidade étnico-racial na Educação Brasileira. Todos Pela Educação.</li>
-            <li>INEP. <strong>Censo Escolar</strong>. Brasília, 2025.</li>
-            <li>INEP. <strong>Saeb</strong>. Brasília, 2021.</li>
-            <li>IBGE. <strong>Pnad Contínua — Educação</strong>. Rio de Janeiro, 2013–2023.</li>
+            <li>BRASIL. <strong>Lei nº 10.639/2003</strong>.</li>
+            <li>GOMES, Nilma Lino. <strong>O movimento negro educador</strong>.</li>
+            <li>CAVALLEIRO, Eliane. <strong>Agir com propósito e compromisso</strong>.</li>
+            <li>IBGE. <strong>Pnad Contínua — Educação</strong>.</li>
           </ul>
-        </article>
-
+        </div>
       </div>
     </section>
 
   </main>
-
-  <!-- ============ RODAPÉ ============ -->
-  <footer class="rodape">
-    <div class="container">
-      <blockquote class="frase-final">
-        <p>“Numa sociedade racista, não basta não ser racista. É preciso ser antirracista.”</p>
-        <cite>Angela Davis</cite>
-      </blockquote>
-
-      <div class="rodape-contato">
-        <h2>Contato</h2>
-        <a class="instagram-link" href="https://www.instagram.com/quebrandosilencios.ifpb" target="_blank" rel="noopener noreferrer">
-          <svg class="instagram-icone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-          </svg>
-          <span>@quebrandosilencios.ifpb</span>
-        </a>
-      </div>
-
-      <p class="creditos">
-        Quebrando Silêncios · Projeto de Extensão · IFPB Campus Pedras de Fogo
-      </p>
-    </div>
-  </footer>
 
   <script src="script.js"></script>
 </body>
