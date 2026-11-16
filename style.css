@@ -4,7 +4,6 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Impede que a página toda role (tira a barra cruzada) */
 html, body {
   height: 100vh;
   width: 100vw;
@@ -70,11 +69,9 @@ button { font-family: inherit; border: none; cursor: pointer; }
 .main-content {
   flex: 1;
   height: 100vh;
-  overflow-y: auto; /* APENAS ESTA ÁREA ROLA */
+  overflow-y: auto; 
   padding: 32px;
-  width: calc(100vw - var(--sidebar-width)); /* Garante que não passe da tela */
-  
-  /* Esconde a barra de rolagem no visual, mas mantém a função */
+  width: calc(100vw - var(--sidebar-width)); 
   -ms-overflow-style: none;  
   scrollbar-width: none;  
 }
@@ -104,48 +101,33 @@ button { font-family: inherit; border: none; cursor: pointer; }
 .badge { background: rgba(200, 147, 43, 0.15); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
 
 /* =========================================================
-   INTRODUÇÃO (LAYOUT CORRIGIDO - SEM VAZAMENTO)
+   HOME: INTRODUÇÃO
    ========================================================= */
 .hero-split {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr; /* Texto ocupa um pouco mais de espaço */
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
   align-items: stretch;
   margin-bottom: 24px;
 }
 
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+.hero-content { display: flex; flex-direction: column; justify-content: center; }
 .hero-content h2 { color: #fff; font-size: 2.2rem; margin-bottom: 16px; }
 .hero-content p { color: var(--text-muted); margin-bottom: 16px; line-height: 1.7; font-size: 1rem; text-align: justify; }
 
-/* Caixa da imagem com fundo transparente */
 .hero-image-wrapper {
   position: relative;
   width: 100%;
-  height: 380px; /* Altura fixa para não empurrar o texto */
-  background: transparent; /* SEM FUNDO PRETO */
+  height: 400px;
+  background: transparent; 
   border-radius: 16px;
   overflow: hidden;
 }
 
 .slide { position: absolute; inset: 0; }
-.slide-item { 
-  position: absolute; inset: 0; 
-  opacity: 0; transition: 0.5s; 
-  display: flex; align-items: center; justify-content: center; 
-}
+.slide-item { position: absolute; inset: 0; opacity: 0; transition: 0.5s; display: flex; align-items: center; justify-content: center; }
 .slide-item.ativo { opacity: 1; }
-
-/* Imagem inteira, sem cortar */
-.slide-item img.poster-img { 
-  width: 100%; 
-  height: 100%; 
-  object-fit: contain; 
-}
+.slide-item img.poster-img { width: 100%; height: 100%; object-fit: contain; }
 
 .slide-indicadores { position: absolute; bottom: 16px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; z-index: 10; }
 .slide-ponto { width: 24px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; border: none; cursor: pointer; }
@@ -154,11 +136,7 @@ button { font-family: inherit; border: none; cursor: pointer; }
 /* =========================================================
    HOME GRID (Dados + Métodos)
    ========================================================= */
-.home-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr; /* Dados maiores na esquerda, métodos na direita */
-  gap: 24px;
-}
+.home-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; }
 .home-col-left, .home-col-right { display: flex; flex-direction: column; }
 
 /* Cartões de Dados */
@@ -166,8 +144,7 @@ button { font-family: inherit; border: none; cursor: pointer; }
 .cartao-dado {
   background: linear-gradient(145deg, rgba(39, 39, 42, 0.8) 0%, rgba(24, 24, 27, 0.9) 100%);
   border: 1px solid var(--border-color);
-  padding: 20px;
-  border-radius: 16px;
+  padding: 20px; border-radius: 16px;
   display: flex; flex-direction: column; cursor: pointer;
   transition: transform 0.2s, border-color 0.2s;
 }
@@ -179,11 +156,8 @@ button { font-family: inherit; border: none; cursor: pointer; }
 /* Métodos */
 .metodos-list { display: flex; flex-direction: column; gap: 16px; }
 .metodo-card {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--border-color);
-  padding: 20px;
-  border-radius: 16px;
-  transition: background 0.3s;
+  background: rgba(255,255,255,0.02); border: 1px solid var(--border-color);
+  padding: 20px; border-radius: 16px; transition: background 0.3s;
 }
 .metodo-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(200, 147, 43, 0.3); }
 .passo-numero { font-size: 1.2rem; font-weight: 800; color: var(--primary); display: block; margin-bottom: 6px; }
@@ -191,25 +165,90 @@ button { font-family: inherit; border: none; cursor: pointer; }
 .metodo-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
 
 /* =========================================================
-   MODAL E OUTRAS PÁGINAS
+   ESTANTE DE LIVROS (ESTILO REFERÊNCIA)
    ========================================================= */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: 0.3s; }
+.livros-layout { display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
+.livros-header h2 { font-size: 2.2rem; color: #fff; margin-bottom: 12px; }
+.livros-header p { color: var(--text-muted); line-height: 1.6; font-size: 1rem; max-width: 800px; margin-bottom: 40px; }
+
+.livros-section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.livros-section-header h3 { font-size: 1.2rem; color: #fff; font-weight: 600; }
+.livros-nav { display: flex; gap: 8px; }
+.livros-nav button {
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+  color: #fff; width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
+}
+.livros-nav button:hover { background: var(--primary); color: #000; border-color: var(--primary); }
+
+.livros-carrossel {
+  display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px;
+  scroll-behavior: smooth; scrollbar-width: none; 
+}
+.livros-carrossel::-webkit-scrollbar { display: none; }
+
+.livro-card { flex: 0 0 160px; cursor: pointer; transition: transform 0.3s ease; }
+.livro-card:hover { transform: translateY(-8px); }
+.livro-card img {
+  width: 100%; height: 240px; object-fit: cover; border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4); margin-bottom: 12px; border: 1px solid var(--border-color);
+}
+.livro-card h4 { font-size: 0.9rem; color: #fff; line-height: 1.2; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.livro-card p { font-size: 0.75rem; color: var(--text-muted); }
+
+.livros-sidebar { display: flex; flex-direction: column; }
+.widget-card { padding: 24px; }
+.widget-card h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 12px; }
+.widget-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; font-style: italic; }
+
+/* =========================================================
+   MODAIS (Gráficos e Livros)
+   ========================================================= */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; opacity: 0; pointer-events: none; transition: 0.3s;
+}
 .modal-overlay.active { opacity: 1; pointer-events: auto; }
-.modal-content { width: 90%; max-width: 700px; position: relative; transform: scale(0.9); transition: transform 0.3s; background: #111; border: 1px solid var(--primary); border-radius: 24px; }
+.modal-content {
+  width: 90%; max-width: 750px; position: relative;
+  transform: scale(0.9); transition: transform 0.3s;
+  background: #111; border: 1px solid var(--primary); border-radius: 24px; padding: 32px;
+}
 .modal-overlay.active .modal-content { transform: scale(1); }
 .modal-close { position: absolute; top: 16px; right: 20px; background: none; color: #fff; font-size: 2rem; transition: 0.2s; }
 .modal-close:hover { color: var(--primary); }
 .canvas-container { position: relative; width: 100%; }
 
-.estante-placeholder { background: rgba(0,0,0,0.3); border: 1px dashed var(--border-color); padding: 60px; text-align: center; border-radius: 16px; color: var(--text-muted); }
+/* Modal de Livro Específico */
+.livro-modal-grid { display: grid; grid-template-columns: 200px 1fr; gap: 30px; align-items: start; }
+.livro-modal-capa img { width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.livro-modal-info { display: flex; flex-direction: column; height: 100%; }
+.detalhe-titulo { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.1; }
+.detalhe-autor { font-size: 1rem; color: var(--primary); font-weight: 600; margin-bottom: 16px; }
+.detalhe-meta { display: flex; gap: 15px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+.detalhe-sinopse { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 30px; flex: 1; text-align: justify; }
+
+.btn-amazon {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: #ff9900; color: #000; padding: 14px 24px; border-radius: 8px;
+  font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-top: auto;
+}
+.btn-amazon:hover { background: #e68a00; transform: translateY(-2px); }
+
+/* =========================================================
+   OUTRAS PÁGINAS (Cineblues, Materiais, Referências)
+   ========================================================= */
 .cineblues-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
 .cineblues-text p { color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
 .cineblues-img { height: 300px; background: rgba(0,0,0,0.5); border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--border-color); }
 .slide-placeholder.ocre { color: var(--primary); font-weight: bold; text-transform: uppercase; }
+
 .lista-materiais { list-style: none; }
 .lista-materiais a { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border-color); color: #fff; transition: 0.2s; }
 .lista-materiais a:hover { color: var(--primary); padding-left: 10px; }
 .lista-materiais span { font-size: 0.75rem; color: var(--primary); background: rgba(200,147,43,0.1); padding: 4px 8px; border-radius: 4px; }
+
 .lista-referencias { list-style: none; max-width: 800px; }
 .lista-referencias li { padding-left: 20px; border-left: 2px solid var(--primary); margin-bottom: 16px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
@@ -217,17 +256,22 @@ button { font-family: inherit; border: none; cursor: pointer; }
    RESPONSIVIDADE (Celular e Tablet)
    ========================================================= */
 @media (max-width: 1024px) {
-  .hero-split, .home-grid { grid-template-columns: 1fr; } 
+  .hero-split, .home-grid, .livros-layout { grid-template-columns: 1fr; } 
   .hero-image-wrapper { height: 350px; }
 }
 
 @media (max-width: 768px) {
-  html, body { height: auto; overflow: auto; } /* Volta a rolar no celular */
+  html, body { height: auto; overflow: auto; } 
   body { flex-direction: column; }
   .main-content { padding: 20px; padding-bottom: 90px; height: auto; overflow: visible; width: 100vw; }
+  
   .sidebar { width: 100%; height: 70px; position: fixed; bottom: 0; top: auto; flex-direction: row; justify-content: space-around; padding: 0 10px; border-top: 1px solid var(--border-color); border-right: none; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
   .sidebar-logo, .sidebar-bottom { display: none; }
   .sidebar-nav { flex-direction: row; justify-content: space-around; width: 100%; }
   .nav-item { width: 50px; height: 50px; }
+  
   .dados-grade { grid-template-columns: 1fr; }
+  .cineblues-grid { grid-template-columns: 1fr; }
+  .livro-modal-grid { grid-template-columns: 1fr; }
+  .livro-modal-capa { max-width: 200px; margin: 0 auto; text-align: center; }
 }

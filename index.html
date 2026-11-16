@@ -14,10 +14,11 @@
 </head>
 <body>
 
-  <!-- SIDEBAR -->
+  <!-- ============ SIDEBAR (MENU LATERAL) ============ -->
   <aside class="sidebar">
+    <!-- A Logo agora é o botão de Referências -->
     <a href="#" class="sidebar-logo nav-item" data-target="page-referencias" title="Referências e Agradecimentos">
-      <img src="assets/logo.jpeg" alt="Logo">
+      <img src="assets/logo.jpeg" alt="Logo Quebrando Silêncios">
     </a>
     
     <nav class="sidebar-nav">
@@ -42,7 +43,7 @@
     </div>
   </aside>
 
-  <!-- ÁREA PRINCIPAL -->
+  <!-- ============ ÁREA PRINCIPAL ============ -->
   <main class="main-content">
     
     <header class="dashboard-header">
@@ -52,7 +53,9 @@
       </div>
     </header>
 
-    <!-- HOME -->
+    <!-- ========================================== -->
+    <!-- PÁGINA 1: HOME -->
+    <!-- ========================================== -->
     <div id="page-home" class="dashboard-page active">
       
       <!-- INTRODUÇÃO (Texto Esquerda, Imagem Direita) -->
@@ -65,7 +68,6 @@
           <p>Nesta edição, o projeto direciona suas ações ao <strong>público infantil</strong>, utilizando a literatura como ferramenta para promover o letramento racial desde a infância.</p>
         </div>
         
-        <!-- A caixa da imagem agora tem fundo transparente -->
         <div class="hero-image-wrapper">
           <div class="slide" data-slide>
             <div class="slide-item ativo"><img src="assets/posters/lelia.png" alt="Lélia Gonzalez" class="poster-img"></div>
@@ -83,7 +85,7 @@
         <div class="home-col-left">
           <div class="section-header">
             <h2>Dados e Estatísticas</h2>
-            <span class="badge">Clique no cartão</span>
+            <span class="badge">Clique no cartão para ver o gráfico</span>
           </div>
           <div id="lista-dados" class="dados-grade">
             <p class="dados-aviso">Carregando dados…</p>
@@ -118,32 +120,77 @@
       </div>
     </div>
 
-    <!-- ESTANTE -->
+    <!-- ========================================== -->
+    <!-- PÁGINA 2: ESTANTE DE LIVROS -->
+    <!-- ========================================== -->
     <div id="page-livros" class="dashboard-page">
-      <section class="glass-card">
-        <div class="section-header"><h2>Estante de Livros</h2></div>
-        <div class="estante-placeholder"><p>🚧 Construindo a Estante Virtual...</p></div>
-      </section>
+      <div class="livros-layout">
+        
+        <!-- Coluna Esquerda (Principal) -->
+        <div class="livros-main">
+          <div class="livros-header">
+            <h2>Boas leituras!</h2>
+            <p>Seja bem-vindo(a) à nossa coletânea. Aqui você encontra livros infantis selecionados para discutir pautas sociais, promover o letramento racial e valorizar a diversidade desde a infância.</p>
+          </div>
+
+          <div class="livros-section-header">
+            <h3>Nossa Coleção</h3>
+            <div class="livros-nav">
+              <button id="btn-prev-livro">&#10094;</button>
+              <button id="btn-next-livro">&#10095;</button>
+            </div>
+          </div>
+
+          <div class="livros-carrossel" id="livros-carrossel">
+            <!-- Os livros serão injetados aqui pelo JavaScript -->
+          </div>
+        </div>
+
+        <!-- Coluna Direita (Widgets) -->
+        <div class="livros-sidebar">
+          <div class="widget-card glass-card">
+            <h3>Por que ler?</h3>
+            <p>A literatura infantil é uma ferramenta poderosa para desconstruir preconceitos e construir uma sociedade mais justa desde os primeiros anos de vida.</p>
+          </div>
+          
+          <div class="widget-card glass-card mt-24">
+            <h3>Sobre a Coletânea</h3>
+            <p>Os livros foram cuidadosamente escolhidos pela equipe do projeto Quebrando Silêncios para abordar temas como identidade, diversidade e representatividade negra.</p>
+            <p class="mt-24" style="font-size: 0.85rem; color: var(--primary);">* Clique em qualquer capa para ler a resenha e ver onde comprar.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <!-- CINEBLUES -->
+    <!-- ========================================== -->
+    <!-- PÁGINA 3: CINEBLUES -->
+    <!-- ========================================== -->
     <div id="page-cineblues" class="dashboard-page">
       <section class="glass-card">
-        <div class="section-header"><h2>Cineblues</h2></div>
+        <div class="section-header">
+          <h2>Cineblues</h2>
+        </div>
         <div class="cineblues-grid">
           <div class="cineblues-text">
             <p>O <strong>Cineblues</strong> é um projeto de cinema voltado à conscientização racial, promovendo reflexões sobre o racismo, a cultura negra e suas representações na sociedade.</p>
             <p>A ideia do nome surgiu a partir do gênero musical <strong>Blues</strong> e da música <em>Bluesman</em>, de Baco Exu do Blues.</p>
           </div>
-          <div class="cineblues-img"><div class="slide-placeholder ocre"><span>Cartaz Cineblues</span></div></div>
+          <div class="cineblues-img">
+            <div class="slide-placeholder ocre"><span>Cartaz Cineblues</span></div>
+          </div>
         </div>
       </section>
     </div>
 
-    <!-- MATERIAIS -->
+    <!-- ========================================== -->
+    <!-- PÁGINA 4: MATERIAIS -->
+    <!-- ========================================== -->
     <div id="page-materiais" class="dashboard-page">
       <section class="glass-card">
-        <div class="section-header"><h2>Materiais</h2></div>
+        <div class="section-header">
+          <h2>Materiais para Download</h2>
+        </div>
         <ul class="lista-materiais">
           <li><a href="#" target="_blank">Cartilha de Ações Antirracistas <span>PDF</span></a></li>
           <li><a href="#" target="_blank">Guia de Literatura Infantil <span>PDF</span></a></li>
@@ -151,28 +198,73 @@
       </section>
     </div>
 
-    <!-- REFERÊNCIAS -->
+    <!-- ========================================== -->
+    <!-- PÁGINA 5: REFERÊNCIAS -->
+    <!-- ========================================== -->
     <div id="page-referencias" class="dashboard-page">
       <section class="glass-card">
-        <div class="section-header"><h2>Referências</h2></div>
+        <div class="section-header">
+          <h2>Referências Teóricas</h2>
+        </div>
         <ul class="lista-referencias">
           <li>BRASIL. <strong>Lei nº 10.639/2003</strong>.</li>
           <li>GOMES, Nilma Lino. <strong>O movimento negro educador</strong>.</li>
           <li>CAVALLEIRO, Eliane. <strong>Agir com propósito e compromisso</strong>.</li>
           <li>IBGE. <strong>Pnad Contínua — Educação</strong>.</li>
         </ul>
+        
+        <div class="section-header mt-24" style="margin-top: 40px;">
+          <h2>Agradecimentos</h2>
+        </div>
+        <p style="color: var(--text-muted); line-height: 1.6;">Espaço reservado para os agradecimentos ao IFPB, aos professores e à equipe envolvida no projeto.</p>
       </section>
     </div>
 
   </main>
 
-  <!-- MODAL -->
+  <!-- ========================================== -->
+  <!-- MODAIS -->
+  <!-- ========================================== -->
+  
+  <!-- Modal de Gráficos -->
   <div id="modal-grafico" class="modal-overlay">
     <div class="modal-content glass-card">
       <button class="modal-close" id="fechar-modal">&times;</button>
-      <h3 id="titulo-grafico" style="color: #fff; margin-bottom: 20px;">Título</h3>
-      <div class="canvas-container" style="height: 350px;"><canvas id="canvas-modal"></canvas></div>
-      <p id="fonte-grafico" style="color: var(--primary); font-size: 0.85rem; text-align: right;"></p>
+      <h3 id="titulo-grafico" style="color: #fff; margin-bottom: 20px; font-size: 1.4rem;">Título</h3>
+      <div class="canvas-container" style="height: 350px;">
+        <canvas id="canvas-modal"></canvas>
+      </div>
+      <p id="fonte-grafico" style="color: var(--primary); font-size: 0.85rem; margin-top: 20px; text-align: right; text-transform: uppercase; letter-spacing: 1px;"></p>
+    </div>
+  </div>
+
+  <!-- Modal de Livros -->
+  <div id="modal-livro" class="modal-overlay">
+    <div class="modal-content glass-card">
+      <button class="modal-close" id="fechar-modal-livro">&times;</button>
+      
+      <div class="livro-modal-grid">
+        <div class="livro-modal-capa">
+          <img id="modal-livro-capa" src="" alt="Capa do livro">
+        </div>
+        <div class="livro-modal-info">
+          <h2 id="modal-livro-titulo" class="detalhe-titulo">Título</h2>
+          <p id="modal-livro-autor" class="detalhe-autor">Autor</p>
+          
+          <div class="detalhe-meta">
+            <span id="modal-livro-editora">Editora</span>
+            <span id="modal-livro-ano">Ano</span>
+          </div>
+          
+          <p id="modal-livro-sinopse" class="detalhe-sinopse">Sinopse...</p>
+          
+          <a id="modal-livro-amazon" href="#" target="_blank" class="btn-amazon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            Comprar na Amazon
+          </a>
+        </div>
+      </div>
+      
     </div>
   </div>
 
