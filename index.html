@@ -265,11 +265,15 @@
           <button id="btn-proxima-aberta" class="btn-assistir mt-24" style="display: none;" onclick="avancarPerguntaAberta()">Próxima Etapa</button>
         </div>
 
-        <!-- TELA 3: DINÂMICA DE CLASSIFICAÇÃO (DRAG & DROP) -->
+        <!-- TELA 3: DINÂMICA DE CLASSIFICAÇÃO -->
         <div id="quiz-classificacao" class="quiz-screen">
           <p class="selo" style="text-align: center;">Etapa 2</p>
-          <h2 style="text-align: center; color: var(--paper); margin-bottom: 8px;">Você acredita que isso aconteceu?</h2>
-          <p style="text-align: center; color: var(--text-muted); margin-bottom: 32px;">Alguns desses acontecimentos podem parecer fictícios. Arraste (ou clique) nos casos para classificá-los.</p>
+          <h2 style="text-align: center; color: var(--paper); margin-bottom: 8px;">Sobre a veracidade dos casos, você acha que são reais ou fictícios?</h2>
+          <p style="text-align: center; color: var(--text-muted); margin-bottom: 8px; max-width: 640px; margin-inline: auto;">Alguns desses acontecimentos podem parecer fictícios. Deveriam ser. Mas eles realmente aconteceram.</p>
+          <p style="text-align: center; color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem;">
+            Classifique-os de acordo com o que você acha.<br>
+            <strong>(Toque em um cartão e depois toque na zona desejada)</strong>
+          </p>
 
           <div class="drag-board">
             <div class="casos-pool" id="casos-pool"></div>
@@ -277,12 +281,12 @@
             <div class="zonas-container">
               <div class="drop-zone" id="zona-ficticio" data-tipo="ficticio">
                 <h3>Casos Fictícios</h3>
-                <p>Arraste para cá se acha que inventamos.</p>
+                <p>Acha que inventamos.</p>
                 <div class="drop-area"></div>
               </div>
               <div class="drop-zone" id="zona-real" data-tipo="real">
                 <h3>Casos Reais</h3>
-                <p>Arraste para cá se acha que aconteceu.</p>
+                <p>Acha que aconteceu.</p>
                 <div class="drop-area"></div>
               </div>
             </div>
@@ -293,7 +297,7 @@
           </div>
         </div>
 
-        <!-- TELA 4: REVELAÇÃO (PLOT TWIST) -->
+        <!-- TELA 4: REVELAÇÃO -->
         <div id="quiz-revelacao" class="quiz-screen" style="text-align: center;">
           <p class="selo">Quebrando Silêncios · Revelação</p>
           <h2 style="font-size: 2.5rem; color: var(--paper); line-height: 1.1; margin: 20px 0;">Você classificou os acontecimentos.<br>Mas existe algo que precisa saber.</h2>
@@ -313,7 +317,6 @@
           <h2 style="color: var(--paper); margin-bottom: 24px;">A realidade por trás das perguntas</h2>
           
           <div class="noticias-editorial">
-            <!-- Bloco 1 -->
             <div class="noticia-bloco">
               <div class="noticia-header">
                 <span class="noticia-tag">Caso 1</span>
@@ -326,7 +329,6 @@
               </div>
             </div>
 
-            <!-- Bloco 2 -->
             <div class="noticia-bloco">
               <div class="noticia-header">
                 <span class="noticia-tag">Caso 2</span>
@@ -339,7 +341,6 @@
               </div>
             </div>
 
-            <!-- Bloco 3 -->
             <div class="noticia-bloco">
               <div class="noticia-header">
                 <span class="noticia-tag">Caso 3</span>
@@ -352,7 +353,6 @@
               </div>
             </div>
 
-            <!-- Bloco 4 -->
             <div class="noticia-bloco">
               <div class="noticia-header">
                 <span class="noticia-tag">Caso 4</span>
@@ -365,7 +365,6 @@
               </div>
             </div>
 
-            <!-- Bloco 5 -->
             <div class="noticia-bloco">
               <div class="noticia-header">
                 <span class="noticia-tag">Caso 5</span>

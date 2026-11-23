@@ -7,8 +7,8 @@
   --bg: #14110e;            
   --surface: #1c1814;
   --surface-2: #261f18;
-  --paper: #f2e9d8;         
-  --primary: #c8932b;       
+  --paper: #f2e9d8;        
+  --primary: #c8932b;      
   --verde: #5fa37a;
   --line: rgba(242, 233, 216, 0.14);
   --text-muted: #aa9f8c;
@@ -20,7 +20,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100vh; width: 100vw; overflow: hidden; background: var(--bg); }
+html, body { height: 100%; width: 100%; overflow: hidden; background: var(--bg); }
 body { font-family: 'Inter', sans-serif; color: var(--paper); display: flex; }
 
 a { color: inherit; text-decoration: none; }
@@ -49,10 +49,10 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
 .nav-item svg { width: 24px; height: 24px; }
 .nav-item:hover { background: rgba(242, 233, 216, 0.06); color: var(--paper); }
 .nav-item.active { background: transparent; color: var(--primary); }
-.nav-item.active::before { content: ""; position: absolute; left: -16px; top: 10px; bottom: 10px; width: 3px; background: var(--primary); border-radius: 0 3px 3px 0; animation: marca .4s var(--ease); }
+.nav-item.active::before { content: ""; position: absolute; left: -16px; top: 10px; bottom: 10px; width: 3px; background: var(--primary); border-radius: 0 3px 3px 0; transform-origin: top; animation: marca .4s var(--ease); }
 @keyframes marca { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 
-.main-content { flex: 1; height: 100vh; overflow-y: auto; padding: 32px; width: calc(100vw - var(--sidebar-width)); -ms-overflow-style: none; scrollbar-width: none; }
+.main-content { flex: 1; min-width: 0; height: 100vh; overflow-y: auto; padding: 32px; -ms-overflow-style: none; scrollbar-width: none; }
 .main-content::-webkit-scrollbar { display: none; }
 .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
 .header-title p { color: var(--text-muted); font-size: 0.95rem; }
@@ -70,7 +70,7 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
 .badge-sucesso { color: var(--verde); }
 .badge-infantil { color: #3b82f6; }
 
-/* BOTÕES COM EFEITO DE BRILHO (INSPIRADO NAS IMAGENS 1 E 2) */
+/* BOTÕES COM EFEITO DE BRILHO */
 .btn-assistir, .btn-encontrar { 
   border-radius: 4px; background: var(--primary); color: #14110e; font-weight: 700; padding: 14px 24px; 
   display: inline-flex; align-items: center; gap: 8px; box-shadow: 4px 4px 0 var(--paper); 
@@ -133,6 +133,8 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
 .metodo-card h3 { font-size: 1rem; color: var(--paper); margin-bottom: 8px; }
 .metodo-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
 
+.dados-aviso { color: var(--text-muted); font-size: 0.95rem; grid-column: 1 / -1; }
+
 /* =========================================================
    ESTANTE DE LIVROS
    ========================================================= */
@@ -158,12 +160,8 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
 /* =========================================================
    CINEBLUES
    ========================================================= */
-.cine-hero-netflix { position: relative; width: 100%; height: 450px; border-radius: 10px; overflow: hidden; display: flex; align-items: flex-end; margin-bottom: 40px; background-color: var(--surface-2); transition: background-image 0.5s ease-in-out; }
-.cine-hero-overlay { 
-  position: absolute; inset: 0; z-index: 1; 
-  background: linear-gradient(to right, var(--bg) 0%, transparent 20%, transparent 80%, var(--bg) 100%),
-              linear-gradient(to top, var(--bg) 0%, transparent 40%, transparent 100%);
-}
+.cine-hero-netflix { position: relative; width: 100%; height: 450px; border-radius: 10px; overflow: hidden; display: flex; align-items: flex-end; margin-bottom: 40px; background-color: var(--surface-2); background-size: cover; background-position: center 20%; transition: background-color 0.5s ease-in-out; }
+.cine-hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, var(--bg) 0%, transparent 20%, transparent 80%, var(--bg) 100%), linear-gradient(to top, var(--bg) 0%, transparent 40%, transparent 100%); }
 .cine-hero-ghost { position: absolute; inset: 0; z-index: 0; background-size: cover; background-position: center 20%; transition: opacity .7s ease; }
 .cine-hero-ghost.some { opacity: 0; }
 .cine-hero-content { position: relative; z-index: 2; padding: 40px; max-width: 750px; animation: subir .6s var(--ease); }
@@ -216,7 +214,6 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
 .quiz-contador { font-size: 0.85rem; color: var(--primary); font-weight: 600; }
 #pergunta-texto { font-size: 1.4rem; color: var(--paper); line-height: 1.4; font-weight: 600; margin-bottom: 24px; }
 
-/* Efeito de seleção do Quiz (Inspirado na Imagem 4) */
 .opcoes-container { display: flex; flex-direction: column; gap: 12px; transition: opacity 0.3s; }
 .opcoes-container.travado { pointer-events: none; }
 .opcoes-container.travado .opcao-btn:not(.selecionada) { opacity: .3; }
@@ -226,30 +223,33 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
   transition: background .2s, border-color .2s, opacity .3s, transform .2s; display: flex; align-items: flex-start; gap: 15px; 
 }
 .opcao-btn:hover { background: var(--surface); border-color: rgba(200, 147, 43, 0.5); }
-.opcao-btn.selecionada { 
-  background: rgba(200, 147, 43, 0.1); 
-  border-color: var(--primary); 
-  color: var(--paper); 
-  box-shadow: 0 0 15px rgba(200, 147, 43, 0.2); /* Efeito Glow */
-  transform: scale(1.02);
-}
+.opcao-btn.selecionada { background: rgba(200, 147, 43, 0.1); border-color: var(--primary); color: var(--paper); box-shadow: 0 0 15px rgba(200, 147, 43, 0.2); transform: scale(1.02); }
 .opcao-letra { width: 30px; height: 30px; flex-shrink: 0; display: grid; place-items: center; border: 1px solid var(--primary); border-radius: 4px; font-family: var(--display); font-size: 1rem; transition: background .2s, color .2s, transform .3s var(--ease); color: var(--primary); }
 .opcao-btn.selecionada .opcao-letra { background: var(--primary); color: #14110e; transform: rotate(-8deg) scale(1.1); }
 #pergunta-texto.entra, .opcoes-container.entra { animation: subir .5s var(--ease) both; }
 .opcoes-container.entra { animation-delay: .1s; }
 
-/* Drag and Drop (Inspirado na Imagem 3) */
+.input-aberto {
+  width: 100%; min-height: 160px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 16px; color: var(--paper); font-family: inherit; font-size: 1rem; line-height: 1.6; resize: vertical; transition: border-color .2s, box-shadow .2s;
+}
+.input-aberto::placeholder { color: var(--text-muted); }
+.input-aberto:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(200, 147, 43, 0.18); }
+
+/* Drag and Drop */
 .drag-board { display: flex; flex-direction: column; gap: 32px; }
 .casos-pool { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; min-height: 60px; padding: 16px; background: rgba(255,255,255,0.02); border: 1px dashed var(--line); border-radius: 8px; }
-.caso-card { background: var(--surface-2); border: 1px solid var(--primary); padding: 12px 16px; border-radius: 6px; cursor: grab; font-size: 0.9rem; color: var(--paper); user-select: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-.caso-card:active { cursor: grabbing; transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
-.caso-card.dragging { opacity: 0.5; }
+.caso-card { background: var(--surface-2); border: 1px solid var(--primary); padding: 12px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; color: var(--paper); user-select: none; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.3); touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.caso-card:active { transform: scale(0.95); }
+.caso-card.dragging { opacity: 0.5; cursor: grabbing; }
+.caso-card.selecionado { border-color: #fff; background: var(--surface); box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); transform: scale(1.05); }
+
 .zonas-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.drop-zone { background: var(--surface); border: 2px dashed var(--line); border-radius: 12px; padding: 20px; text-align: center; transition: all 0.3s; min-height: 200px; display: flex; flex-direction: column; }
+.drop-zone { background: var(--surface); border: 2px dashed var(--line); border-radius: 12px; padding: 20px; text-align: center; transition: all 0.3s; min-height: 200px; display: flex; flex-direction: column; cursor: pointer; }
+.drop-zone:hover { border-color: rgba(200, 147, 43, 0.5); }
 .drop-zone.drag-over { border-color: var(--primary); background: rgba(200, 147, 43, 0.05); transform: scale(1.02); box-shadow: 0 0 20px rgba(200, 147, 43, 0.1); }
 .drop-zone h3 { font-family: var(--display); color: var(--paper); margin-bottom: 4px; font-size: 1.2rem; }
 .drop-zone p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
-.drop-area { flex: 1; display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: flex-start; }
+.drop-area { flex: 1; display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: flex-start; pointer-events: none; }
 #zona-real.drag-over { border-color: var(--verde); background: rgba(95, 163, 122, 0.05); box-shadow: 0 0 20px rgba(95, 163, 122, 0.1); }
 #zona-ficticio.drag-over { border-color: #ef4444; background: rgba(239, 68, 68, 0.05); box-shadow: 0 0 20px rgba(239, 68, 68, 0.1); }
 
@@ -337,7 +337,6 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
   .filme-modal-poster-wrap { margin-bottom: 20px; }
 }
 
-/* MAGIC NAVIGATION PARA MOBILE (Baseado na Imagem 5) */
 @media (max-width: 768px) {
   html, body { height: auto; overflow: auto; }
   body { flex-direction: column; }
@@ -352,11 +351,11 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
     left: 50%;
     transform: translateX(-50%);
     flex-direction: row; 
-    justify-content: space-around; 
+    justify-content: space-around; /* CORREÇÃO */
     padding: 0 10px; 
     border: 1px solid var(--line); 
     border-radius: 35px;
-    background: rgba(20, 17, 14, 0.95); /* Fundo semi-transparente */
+    background: rgba(20, 17, 14, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     z-index: 100; 
@@ -366,18 +365,18 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
   
   .sidebar-nav { 
     flex-direction: row; 
-    justify-content: space-between; 
+    justify-content: space-around; /* CORREÇÃO */
     width: 100%; 
     gap: 0; 
     position: relative;
   }
   
-  /* A bolinha que desliza (O efeito mágico) */
   .sidebar-nav::before {
     content: '';
     position: absolute;
     top: 50%;
-    left: 10%; /* Posição inicial (será alterada via JS ou classes) */
+    left: 10%; 
+    margin-left: -22px; /* CORREÇÃO: Centraliza a bolinha */
     transform: translateY(-50%);
     width: 44px;
     height: 44px;
@@ -385,15 +384,14 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
     border-radius: 50%;
     transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     z-index: 0;
-    opacity: 0.15; /* Bem sutil para não ofuscar o ícone */
+    opacity: 0.15;
   }
   
-  /* Simulação de posições para 5 itens */
-  .sidebar-nav:has(.nav-item:nth-child(1).active)::before { left: calc(10% + 0px); }
-  .sidebar-nav:has(.nav-item:nth-child(2).active)::before { left: calc(30% - 10px); }
-  .sidebar-nav:has(.nav-item:nth-child(3).active)::before { left: calc(50% - 22px); }
-  .sidebar-nav:has(.nav-item:nth-child(4).active)::before { left: calc(70% - 32px); }
-  .sidebar-nav:has(.nav-item:nth-child(5).active)::before { left: calc(90% - 44px); }
+  .sidebar-nav:has(.nav-item:nth-child(1).active)::before { left: 10%; }
+  .sidebar-nav:has(.nav-item:nth-child(2).active)::before { left: 30%; }
+  .sidebar-nav:has(.nav-item:nth-child(3).active)::before { left: 50%; }
+  .sidebar-nav:has(.nav-item:nth-child(4).active)::before { left: 70%; }
+  .sidebar-nav:has(.nav-item:nth-child(5).active)::before { left: 90%; }
 
   .nav-item { 
     width: 44px; 
@@ -404,13 +402,8 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
     color: var(--text-muted);
   }
   
-  /* Remove o marcador lateral no mobile */
   .nav-item.active::before { display: none; }
-  
-  .nav-item.active { 
-    color: #14110e; /* Ícone fica preto quando ativo */
-  }
-  
+  .nav-item.active { color: #14110e; }
   .nav-item svg { width: 20px; height: 20px; transition: transform 0.3s; }
   .nav-item.active svg { transform: scale(1.1); }
 
@@ -425,8 +418,10 @@ h1, h2, h3, .dado-numero, .passo-numero { font-family: var(--display); letter-sp
   .filme-card-netflix { flex: 0 0 130px; }
   .quiz-container { padding: 15px; }
   .hero-split { gap: 28px; }
+  
   .zonas-container { grid-template-columns: 1fr; }
   .drop-zone { min-height: 150px; }
+  .caso-card { padding: 16px; font-size: 1rem; }
 }
 
 @media (max-width: 480px) { .livros-grid { grid-template-columns: 1fr; } }
