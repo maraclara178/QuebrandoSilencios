@@ -10,7 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Chart.js e Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -70,10 +73,10 @@
         </div>
         <div class="hero-image-wrapper">
           <div class="slide" data-slide>
-            <div class="slide-item ativo"><img src="assets/posters/lelia-ho.png" alt="Lélia Gonzalez" class="poster-img"></div>
-            <div class="slide-item"><img src="assets/posters/2-ho.png" alt="Nelson Mandela" class="poster-img"></div>
-            <div class="slide-item"><img src="assets/posters/3-ho.png" alt="Angela Davis" class="poster-img"></div>
-            <div class="slide-item"><img src="assets/posters/4-ho.png" alt="Martin Luther King" class="poster-img"></div>
+            <div class="slide-item ativo"><img src="assets/posters/lelia.png" alt="Lélia Gonzalez" class="poster-img"></div>
+            <div class="slide-item"><img src="assets/posters/2.png" alt="Nelson Mandela" class="poster-img"></div>
+            <div class="slide-item"><img src="assets/posters/3.png" alt="Angela Davis" class="poster-img"></div>
+            <div class="slide-item"><img src="assets/posters/4.png" alt="Martin Luther King" class="poster-img"></div>
             <div class="slide-indicadores"></div>
           </div>
         </div>
@@ -248,73 +251,161 @@
         </div>
 
         <div id="quiz-perguntas" class="quiz-screen">
-          <div class="quiz-progresso">
-            <div class="barra-progresso" id="barra-progresso"></div>
+          <div class="quiz-progresso-wrap">
+            <div class="quiz-progresso">
+              <div class="barra-progresso" id="barra-progresso"></div>
+            </div>
+            <span class="quiz-progresso-texto" id="quiz-progresso-texto">0%</span>
           </div>
           <p class="quiz-contador" id="quiz-contador">Pergunta 1 de 5</p>
           
           <h2 id="pergunta-texto" class="mt-24">Carregando pergunta...</h2>
           <div id="pergunta-opcoes" class="opcoes-container mt-24"></div>
+          
+          <button id="btn-proxima-aberta" class="btn-assistir mt-24" style="display: none;" onclick="avancarPerguntaAberta()">Próxima Etapa</button>
         </div>
 
+        <!-- TELA 3: DINÂMICA DE CLASSIFICAÇÃO (DRAG & DROP) -->
+        <div id="quiz-classificacao" class="quiz-screen">
+          <p class="selo" style="text-align: center;">Etapa 2</p>
+          <h2 style="text-align: center; color: var(--paper); margin-bottom: 8px;">Você acredita que isso aconteceu?</h2>
+          <p style="text-align: center; color: var(--text-muted); margin-bottom: 32px;">Alguns desses acontecimentos podem parecer fictícios. Arraste (ou clique) nos casos para classificá-los.</p>
+
+          <div class="drag-board">
+            <div class="casos-pool" id="casos-pool"></div>
+
+            <div class="zonas-container">
+              <div class="drop-zone" id="zona-ficticio" data-tipo="ficticio">
+                <h3>Casos Fictícios</h3>
+                <p>Arraste para cá se acha que inventamos.</p>
+                <div class="drop-area"></div>
+              </div>
+              <div class="drop-zone" id="zona-real" data-tipo="real">
+                <h3>Casos Reais</h3>
+                <p>Arraste para cá se acha que aconteceu.</p>
+                <div class="drop-area"></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 32px;">
+            <button id="btn-finalizar-classificacao" class="btn-assistir" onclick="mostrarRevelacao()">Finalizar Classificação</button>
+          </div>
+        </div>
+
+        <!-- TELA 4: REVELAÇÃO (PLOT TWIST) -->
+        <div id="quiz-revelacao" class="quiz-screen" style="text-align: center;">
+          <p class="selo">Quebrando Silêncios · Revelação</p>
+          <h2 style="font-size: 2.5rem; color: var(--paper); line-height: 1.1; margin: 20px 0;">Você classificou os acontecimentos.<br>Mas existe algo que precisa saber.</h2>
+          
+          <h1 style="font-size: 3.5rem; color: var(--primary); font-weight: 800; margin: 30px 0; text-transform: uppercase;">
+            TODOS OS CASOS SÃO REAIS.
+          </h1>
+          
+          <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px;">Nenhuma dessas situações foi inventada. Cada uma delas representa um acontecimento de racismo que realmente ocorreu. <strong>Isso não é ficção. É a realidade de milhares de pessoas negras.</strong></p>
+          
+          <button class="btn-assistir" onclick="mostrarNoticias()">Ver as Reportagens Reais</button>
+        </div>
+
+        <!-- TELA 5: NOTÍCIAS EDITORIAIS -->
+        <div id="quiz-noticias" class="quiz-screen">
+          <p class="selo">Jornalismo e Verdade</p>
+          <h2 style="color: var(--paper); margin-bottom: 24px;">A realidade por trás das perguntas</h2>
+          
+          <div class="noticias-editorial">
+            <!-- Bloco 1 -->
+            <div class="noticia-bloco">
+              <div class="noticia-header">
+                <span class="noticia-tag">Caso 1</span>
+                <h3>A Máscara de Macaco</h3>
+                <p class="noticia-veiculo">G1 · 03/06/2022</p>
+              </div>
+              <div class="noticia-body">
+                <p>Uma mãe denunciou o uso de uma máscara de macaco em seu filho de 3 anos durante uma apresentação de circo em uma escola municipal de São Paulo. A escola alegou que era apenas uma brincadeira, mas a mãe considerou a ação racista e denunciou o caso.</p>
+                <a href="https://g1.globo.com/sp/sao-paulo/noticia/2022/06/03/mae-denuncia-caso-de-racismo-contra-filho-de-3-anos-fantasiado-de-macaco-em-escola-municipal-de-sp.ghtml" target="_blank" class="btn-link-noticia">Ler matéria original no G1 →</a>
+              </div>
+            </div>
+
+            <!-- Bloco 2 -->
+            <div class="noticia-bloco">
+              <div class="noticia-header">
+                <span class="noticia-tag">Caso 2</span>
+                <h3>"Escurecendo a Loja"</h3>
+                <p class="noticia-veiculo">UOL · 2026 (Caso de 2018)</p>
+              </div>
+              <div class="noticia-body">
+                <p>Noemi Oliveira Silva, uma trabalhadora negra, sofreu ofensas racistas no seu primeiro dia de trabalho em uma farmácia. Uma colega fez comentários preconceituosos, incluindo a expressão de que ela estaria "escurecendo a loja". A empresa foi condenada pela Justiça.</p>
+                <a href="https://noticias.uol.com.br/cotidiano/ultimas-noticias/2026/06/03/rede-farmacias-condenacao-tjma.ghtm" target="_blank" class="btn-link-noticia">Ler matéria original no UOL →</a>
+              </div>
+            </div>
+
+            <!-- Bloco 3 -->
+            <div class="noticia-bloco">
+              <div class="noticia-header">
+                <span class="noticia-tag">Caso 3</span>
+                <h3>Abordagem em Shopping</h3>
+                <p class="noticia-veiculo">SBT News</p>
+              </div>
+              <div class="noticia-body">
+                <p>Dois estudantes negros de uma escola privada foram vítimas de racismo em um shopping em Higienópolis, São Paulo. Seguranças abordaram o grupo de forma truculenta, questionando se os adolescentes estavam incomodando, mesmo estando acompanhados de uma amiga branca.</p>
+                <a href="https://sbtnews.sbt.com.br/noticia/brasil/alunos-de-escola-privada-sao-vitimas-de-racismo-em-shopping-de-higienopolis" target="_blank" class="btn-link-noticia">Ler matéria original no SBT News →</a>
+              </div>
+            </div>
+
+            <!-- Bloco 4 -->
+            <div class="noticia-bloco">
+              <div class="noticia-header">
+                <span class="noticia-tag">Caso 4</span>
+                <h3>Violência com Ambulantes</h3>
+                <p class="noticia-veiculo">Racismo Ambiental · 02/06/2025</p>
+              </div>
+              <div class="noticia-body">
+                <p>Uma reportagem investigou relatos de violência policial contra vendedores ambulantes no centro de São Paulo. Segundo dados, mais da metade das vítimas de agressões eram pessoas negras, incluindo trabalhadores migrantes africanos e caribenhos.</p>
+                <a href="https://racismoambiental.net.br/2025/06/02/vendedores-ambulantes-do-centro-de-sao-paulo-relatam-rotina-de-violencia-da-policia/" target="_blank" class="btn-link-noticia">Ler matéria original →</a>
+              </div>
+            </div>
+
+            <!-- Bloco 5 -->
+            <div class="noticia-bloco">
+              <div class="noticia-header">
+                <span class="noticia-tag">Caso 5</span>
+                <h3>Racismo Contra uma Família</h3>
+                <p class="noticia-veiculo">MPPE</p>
+              </div>
+              <div class="noticia-body">
+                <p>Uma vizinha foi condenada pela Justiça por ofensas racistas contra uma família. Os ataques incluíam comentários ofensivos sobre a cor da pele e comparações com animais, afetando a tranquilidade de todos dentro da própria casa.</p>
+                <a href="https://portal.mppe.mp.br/w/em-acao-penal-do-mppe-justica-condena-mulher-pelo-crime-de-racismo-contra-uma-familia" target="_blank" class="btn-link-noticia">Ler matéria original do MPPE →</a>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);">
+            <h3 style="color: var(--paper); margin-bottom: 16px;">Agora, o que as suas respostas revelam sobre você?</h3>
+            <button class="btn-assistir" onclick="mostrarDiagnostico()">Ver meu Resultado</button>
+          </div>
+        </div>
+
+        <!-- TELA 6: DIAGNÓSTICO FINAL -->
         <div id="quiz-resultado" class="quiz-screen">
           <div class="resultado-content">
             <p class="selo">Seu perfil de reação é</p>
             <h2 id="resultado-perfil" style="color: var(--primary); font-size: 2.2rem;">Ação Antirracista</h2>
             
-            <div class="resultado-feedback glass-card mt-24" style="background: rgba(0,0,0,0.3); border-color: var(--border-color);">
+            <div class="resultado-feedback glass-card mt-24" style="background: var(--surface-2); border-color: var(--line);">
               <p id="resultado-texto">Carregando análise...</p>
-            </div>
-
-            <div class="resultado-revelacao mt-24">
-              <h3 style="color: var(--primary); margin-bottom: 8px; font-size: 1.4rem; text-align: center;">A verdade por trás das perguntas</h3>
-              <p style="font-size: 0.95rem; color: #fff; line-height: 1.6; margin-bottom: 24px; text-align: center;">
-                As situações que você leu não foram inventadas. Elas são baseadas em casos reais e noticiados. Deslize para ler e clique no card para acessar a matéria original:
-              </p>
-              
-              <div class="carrossel-noticias" id="carrossel-noticias">
-                
-                <a href="https://g1.globo.com/sp/sao-paulo/noticia/2022/06/03/mae-denuncia-caso-de-racismo-contra-filho-de-3-anos-fantasiado-de-macaco-em-escola-municipal-de-sp.ghtml" target="_blank" class="noticia-card">
-                  <div class="noticia-tag">Caso 1</div>
-                  <h4>A Máscara de Macaco</h4>
-                  <p>Escola municipal de SP (2022). Uma mãe denunciou o uso da máscara em seu filho de 3 anos em uma atividade de circo.</p>
-                  <span class="noticia-link">Ler matéria no G1 →</span>
-                </a>
-
-                <a href="https://noticias.uol.com.br/cotidiano/ultimas-noticias/2026/06/03/rede-farmacias-condenacao-tjma.ghtm" target="_blank" class="noticia-card">
-                  <div class="noticia-tag">Caso 2</div>
-                  <h4>"Escurecendo a loja"</h4>
-                  <p>Caso real de Noemi Oliveira Silva, ofendida no seu primeiro dia na Drogasil em 2018. A empresa foi condenada.</p>
-                  <span class="noticia-link">Ler matéria no UOL →</span>
-                </a>
-
-                <a href="https://sbtnews.sbt.com.br/noticia/brasil/alunos-de-escola-privada-sao-vitimas-de-racismo-em-shopping-de-higienopolis" target="_blank" class="noticia-card">
-                  <div class="noticia-tag">Caso 3</div>
-                  <h4>Abordagem no Shopping</h4>
-                  <p>Alunos negros de escola privada são vítimas de racismo em shopping de Higienópolis (SP).</p>
-                  <span class="noticia-link">Ler matéria no SBT News →</span>
-                </a>
-
-                <a href="https://racismoambiental.net.br/2025/06/02/vendedores-ambulantes-do-centro-de-sao-paulo-relatam-rotina-de-violencia-da-policia/" target="_blank" class="noticia-card">
-                  <div class="noticia-tag">Caso 4</div>
-                  <h4>Vendedores Ambulantes</h4>
-                  <p>Relatos de rotina de violência policial e discriminação contra ambulantes negros no centro de SP (2025).</p>
-                  <span class="noticia-link">Ler matéria no Racismo Ambiental →</span>
-                </a>
-
-                <a href="https://portal.mppe.mp.br/w/em-acao-penal-do-mppe-justica-condena-mulher-pelo-crime-de-racismo-contra-uma-familia" target="_blank" class="noticia-card">
-                  <div class="noticia-tag">Caso 5</div>
-                  <h4>Racismo contra uma Família</h4>
-                  <p>Vizinha é condenada pela Justiça por ofensas racistas e comparações com animais contra uma família.</p>
-                  <span class="noticia-link">Ler matéria do MPPE →</span>
-                </a>
-
-              </div>
             </div>
 
             <div class="resultado-fontes mt-24">
               <p style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Baseado nas situações e literaturas de:</p>
-              <p style="font-size: 0.95rem; color: #fff; margin-top: 8px;">Silvio Almeida (2019) · Eliane Cavalleiro (2003) · Nilma Lino Gomes (2011)</p>
+              <p style="font-size: 0.95rem; color: var(--paper); margin-top: 8px;">Silvio Almeida (2019) · Eliane Cavalleiro (2003) · Nilma Lino Gomes (2011)</p>
+            </div>
+
+            <div class="resultado-compartilhar mt-24">
+              <p style="color: var(--text-muted); margin-bottom: 12px; font-size: 0.9rem;">Compartilhe seu resultado e ajude a quebrar silêncios:</p>
+              <button class="btn-compartilhar" onclick="compartilharResultado()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                Compartilhar no WhatsApp
+              </button>
             </div>
 
             <div class="selo-agente mt-48" id="selo-agente">
@@ -358,7 +449,7 @@
 
   </main>
 
-  <!-- MODAL DE DADOS -->
+  <!-- MODAIS -->
   <div id="modal-grafico" class="modal-overlay">
     <div class="modal-content glass-card">
       <button class="modal-close" id="fechar-modal">&times;</button>
@@ -368,7 +459,6 @@
     </div>
   </div>
 
-  <!-- MODAL DA RESENHA DO LIVRO -->
   <div id="modal-livro" class="modal-overlay">
     <div class="modal-content-resenha glass-card">
       <button class="modal-close" id="fechar-modal-livro">&times;</button>
@@ -401,7 +491,6 @@
     </div>
   </div>
 
-  <!-- MODAL DO FILME -->
   <div id="modal-filme" class="modal-overlay">
     <div class="modal-content-resenha glass-card">
       <button class="modal-close" id="fechar-modal-filme">&times;</button>
