@@ -388,269 +388,656 @@ function abrirModalFilme(index) {
 
 if (btnFecharFilme) btnFecharFilme.addEventListener('click', () => modalFilme.classList.remove('active'));
 if (modalFilme) modalFilme.addEventListener('click', (e) => { if (e.target === modalFilme) modalFilme.classList.remove('active'); });
+
 // =========================================================
-// 6. LÓGICA DO QUIZ (NOVA JORNADA DE CONSCIENTIZAÇÃO)
+// 6. QUIZ — QUEBRANDO SILÊNCIOS
 // =========================================================
 
-// A função de renderizar perguntas continua a mesma, mas ao invés de chamar finalizarQuiz na última,
-// ela vai chamar iniciarClassificacao(). (Já ajustado abaixo)
+// =========================================================
+// 1. CONEXÃO COM O SUPABASE
+// =========================================================
+
+// Preencha com os dados do projeto Supabase.
+// Utilize a chave pública (publishable/anon), nunca a service_role.
+
+const SUPABASE_URL = "SUA_URL_DO_SUPABASE";
+const SUPABASE_ANON_KEY = "SUA_CHAVE_PUBLICA_DO_SUPABASE";
+
+let supabaseClient = null;
+
+if (
+  window.supabase &&
+  SUPABASE_URL !== "SUA_URL_DO_SUPABASE" &&
+  SUPABASE_ANON_KEY !== "SUA_CHAVE_PUBLICA_DO_SUPABASE"
+) {
+  supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+} else {
+  console.warn("Configure a URL e a chave pública do Supabase.");
+}
+
+// =========================================================
+// 2. PERGUNTAS DO QUIZ
+// =========================================================
+
+// Os perfis são registrados internamente.
+// O participante não verá a classificação das alternativas.
+
+const perguntasQuiz = [
+  {
+    id: "1",
+    texto: `Você presencia uma situação em uma escola na qual uma criança negra é associada a uma fantasia de macaco. A situação provoca desconforto entre algumas pessoas presentes, mas ninguém parece saber como reagir.
+
+O que você faria diante dessa situação?`,
+
+    opcoes: [
+      {
+        letra: "A",
+        texto: "Procuraria compreender melhor o ocorrido, conversando com outras pessoas e buscando informações sobre como situações semelhantes afetam crianças negras.",
+        perfil: "reflexao",
+        pontos: 2
+      },
+      {
+        letra: "B",
+        texto: "Tentaria acolher a criança e sua família, demonstrando apoio e procurando os responsáveis pela escola para que o caso fosse devidamente apurado.",
+        perfil: "acao",
+        pontos: 3
+      },
+      {
+        letra: "C",
+        texto: "Preferiria não me envolver diretamente, considerando que a situação deveria ser resolvida pela família e pela direção da escola.",
+        perfil: "omissao",
+        pontos: 0
+      },
+      {
+        letra: "D",
+        texto: "Questionaria imediatamente a atitude dos envolvidos, demonstrando indignação e exigindo uma explicação pelo ocorrido.",
+        perfil: "reativa",
+        pontos: 1
+      }
+    ]
+  },
+
+  {
+    id: "2",
+    texto: `Você está em uma farmácia quando ouve uma funcionária fazer um comentário racista sobre uma mulher negra, utilizando a expressão "escurecendo a loja". Algumas pessoas percebem o comentário, mas a rotina do estabelecimento continua normalmente.
+
+Como você reagiria?`,
+
+    opcoes: [
+      {
+        letra: "A",
+        texto: "Chamaria a atenção da funcionária naquele momento, deixando claro que o comentário foi inadequado e que não deveria ser tratado como brincadeira.",
+        perfil: "reativa",
+        pontos: 1
+      },
+      {
+        letra: "B",
+        texto: "Evitaria participar da situação, pois não teria certeza de como agir e acreditaria que a própria empresa deveria tomar alguma providência.",
+        perfil: "omissao",
+        pontos: 0
+      },
+      {
+        letra: "C",
+        texto: "Procuraria apoiar a mulher atingida, orientando-a sobre os canais de denúncia e buscando registrar uma reclamação formal junto à empresa.",
+        perfil: "acao",
+        pontos: 3
+      },
+      {
+        letra: "D",
+        texto: "Depois de presenciar a situação, pesquisaria sobre racismo no ambiente de trabalho e sobre a responsabilidade dos estabelecimentos diante de atitudes discriminatórias.",
+        perfil: "reflexao",
+        pontos: 2
+      }
+    ]
+  },
+
+  {
+    id: "3",
+    texto: `Você está em um shopping e percebe que dois adolescentes negros estão sendo observados e abordados por funcionários de segurança de maneira diferente de outros clientes. A situação parece constrangedora, mas não há uma explicação clara para a abordagem.
+
+O que você faria?`,
+
+    opcoes: [
+      {
+        letra: "A",
+        texto: "Procuraria entender o que motivou a abordagem, observando a situação e buscando informações sobre práticas de discriminação racial em espaços comerciais.",
+        perfil: "reflexao",
+        pontos: 2
+      },
+      {
+        letra: "B",
+        texto: "Aproximaria-me dos adolescentes para oferecer apoio e, se necessário, ajudaria a encaminhar uma reclamação à administração do shopping.",
+        perfil: "acao",
+        pontos: 3
+      },
+      {
+        letra: "C",
+        texto: "Questionaria os seguranças sobre o motivo da abordagem, demonstrando que percebi a diferença de tratamento.",
+        perfil: "reativa",
+        pontos: 1
+      },
+      {
+        letra: "D",
+        texto: "Continuaria minhas atividades no shopping, entendendo que não seria adequado interferir em uma abordagem realizada pelos funcionários.",
+        perfil: "omissao",
+        pontos: 0
+      }
+    ]
+  },
+
+  {
+    id: "4",
+    texto: `Você encontra uma notícia sobre vendedores ambulantes negros que relatam episódios de violência e abordagens policiais abusivas durante o trabalho nas ruas de São Paulo. A situação gera comentários nas redes sociais, alguns minimizando os acontecimentos.
+
+Como você se posicionaria diante disso?`,
+
+    opcoes: [
+      {
+        letra: "A",
+        texto: "Acompanharia as discussões sem participar, pois consideraria que não possui informações suficientes para opinar sobre o assunto.",
+        perfil: "omissao",
+        pontos: 0
+      },
+      {
+        letra: "B",
+        texto: "Responderia aos comentários que minimizam a situação, questionando a postura das pessoas e demonstrando indignação com o ocorrido.",
+        perfil: "reativa",
+        pontos: 1
+      },
+      {
+        letra: "C",
+        texto: "Buscaria compreender o contexto, pesquisando sobre racismo estrutural, desigualdade social e a relação entre esses fatores e a violência contra trabalhadores negros.",
+        perfil: "reflexao",
+        pontos: 2
+      },
+      {
+        letra: "D",
+        texto: "Compartilharia informações verificadas sobre o caso, valorizaria os relatos dos trabalhadores e procuraria divulgar iniciativas e organizações que atuam na defesa de seus direitos.",
+        perfil: "acao",
+        pontos: 3
+      }
+    ]
+  }
+];
+
+// =========================================================
+// 3. QUINTA PERGUNTA — RESPOSTA ABERTA
+// =========================================================
+
+const perguntaAberta = {
+  id: "5",
+  texto: `Uma família de Caruaru, em Pernambuco, sofreu ofensas racistas de uma vizinha durante um longo período. Os ataques incluíam comentários ofensivos sobre a cor da pele e comparações com animais. O caso chegou à Justiça, e a responsável foi condenada pelo crime de racismo.
+
+Imagine que você estivesse no lugar dessa família.
+
+O que você faria diante dessas situações? Como agiria para enfrentar o racismo, buscar apoio e lidar com a continuidade dessas ofensas?`
+};
+
+// =========================================================
+// 4. VARIÁVEIS DO QUIZ
+// =========================================================
 
 let perguntaAtual = 0;
 let pontuacaoTotal = 0;
 let respostasUsuario = {};
-let classificacaoCasos = {}; // Guardará { caso1: 'real', caso2: 'ficticio', ... }
+let classificacaoCasos = {};
+let salvamentoIniciado = false;
 
-function iniciarQuiz() {
-  document.querySelectorAll('.quiz-screen').forEach(tela => tela.classList.remove('active'));
-  document.getElementById('quiz-perguntas').classList.add('active');
-  perguntaAtual = 0;
-  pontuacaoTotal = 0;
-  respostasUsuario = {};
-  classificacaoCasos = {};
-  renderizarPergunta();
-}
+// =========================================================
+// 5. CONTROLE DAS TELAS
+// =========================================================
 
-function renderizarPergunta() {
-  const total = perguntasQuiz.length;
-  const p = perguntasQuiz[perguntaAtual];
-  const container = document.getElementById('pergunta-opcoes');
-  const texto = document.getElementById('pergunta-texto');
-  const barra = document.getElementById('barra-progresso');
-  const progressoTexto = document.getElementById('quiz-progresso-texto');
-  const btnAberta = document.getElementById('btn-proxima-aberta');
-  
-  let porcentagem = Math.round((perguntaAtual / total) * 100);
-  document.getElementById('quiz-contador').innerText = `Pergunta ${perguntaAtual + 1} de ${total}`;
-  barra.style.width = `${porcentagem}%`;
-  if (progressoTexto) progressoTexto.innerText = `${porcentagem}%`;
-  
-  texto.innerText = p.texto;
-  container.innerHTML = '';
-  container.classList.remove('travado');
-  if(btnAberta) btnAberta.style.display = 'none'; 
+function trocarTela(idTela) {
+  document.querySelectorAll(".quiz-screen").forEach(tela => {
+    tela.classList.remove("active");
+  });
 
-  [texto, container].forEach(el => { el.classList.remove('entra'); void el.offsetWidth; el.classList.add('entra'); });
+  const tela = document.getElementById(idTela);
 
-  if (p.opcoes.length > 0) {
-    p.opcoes.forEach(o => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'opcao-btn';
-      btn.innerHTML = `<span class="opcao-letra">${o.letra}</span><span>${o.texto}</span>`;
-      
-      btn.addEventListener('click', () => {
-        if (container.classList.contains('travado')) return;
-        container.classList.add('travado');
-        btn.classList.add('selecionada');
-        
-        pontuacaoTotal += o.pontos;
-        respostasUsuario[p.id] = o.texto;
-        
-        if (perguntaAtual + 1 === total) barra.style.width = '100%';
-        
-        setTimeout(() => {
-          perguntaAtual++;
-          if (perguntaAtual < total) renderizarPergunta();
-          else iniciarClassificacao(); // Em vez de finalizar, vai para a classificação
-        }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 150 : 650);
-      });
-      container.appendChild(btn);
+  if (tela) {
+    tela.classList.add("active");
+  }
+
+  if (mainContainer) {
+    mainContainer.scrollTo({
+      top: 0,
+      behavior: "smooth"
     });
-  } else {
-    const textarea = document.createElement('textarea');
-    textarea.className = 'input-aberto';
-    textarea.id = 'resposta-aberta';
-    textarea.placeholder = 'Descreva sua ideia aqui...';
-    container.appendChild(textarea);
-    
-    btnAberta.style.display = 'inline-flex';
-    btnAberta.onclick = () => {
-      const resposta = textarea.value.trim();
-      if (resposta === '') {
-        alert('Por favor, escreva uma resposta antes de finalizar.');
-        return;
-      }
-      respostasUsuario[p.id] = resposta;
-      iniciarClassificacao(); // Em vez de finalizar, vai para a classificação
-    };
   }
 }
 
 // =========================================================
-// ETAPA 2: DRAG AND DROP (CLASSIFICAÇÃO)
+// 6. INICIAR QUIZ
 // =========================================================
+
+function iniciarQuiz() {
+  perguntaAtual = 0;
+  pontuacaoTotal = 0;
+  respostasUsuario = {};
+  classificacaoCasos = {};
+  salvamentoIniciado = false;
+
+  trocarTela("quiz-perguntas");
+  renderizarPergunta();
+}
+
+// =========================================================
+// 7. RENDERIZAR PERGUNTAS
+// =========================================================
+
+function renderizarPergunta() {
+  const total = 5;
+
+  const texto = document.getElementById("pergunta-texto");
+  const container = document.getElementById("pergunta-opcoes");
+  const barra = document.getElementById("barra-progresso");
+  const progressoTexto = document.getElementById("quiz-progresso-texto");
+  const contador = document.getElementById("quiz-contador");
+  const btnAberta = document.getElementById("btn-proxima-aberta");
+
+  if (!texto || !container || !barra || !contador) return;
+
+  const porcentagem = Math.round((perguntaAtual / total) * 100);
+
+  contador.innerText = `Pergunta ${perguntaAtual + 1} de ${total}`;
+  barra.style.width = `${porcentagem}%`;
+
+  if (progressoTexto) {
+    progressoTexto.innerText = `${porcentagem}%`;
+  }
+
+  container.innerHTML = "";
+  container.classList.remove("travado");
+
+  if (btnAberta) {
+    btnAberta.style.display = "none";
+  }
+
+  // Q1 até Q4: múltipla escolha
+
+  if (perguntaAtual < 4) {
+    const pergunta = perguntasQuiz[perguntaAtual];
+
+    texto.innerText = pergunta.texto;
+
+    pergunta.opcoes.forEach(opcao => {
+      const botao = document.createElement("button");
+
+      botao.type = "button";
+      botao.className = "opcao-btn";
+
+      const letra = document.createElement("span");
+      letra.className = "opcao-letra";
+      letra.innerText = opcao.letra;
+
+      const descricao = document.createElement("span");
+      descricao.innerText = opcao.texto;
+
+      botao.appendChild(letra);
+      botao.appendChild(descricao);
+
+      botao.addEventListener("click", () => {
+        if (container.classList.contains("travado")) return;
+
+        container.classList.add("travado");
+        botao.classList.add("selecionada");
+
+        // Guarda a alternativa e sua classificação interna.
+        respostasUsuario[pergunta.id] = opcao.letra;
+
+        pontuacaoTotal += opcao.pontos;
+
+        setTimeout(() => {
+          perguntaAtual++;
+          renderizarPergunta();
+        }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 100 : 500);
+      });
+
+      container.appendChild(botao);
+    });
+
+  } else {
+    // Q5: resposta aberta
+
+    texto.innerText = perguntaAberta.texto;
+
+    const textarea = document.createElement("textarea");
+
+    textarea.className = "input-aberto";
+    textarea.id = "resposta-aberta";
+    textarea.placeholder = "Escreva o que você faria nessa situação...";
+    textarea.rows = 6;
+    textarea.maxLength = 3000;
+
+    container.appendChild(textarea);
+
+    if (btnAberta) {
+      btnAberta.innerText = "Concluir respostas";
+      btnAberta.style.display = "inline-flex";
+    }
+  }
+}
+
+// =========================================================
+// 8. AVANÇAR PERGUNTA ABERTA
+// =========================================================
+
+function avancarPerguntaAberta() {
+  const textarea = document.getElementById("resposta-aberta");
+
+  if (!textarea) return;
+
+  const resposta = textarea.value.trim();
+
+  if (resposta.length < 10) {
+    alert("Escreva uma resposta um pouco mais completa antes de continuar.");
+    textarea.focus();
+    return;
+  }
+
+  respostasUsuario["5"] = resposta;
+
+  // Após a Q5, inicia a dinâmica de classificação.
+  iniciarClassificacao();
+}
+
+// =========================================================
+// 9. CLASSIFICAÇÃO DOS CINCO CASOS
+// =========================================================
+
 const casos = [
-  { id: 'caso1', titulo: 'Máscara de Macaco na Escola' },
-  { id: 'caso2', titulo: '"Escurecendo a Loja" na Drogasil' },
-  { id: 'caso3', titulo: 'Abordagem em Shopping de Luxo' },
-  { id: 'caso4', titulo: 'Violência Policial com Ambulantes' },
-  { id: 'caso5', titulo: 'Ofensas de Vizinha contra Família' }
+  {
+    id: "caso1",
+    titulo: "Máscara de Macaco na Escola"
+  },
+  {
+    id: "caso2",
+    titulo: '"Escurecendo a Loja" na Drogasil'
+  },
+  {
+    id: "caso3",
+    titulo: "Abordagem em Shopping"
+  },
+  {
+    id: "caso4",
+    titulo: "Violência Policial com Ambulantes"
+  },
+  {
+    id: "caso5",
+    titulo: "Ofensas contra uma Família"
+  }
 ];
 
 function iniciarClassificacao() {
-  document.querySelectorAll('.quiz-screen').forEach(tela => tela.classList.remove('active'));
-  document.getElementById('quiz-classificacao').classList.add('active');
-  
-  const pool = document.getElementById('casos-pool');
-  pool.innerHTML = '';
-  classificacaoCasos = {};
-  
-  // Renderiza os cards no pool
-  casos.forEach(c => {
-    const card = document.createElement('div');
-    card.className = 'caso-card';
-    card.draggable = true;
-    card.id = c.id;
-    card.innerText = c.titulo;
-    
-    // Eventos de Drag (Desktop)
-    card.addEventListener('dragstart', (e) => {
-      e.dataTransfer.setData('text/plain', c.id);
-      card.classList.add('dragging');
-    });
-    card.addEventListener('dragend', () => card.classList.remove('dragging'));
+  trocarTela("quiz-classificacao");
 
-    // Eventos de Touch/Click (Mobile e Acessibilidade)
-    card.addEventListener('click', () => {
-      // Lógica simples: clicar alterna o card entre as zonas
-      const zoneReal = document.getElementById('zona-real').querySelector('.drop-area');
-      const zoneFict = document.getElementById('zona-ficticio').querySelector('.drop-area');
-      
-      if (card.parentElement.classList.contains('drop-area')) {
-         // Se já está numa zona, volta pro pool
-         pool.appendChild(card);
-         delete classificacaoCasos[c.id];
+  const pool = document.getElementById("casos-pool");
+
+  if (!pool) return;
+
+  pool.innerHTML = "";
+
+  classificacaoCasos = {};
+
+  const zonaReal = document.querySelector("#zona-real .drop-area");
+  const zonaFicticio = document.querySelector("#zona-ficticio .drop-area");
+
+  if (zonaReal) zonaReal.innerHTML = "";
+  if (zonaFicticio) zonaFicticio.innerHTML = "";
+
+  casos.forEach(caso => {
+    const card = document.createElement("div");
+
+    card.className = "caso-card";
+    card.id = caso.id;
+    card.innerText = caso.titulo;
+    card.draggable = true;
+    card.dataset.estado = "";
+
+    card.addEventListener("dragstart", event => {
+      event.dataTransfer.setData("text/plain", caso.id);
+      card.classList.add("dragging");
+    });
+
+    card.addEventListener("dragend", () => {
+      card.classList.remove("dragging");
+    });
+
+    // Clique: alterna entre não classificado, real e fictício.
+    card.addEventListener("click", () => {
+      const estadoAtual = card.dataset.estado;
+
+      if (estadoAtual === "") {
+        moverCaso(caso.id, "real");
+      } else if (estadoAtual === "real") {
+        moverCaso(caso.id, "ficticio");
       } else {
-         // Se está no pool, manda para a zona Real por padrão (o usuário pode clicar de novo para mudar para Fictício)
-         // Para simplificar, vamos fazer um toggle visual
-         if (!card.dataset.estado || card.dataset.estado === 'ficticio') {
-           zoneReal.appendChild(card);
-           card.dataset.estado = 'real';
-           classificacaoCasos[c.id] = 'real';
-         } else {
-           zoneFict.appendChild(card);
-           card.dataset.estado = 'ficticio';
-           classificacaoCasos[c.id] = 'ficticio';
-         }
+        moverCaso(caso.id, "");
       }
     });
 
     pool.appendChild(card);
   });
 
-  // Configurar as Zonas de Drop
-  document.querySelectorAll('.drop-zone').forEach(zone => {
-    zone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      zone.classList.add('drag-over');
-    });
-    zone.addEventListener('dragleave', () => {
-      zone.classList.remove('drag-over');
-    });
-    zone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      zone.classList.remove('drag-over');
-      const id = e.dataTransfer.getData('text/plain');
-      const card = document.getElementById(id);
-      if (card) {
-        zone.querySelector('.drop-area').appendChild(card);
-        card.dataset.estado = zone.dataset.tipo;
-        classificacaoCasos[id] = zone.dataset.tipo;
-      }
-    });
+  configurarZonasDeArraste();
+}
+
+function moverCaso(id, destino) {
+  const card = document.getElementById(id);
+
+  if (!card) return;
+
+  const pool = document.getElementById("casos-pool");
+
+  if (destino === "real") {
+    const area = document.querySelector("#zona-real .drop-area");
+    area.appendChild(card);
+
+  } else if (destino === "ficticio") {
+    const area = document.querySelector("#zona-ficticio .drop-area");
+    area.appendChild(card);
+
+  } else {
+    pool.appendChild(card);
+  }
+
+  card.dataset.estado = destino;
+
+  if (destino) {
+    classificacaoCasos[id] = destino;
+  } else {
+    delete classificacaoCasos[id];
+  }
+}
+
+function configurarZonasDeArraste() {
+  document.querySelectorAll(".drop-zone").forEach(zona => {
+
+    zona.ondragover = event => {
+      event.preventDefault();
+      zona.classList.add("drag-over");
+    };
+
+    zona.ondragleave = () => {
+      zona.classList.remove("drag-over");
+    };
+
+    zona.ondrop = event => {
+      event.preventDefault();
+      zona.classList.remove("drag-over");
+
+      const id = event.dataTransfer.getData("text/plain");
+
+      moverCaso(id, zona.dataset.tipo);
+    };
   });
 }
 
 // =========================================================
-// ETAPA 3: REVELAÇÃO
+// 10. REVELAÇÃO DOS CASOS
 // =========================================================
+
 function mostrarRevelacao() {
-  // Verifica se o usuário classificou todos
-  if (Object.keys(classificacaoCasos).length < 5) {
-    alert("Por favor, classifique todos os 5 casos antes de continuar.");
+  if (Object.keys(classificacaoCasos).length !== 5) {
+    alert("Classifique todos os cinco casos antes de continuar.");
     return;
   }
-  
-  document.querySelectorAll('.quiz-screen').forEach(tela => tela.classList.remove('active'));
-  document.getElementById('quiz-revelacao').classList.add('active');
+
+  trocarTela("quiz-revelacao");
 }
 
 // =========================================================
-// ETAPA 4: NOTÍCIAS E DIAGNÓSTICO
+// 11. NOTÍCIAS
 // =========================================================
+
 function mostrarNoticias() {
-  document.querySelectorAll('.quiz-screen').forEach(tela => tela.classList.remove('active'));
-  document.getElementById('quiz-noticias').classList.add('active');
-  if(mainContainer) mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
+  trocarTela("quiz-noticias");
 }
 
-function mostrarDiagnostico() {
-  let perfil = ""; 
-  let textoFeedback = "";
+// =========================================================
+// 12. DEFINIÇÃO DO PERFIL
+// =========================================================
 
-  if (pontuacaoTotal <= 4) { 
-    perfil = "Omissão / Passividade"; 
-    textoFeedback = "Você tende a não intervir diante de situações de racismo, possivelmente por medo do conflito ou por não saber como agir. Segundo Silvio Almeida, a omissão fortalece o racismo estrutural. O próximo passo é buscar letramento e entender que o silêncio também é uma escolha."; 
-  } else if (pontuacaoTotal <= 8) { 
-    perfil = "Reação Reativa"; 
-    textoFeedback = "Você não se cala, o que é importante! Porém, suas reações podem ser impulsivas e gerar mais conflito. Como aponta Eliane Cavalleiro, a prática antirracista exige acolhimento e reflexão. Tente focar na educação antes de gritar ou acusar."; 
-  } else if (pontuacaoTotal <= 12) { 
-    perfil = "Reflexão Crítica"; 
-    textoFeedback = "Você percebe o racismo e tenta agir, mas muitas vezes de forma indireta. Nilma Lino Gomes destaca a importância de sair do campo da reflexão para a ação coletiva. Tente se posicionar mais na hora dos fatos e mobilizar a escola e o trabalho."; 
-  } else { 
-    perfil = "Ação Antirracista Consciente"; 
-    textoFeedback = "Parabéns! Você compreende que a educação antirracista exige intervenção ativa, acolhimento e mudança estrutural. Suas atitudes mostram que você atua para quebrar os silêncios no ambiente escolar e social. Continue sendo um multiplicador!"; 
+function calcularPerfil() {
+  let perfil = "";
+  let feedback = "";
+
+  // A pontuação máxima é 12.
+  // Cada questão vale de 0 a 3 pontos.
+
+  if (pontuacaoTotal <= 3) {
+    perfil = "Omissão / Passividade";
+
+    feedback = `Suas respostas indicam uma tendência a não intervir diretamente diante de situações de racismo. Isso pode estar relacionado à insegurança, ao receio de conflitos ou à dificuldade de reconhecer formas de agir.
+
+O silêncio também pode contribuir para a permanência de práticas discriminatórias. Buscar conhecimento e desenvolver estratégias de apoio são passos importantes para transformar essa postura.`;
+
+  } else if (pontuacaoTotal <= 6) {
+    perfil = "Reação Reativa";
+
+    feedback = `Suas respostas indicam uma tendência a reagir de maneira imediata diante de situações de racismo, demonstrando incômodo e disposição para questionar atitudes discriminatórias.
+
+Entretanto, é importante desenvolver estratégias que aliem posicionamento, acolhimento e encaminhamentos responsáveis, para que a reação também contribua para mudanças efetivas.`;
+
+  } else if (pontuacaoTotal <= 9) {
+    perfil = "Reflexão Crítica";
+
+    feedback = `Suas respostas demonstram uma tendência a procurar compreender as situações, analisar seus contextos e reconhecer como o racismo se manifesta na sociedade.
+
+A reflexão é fundamental para o letramento racial. O desafio é transformar esse conhecimento em atitudes concretas de enfrentamento, apoio e mobilização coletiva.`;
+
+  } else {
+    perfil = "Ação Antirracista Consciente";
+
+    feedback = `Suas respostas indicam uma tendência a combinar posicionamento, acolhimento e busca por medidas concretas diante de situações de racismo.
+
+A ação antirracista exige continuidade: apoiar pessoas atingidas, questionar práticas discriminatórias, buscar os canais adequados e contribuir para transformar os espaços sociais.`;
+
   }
 
-  document.getElementById('resultado-perfil').innerText = perfil;
-  document.getElementById('resultado-texto').innerText = textoFeedback;
-  
-  document.querySelectorAll('.quiz-screen').forEach(tela => tela.classList.remove('active'));
-  document.getElementById('quiz-resultado').classList.add('active');
-  if(mainContainer) mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
-
-  // SALVA NO BANCO DE DADOS AQUI (Agora temos as respostas e as classificações)
-  salvarNoBancoDeDados(pontuacaoTotal, perfil, respostasUsuario, classificacaoCasos);
-}
-
-function reiniciarQuiz() {
-  document.querySelectorAll('.quiz-screen').forEach(tela => tela.classList.remove('active'));
-  document.getElementById('quiz-intro').classList.add('active');
-  if(mainContainer) mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
+  return { perfil, feedback };
 }
 
 // =========================================================
-// INTEGRAÇÃO COM O SUPABASE (ATUALIZADA)
+// 13. MOSTRAR DIAGNÓSTICO
 // =========================================================
-async function salvarNoBancoDeDados(pontuacao, perfil, respostas, classificacoes) {
-  if (!supabaseClient) return;
 
-  // Prepara os dados de classificação (caso o usuário não tenha mexido, salva como null)
-  const c1 = classificacoes['caso1'] || null;
-  const c2 = classificacoes['caso2'] || null;
-  const c3 = classificacoes['caso3'] || null;
-  const c4 = classificacoes['caso4'] || null;
-  const c5 = classificacoes['caso5'] || null;
+async function mostrarDiagnostico() {
+  const resultado = calcularPerfil();
+
+  document.getElementById("resultado-perfil").innerText =
+    resultado.perfil;
+
+  document.getElementById("resultado-texto").innerText =
+    resultado.feedback;
+
+  trocarTela("quiz-resultado");
+
+  // Evita salvar duas vezes se o botão for acionado novamente.
+  if (!salvamentoIniciado) {
+    salvamentoIniciado = true;
+
+    await salvarNoBancoDeDados(
+      pontuacaoTotal,
+      resultado.perfil,
+      respostasUsuario
+    );
+  }
+}
+
+// =========================================================
+// 14. SALVAR NO SUPABASE
+// =========================================================
+
+async function salvarNoBancoDeDados(pontuacao, perfil, respostas) {
+
+  if (!supabaseClient) {
+    console.error("Supabase não está conectado.");
+    return;
+  }
 
   const dadosParaSalvar = {
     pontuacao: pontuacao,
     perfil: perfil,
-    q1: respostas['1'] || 'Não respondida',
-    q2: respostas['2'] || 'Não respondida',
-    q3: respostas['3'] || 'Não respondida',
-    q4: respostas['4'] || 'Não respondida',
-    q5_aberta: respostas['5'] || 'Não respondida',
-    caso1: c1,
-    caso2: c2,
-    caso3: c3,
-    caso4: c4,
-    caso5: c5
+
+    q1: respostas["1"] || null,
+    q2: respostas["2"] || null,
+    q3: respostas["3"] || null,
+    q4: respostas["4"] || null,
+
+    q5_aberta: respostas["5"] || null
   };
 
-  const { error } = await supabaseClient
-    .from('respostas_quiz')
-    .insert([dadosParaSalvar]);
+  try {
+    const { data, error } = await supabaseClient
+      .from("respostas_quiz")
+      .insert([dadosParaSalvar])
+      .select();
 
-  if (error) console.error("❌ Erro ao salvar no Supabase:", error.message);
-  else console.log("✅ Resposta do quiz salva com sucesso no Supabase!");
+    if (error) {
+      console.error("Erro ao salvar respostas:", error.message);
+      alert("Não foi possível salvar suas respostas. Tente novamente.");
+      salvamentoIniciado = false;
+      return;
+    }
+
+    console.log("Respostas salvas com sucesso!", data);
+
+  } catch (erro) {
+    console.error("Erro inesperado:", erro);
+    salvamentoIniciado = false;
+  }
+}
+
+// =========================================================
+// 15. COMPARTILHAR RESULTADO
+// =========================================================
+
+function compartilharResultado() {
+  const perfil = document.getElementById("resultado-perfil").innerText;
+
+  const mensagem =
+    `Participei do Desafio de Reflexão do projeto Quebrando Silêncios e meu resultado foi: ${perfil}. Vamos refletir e construir práticas antirracistas!`;
+
+  const url =
+    "https://wa.me/?text=" + encodeURIComponent(mensagem);
+
+  window.open(url, "_blank");
+}
+
+// =========================================================
+// 16. REINICIAR QUIZ
+// =========================================================
+
+function reiniciarQuiz() {
+  perguntaAtual = 0;
+  pontuacaoTotal = 0;
+  respostasUsuario = {};
+  classificacaoCasos = {};
+  salvamentoIniciado = false;
+
+  trocarTela("quiz-intro");
 }
