@@ -7,13 +7,14 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
   
-  <!-- Chart.js e Supabase -->
+  <!-- Chart.js, Supabase e html2canvas (para gerar a imagem) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -24,6 +25,7 @@
     </a>
     
     <nav class="sidebar-nav">
+      <div class="nav-indicator"></div>
       <a href="#" class="nav-item active" data-target="page-home" title="Início">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
       </a>
@@ -268,11 +270,10 @@
         <!-- TELA 3: DINÂMICA DE CLASSIFICAÇÃO -->
         <div id="quiz-classificacao" class="quiz-screen">
           <p class="selo" style="text-align: center;">Etapa 2</p>
-          <h2 style="text-align: center; color: var(--paper); margin-bottom: 8px;">Sobre a veracidade dos casos, você acha que são reais ou fictícios?</h2>
-          <p style="text-align: center; color: var(--text-muted); margin-bottom: 8px; max-width: 640px; margin-inline: auto;">Alguns desses acontecimentos podem parecer fictícios. Deveriam ser. Mas eles realmente aconteceram.</p>
+          <h2 style="text-align: center; color: var(--paper); margin-bottom: 12px;">Sobre a veracidade dos casos apresentados, você acha que são reais ou fictícios?</h2>
+          <p style="text-align: center; color: var(--text-muted); margin-bottom: 8px; max-width: 640px; margin-inline: auto;">Classifique-os de acordo com o que você acredita.</p>
           <p style="text-align: center; color: var(--text-muted); margin-bottom: 32px; font-size: 0.9rem;">
-            Classifique-os de acordo com o que você acha.<br>
-            <strong>(Toque em um cartão e depois toque na zona desejada)</strong>
+            <strong>Toque em um cartão e depois na zona desejada, ou arraste o cartão até ela.</strong>
           </p>
 
           <div class="drag-board">
@@ -386,37 +387,114 @@
 
         <!-- TELA 6: DIAGNÓSTICO FINAL -->
         <div id="quiz-resultado" class="quiz-screen">
-          <div class="resultado-content">
-            <p class="selo">Seu perfil de reação é</p>
-            <h2 id="resultado-perfil" style="color: var(--primary); font-size: 2.2rem;">Ação Antirracista</h2>
+          
+          <div class="resultado-header">
+            <p class="selo">Sua devolutiva educativa</p>
+            <h2 id="resultado-perfil" style="color: var(--primary); font-size: 2.2rem;">Carregando...</h2>
             
-            <div class="resultado-feedback glass-card mt-24" style="background: var(--surface-2); border-color: var(--line);">
-              <p id="resultado-texto">Carregando análise...</p>
+            <div class="resultado-feedback glass-card mt-24" style="background: var(--surface-2); border-color: var(--line); text-align: left; padding: 24px;">
+              <p id="resultado-texto" style="color: var(--text-muted); line-height: 1.7; font-size: 1.05rem;"></p>
             </div>
 
             <div class="resultado-fontes mt-24">
               <p style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Baseado nas situações e literaturas de:</p>
               <p style="font-size: 0.95rem; color: var(--paper); margin-top: 8px;">Silvio Almeida (2019) · Eliane Cavalleiro (2003) · Nilma Lino Gomes (2011)</p>
             </div>
-
-            <div class="resultado-compartilhar mt-24">
-              <p style="color: var(--text-muted); margin-bottom: 12px; font-size: 0.9rem;">Compartilhe seu resultado e ajude a quebrar silêncios:</p>
-              <button class="btn-compartilhar" onclick="compartilharResultado()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                Compartilhar no WhatsApp
-              </button>
-            </div>
-
-            <div class="selo-agente mt-48" id="selo-agente">
-              <div class="selo-circulo">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
-              </div>
-              <h3>Agente de<br>Letramento Racial</h3>
-              <p>Quebrando Silêncios</p>
-            </div>
-
-            <button class="btn-assistir mt-48" onclick="reiniciarQuiz()">Fazer novamente</button>
           </div>
+          
+          <!-- ESTÚDIO DE CRIAÇÃO DO REGISTRO -->
+          <div class="studio-registro mt-48">
+            <div class="section-header" style="border-top: 1px solid var(--line); padding-top: 32px;">
+              <h2>Personalize seu registro</h2>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">Escolha o fundo que mais combina com você e adicione seu nome e foto (opcional). A foto fica só no seu aparelho e não é enviada para lugar nenhum.</p>
+
+            <div class="studio-grid">
+              <!-- Controles -->
+              <div class="studio-controles">
+                <div class="controle-group">
+                  <label for="input-nome">Seu nome (opcional)</label>
+                  <input type="text" id="input-nome" placeholder="Como quer ser chamado(a)?" maxlength="30" class="input-texto">
+                </div>
+
+                <div class="controle-group">
+                  <label for="input-foto">Sua foto (opcional)</label>
+                  <div class="upload-btn-wrapper">
+                    <button type="button" class="btn-upload" tabindex="-1">Escolher imagem</button>
+                    <input type="file" id="input-foto" accept="image/*" />
+                  </div>
+                  <button type="button" class="btn-remover-foto" id="btn-remover-foto" hidden>Remover foto</button>
+                </div>
+
+                <div class="controle-group">
+                  <label>Cor do fundo</label>
+                  <div class="color-picker">
+                    <button type="button" class="color-opt bg-ochre active" data-cor="ochre" title="Amarelo" aria-label="Fundo amarelo"></button>
+                    <button type="button" class="color-opt bg-black" data-cor="black" title="Preto" aria-label="Fundo preto"></button>
+                    <button type="button" class="color-opt bg-offwhite" data-cor="offwhite" title="Off-white" aria-label="Fundo off-white"></button>
+                  </div>
+                </div>
+
+                <div class="controle-group">
+                  <label>Formato da publicação</label>
+                  <div class="format-picker">
+                    <button type="button" class="format-opt active" data-formato="stories">Stories 9:16</button>
+                    <button type="button" class="format-opt" data-formato="square">Quadrado 1:1</button>
+                  </div>
+                </div>
+
+                <button type="button" class="btn-assistir btn-baixar" id="btn-baixar-registro" onclick="baixarRegistro()">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  Baixar meu registro
+                </button>
+              </div>
+
+              <!-- Prévia do Cartão -->
+              <div class="studio-preview-wrapper">
+                <!-- O cartão real que será transformado em imagem -->
+                <div class="card-registro bg-ochre formato-stories" id="card-registro">
+                  
+                  <!-- Header -->
+                  <div class="card-top">
+                    <h4>QUEBRANDO SILÊNCIOS</h4>
+                    <p>Laboratório do Letramento Racial</p>
+                  </div>
+
+                  <!-- Foto (oculta por padrão) -->
+                  <div class="card-foto-wrap" id="card-foto-wrap" style="display: none;">
+                    <img id="card-foto" src="" alt="Foto do participante">
+                  </div>
+
+                  <!-- Conteúdo principal -->
+                  <div class="card-main">
+                    <h3 class="card-titulo">Meu Registro de Aprendizagem</h3>
+                    <p class="card-nome" id="card-nome">Participante</p>
+                    <div class="card-linha"></div>
+                    <p class="card-perfil" id="card-perfil">Perfil</p>
+                    <p class="card-sintese" id="card-sintese">Síntese da devolutiva...</p>
+                  </div>
+
+                  <!-- Selo (existente, sem alterações) -->
+                  <div class="card-footer">
+                    <div class="selo-agente" style="margin: 0 auto; width: 160px; height: 160px; border-width: 2px;">
+                      <div class="selo-circulo" style="width: 40px; height: 40px; top: -10px; right: -10px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+                      </div>
+                      <h3 style="font-size: 1rem;">Agente de<br>Letramento Racial</h3>
+                      <p style="font-size: 0.6rem;">Quebrando Silêncios</p>
+                      <p class="ifpb-text">IFPB — Campus Pedras de Fogo</p>
+                    </div>
+                  </div>
+
+                  <p class="card-assinatura">Reconhecer, refletir e transformar.</p>
+
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-assistir mt-48" style="background: transparent; color: var(--paper); border: 1px solid var(--line); box-shadow: none;" onclick="reiniciarQuiz()">Fazer o quiz novamente</button>
+          </div>
+
         </div>
 
       </section>

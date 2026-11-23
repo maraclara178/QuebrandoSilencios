@@ -64,18 +64,41 @@ document.querySelectorAll('[data-slide]').forEach((slide) => {
 });
 
 // =========================================================
-// 2. NAVEGAÇÃO DO DASHBOARD
+// 2. NAVEGAÇÃO DO DASHBOARD E ANIMAÇÃO DO MENU
 // =========================================================
 const navItems = document.querySelectorAll('[data-target]');
 const pages = document.querySelectorAll('.dashboard-page');
 const mainContainer = document.querySelector('.main-content');
+const navIndicator = document.querySelector('.nav-indicator');
+
+// Atualiza a posição da bolinha que desliza no menu mobile
+function updateNavIndicator() {
+  const activeItem = document.querySelector('.sidebar-nav .nav-item.active');
+  if (!activeItem || !navIndicator) return;
+
+  if (window.innerWidth > 768) {
+    navIndicator.style.opacity = '0';
+    return;
+  }
+  navIndicator.style.opacity = '1';
+
+  const itemLeft = activeItem.offsetLeft;
+  const itemWidth = activeItem.offsetWidth;
+  const indicatorWidth = 44;
+  const translateX = itemLeft + (itemWidth / 2) - (indicatorWidth / 2);
+  
+  navIndicator.style.transform = `translateX(${translateX}px)`;
+}
 
 navItems.forEach(item => {
   item.addEventListener('click', (e) => {
     e.preventDefault();
     
     document.querySelectorAll('.sidebar-nav .nav-item').forEach(nav => nav.classList.remove('active'));
-    if(item.classList.contains('nav-item') && !item.classList.contains('sidebar-logo')) item.classList.add('active');
+    if(item.classList.contains('nav-item') && !item.classList.contains('sidebar-logo')) {
+      item.classList.add('active');
+      updateNavIndicator();
+    }
     
     pages.forEach(page => page.classList.remove('active'));
     const targetId = item.getAttribute('data-target');
@@ -85,6 +108,11 @@ navItems.forEach(item => {
     if(mainContainer) mainContainer.scrollTo({ top: 0 });
     window.scrollTo({ top: 0 });
   });
+});
+
+window.addEventListener('resize', updateNavIndicator);
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(updateNavIndicator, 100);
 });
 
 document.addEventListener('keydown', e => {
@@ -409,6 +437,7 @@ function iniciarQuiz() {
   classificacaoCasos = {};
   casoSelecionadoId = null;
   salvamentoIniciado = false;
+  resetarRegistro();
   trocarTela("quiz-perguntas");
   renderizarPergunta();
 }
@@ -484,6 +513,15 @@ function renderizarPergunta() {
       btnAberta.style.display = "inline-flex";
     }
   }
+
+  // Reativa a animação de entrada a cada troca de pergunta e volta ao topo
+  [texto, container].forEach(el => {
+    el.classList.remove("entra");
+    void el.offsetWidth;
+    el.classList.add("entra");
+  });
+  if (mainContainer) mainContainer.scrollTo({ top: 0 });
+  window.scrollTo({ top: 0 });
 }
 
 function avancarPerguntaAberta() {
@@ -587,6 +625,8 @@ function moverCaso(id, destino) {
 }
 
 function configurarZonasDeArraste() {
+  // Usa propriedades "on..." (e não addEventListener) para não acumular
+  // ouvintes duplicados cada vez que o quiz é refeito.
   document.querySelectorAll(".drop-zone").forEach(zona => {
     zona.ondragover = event => {
       event.preventDefault();
@@ -599,21 +639,20 @@ function configurarZonasDeArraste() {
       const id = event.dataTransfer.getData("text/plain");
       moverCaso(id, zona.dataset.tipo);
     };
-
-    zona.addEventListener("click", () => {
+    zona.onclick = () => {
       if (casoSelecionadoId) {
         moverCaso(casoSelecionadoId, zona.dataset.tipo);
       }
-    });
+    };
   });
 
-  // Clicar na pool vazia devolve o caso selecionado que estava classificado
+  // Clicar na área vazia do grupo inicial devolve o caso selecionado
   const pool = document.getElementById("casos-pool");
-  pool.addEventListener("click", (e) => {
+  pool.onclick = (e) => {
     if (e.target === pool && casoSelecionadoId) {
       moverCaso(casoSelecionadoId, "");
     }
-  });
+  };
 }
 
 function mostrarRevelacao() {
@@ -628,27 +667,36 @@ function mostrarNoticias() {
   trocarTela("quiz-noticias");
 }
 
+// Faixas de reflexão (0–12 pontos). São categorias pedagógicas desta atividade,
+// não um diagnóstico psicológico nem uma definição de caráter.
+const FAIXAS_REFLEXAO = [
+  { max: 3,  titulo: "Um primeiro olhar",         sintese: "Nesta atividade, suas respostas indicam um primeiro olhar sobre o racismo no cotidiano. Ouvir, estudar e conversar abrem caminhos para agir." },
+  { max: 6,  titulo: "Despertar crítico",         sintese: "Nesta atividade, você demonstrou incômodo e disposição para se posicionar. O próximo passo é unir reação, acolhimento e encaminhamentos responsáveis." },
+  { max: 9,  titulo: "Consciência em construção", sintese: "Nesta atividade, você buscou compreender contextos e reconhecer como o racismo se manifesta. O desafio é transformar a reflexão em atitudes concretas." },
+  { max: 12, titulo: "Compromisso antirracista",  sintese: "Nesta atividade, suas respostas combinam posicionamento, acolhimento e busca por canais adequados. A ação antirracista é contínua e coletiva." }
+];
+
+function faixaDaPontuacao(pontos) {
+  return FAIXAS_REFLEXAO.find(f => pontos <= f.max) || FAIXAS_REFLEXAO[FAIXAS_REFLEXAO.length - 1];
+}
+
 function calcularPerfil() {
-  let perfil = "";
+  const perfil = faixaDaPontuacao(pontuacaoTotal).titulo;
   let feedback = "";
 
   if (pontuacaoTotal <= 3) {
-    perfil = "Omissão / Passividade";
     feedback = `Suas respostas indicam uma tendência a não intervir diretamente diante de situações de racismo. Isso pode estar relacionado à insegurança, ao receio de conflitos ou à dificuldade de reconhecer formas de agir.
 
 O silêncio também pode contribuir para a permanência de práticas discriminatórias. Buscar conhecimento e desenvolver estratégias de apoio são passos importantes para transformar essa postura.`;
   } else if (pontuacaoTotal <= 6) {
-    perfil = "Reação Reativa";
     feedback = `Suas respostas indicam uma tendência a reagir de maneira imediata diante de situações de racismo, demonstrando incômodo e disposição para questionar atitudes discriminatórias.
 
 Entretanto, é importante desenvolver estratégias que aliem posicionamento, acolhimento e encaminhamentos responsáveis, para que a reação também contribua para mudanças efetivas.`;
   } else if (pontuacaoTotal <= 9) {
-    perfil = "Reflexão Crítica";
     feedback = `Suas respostas demonstram uma tendência a procurar compreender as situações, analisar seus contextos e reconhecer como o racismo se manifesta na sociedade.
 
 A reflexão é fundamental para o letramento racial. O desafio é transformar esse conhecimento em atitudes concretas de enfrentamento, apoio e mobilização coletiva.`;
   } else {
-    perfil = "Ação Antirracista Consciente";
     feedback = `Suas respostas indicam uma tendência a combinar posicionamento, acolhimento e busca por medidas concretas diante de situações de racismo.
 
 A ação antirracista exige continuidade: apoiar pessoas atingidas, questionar práticas discriminatórias, buscar os canais adequados e contribuir para transformar os espaços sociais.`;
@@ -665,12 +713,222 @@ async function mostrarDiagnostico() {
 
   trocarTela("quiz-resultado");
 
+  // O registro é preenchido antes do salvamento: funciona mesmo se o banco falhar.
+  atualizarRegistro();
+  ajustarPreviaRegistro();
+
   if (!salvamentoIniciado) {
     salvamentoIniciado = true;
     await salvarNoBancoDeDados(pontuacaoTotal, resultado.perfil, respostasUsuario);
   }
 }
 
+// =========================================================
+// 8. MEU REGISTRO DE APRENDIZAGEM
+// A arte é desenhada em 540 px de largura e exportada com escala 2
+// (1080x1920 no Stories, 1080x1080 no Quadrado).
+// A foto é processada só no navegador: nunca é enviada ao Supabase.
+// =========================================================
+const REG_LARGURA = 540;
+const REG_ALTURAS = { stories: 960, square: 540 };
+const REG_ESCALA = 1080 / REG_LARGURA;
+const regEstado = { cor: 'ochre', formato: 'stories', foto: null };
+
+const regEl = id => document.getElementById(id);
+const regCard = regEl('card-registro');
+const regArea = regCard ? regCard.parentElement : null;
+const regInputNome = regEl('input-nome');
+const regInputFoto = regEl('input-foto');
+const regFotoWrap = regEl('card-foto-wrap');
+const regBtnRemover = regEl('btn-remover-foto');
+const regBtnUpload = document.querySelector('.btn-upload');
+const regBotoesCor = document.querySelectorAll('.color-opt');
+const regBotoesFormato = document.querySelectorAll('.format-opt');
+
+function aplicarCorRegistro(cor) {
+  if (!regCard) return;
+  regEstado.cor = cor;
+  regCard.classList.remove('bg-ochre', 'bg-black', 'bg-offwhite');
+  regCard.classList.add(`bg-${cor}`);
+  regBotoesCor.forEach(b => {
+    const ativo = b.dataset.cor === cor;
+    b.classList.toggle('active', ativo);
+    b.setAttribute('aria-pressed', String(ativo));
+  });
+}
+
+function aplicarFormatoRegistro(formato) {
+  if (!regCard) return;
+  regEstado.formato = formato;
+  regCard.classList.remove('formato-stories', 'formato-square');
+  regCard.classList.add(`formato-${formato}`);
+  regBotoesFormato.forEach(b => {
+    const ativo = b.dataset.formato === formato;
+    b.classList.toggle('active', ativo);
+    b.setAttribute('aria-pressed', String(ativo));
+  });
+  ajustarPreviaRegistro();
+}
+
+// Escala a arte (540 px) para caber na área da prévia, sem distorcer
+function ajustarPreviaRegistro() {
+  if (!regCard || !regArea) return;
+  const larg = regArea.clientWidth || REG_LARGURA;
+  const alt = REG_ALTURAS[regEstado.formato];
+  const k = Math.min(1, larg / REG_LARGURA, (window.innerHeight * 0.78) / alt);
+  regCard.style.transform = `scale(${k})`;
+  regCard.style.left = `${Math.max(0, (larg - REG_LARGURA * k) / 2)}px`;
+  regArea.style.height = `${alt * k}px`;
+}
+
+function atualizarNomeRegistro() {
+  const nomeEl = regEl('card-nome');
+  if (!nomeEl) return;
+  const nome = regInputNome ? regInputNome.value.trim() : '';
+  nomeEl.textContent = nome || 'Participante';
+}
+
+function atualizarRegistro() {
+  const perfilEl = regEl('card-perfil');
+  const sinteseEl = regEl('card-sintese');
+  if (!perfilEl || !sinteseEl) return;
+  const faixa = faixaDaPontuacao(pontuacaoTotal);
+  perfilEl.textContent = faixa.titulo;
+  sinteseEl.textContent = faixa.sintese;
+}
+
+function definirFotoRegistro(dataUrl) {
+  if (!regFotoWrap) return;
+  regEstado.foto = dataUrl;
+  regFotoWrap.style.backgroundImage = dataUrl ? `url("${dataUrl}")` : '';
+  regFotoWrap.style.display = dataUrl ? 'block' : 'none';
+  if (dataUrl) {
+    regFotoWrap.setAttribute('role', 'img');
+    regFotoWrap.setAttribute('aria-label', 'Foto do participante');
+  }
+  if (regBtnRemover) regBtnRemover.hidden = !dataUrl;
+  if (regBtnUpload) regBtnUpload.textContent = dataUrl ? 'Trocar imagem' : 'Escolher imagem';
+}
+
+async function lerFotoRegistro(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((ok, erro) => {
+      const i = new Image();
+      i.onload = () => ok(i);
+      i.onerror = erro;
+      i.src = url;
+    });
+    // Redimensiona sem distorcer (mantém a proporção) e aplica a orientação EXIF
+    const esc = Math.min(1, 1400 / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement('canvas');
+    c.width = Math.round(img.naturalWidth * esc);
+    c.height = Math.round(img.naturalHeight * esc);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    definirFotoRegistro(c.toDataURL('image/jpeg', 0.9));
+  } catch (e) {
+    console.error('[Registro] Não foi possível ler a imagem:', e);
+    alert('Não foi possível abrir essa imagem. Tente uma foto em JPG ou PNG.');
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+// Limpa nome, foto, cor e formato entre participantes (totem compartilhado)
+function resetarRegistro() {
+  if (!regCard) return;
+  if (regInputNome) regInputNome.value = '';
+  if (regInputFoto) regInputFoto.value = '';
+  atualizarNomeRegistro();
+  definirFotoRegistro(null);
+  aplicarCorRegistro('ochre');
+  aplicarFormatoRegistro('stories');
+}
+
+if (regCard) {
+  regBotoesCor.forEach(b => b.addEventListener('click', () => aplicarCorRegistro(b.dataset.cor)));
+  regBotoesFormato.forEach(b => b.addEventListener('click', () => aplicarFormatoRegistro(b.dataset.formato)));
+  if (regInputNome) regInputNome.addEventListener('input', atualizarNomeRegistro);
+  if (regInputFoto) regInputFoto.addEventListener('change', () => lerFotoRegistro(regInputFoto.files[0]));
+  if (regBtnRemover) regBtnRemover.addEventListener('click', () => {
+    definirFotoRegistro(null);
+    if (regInputFoto) regInputFoto.value = '';
+  });
+  if ('ResizeObserver' in window) new ResizeObserver(ajustarPreviaRegistro).observe(regArea);
+  window.addEventListener('resize', ajustarPreviaRegistro);
+
+  resetarRegistro();
+  atualizarRegistro();
+  ajustarPreviaRegistro();
+}
+
+// Exportação em PNG com as dimensões exatas, só da arte (sem os controles)
+async function baixarRegistro() {
+  const btn = regEl('btn-baixar-registro');
+  const rotulo = btn ? btn.innerHTML : '';
+  let palco = null;
+  try {
+    if (!window.html2canvas) throw new Error('html2canvas não carregou');
+    if (btn) { btn.disabled = true; btn.textContent = 'Gerando imagem…'; }
+
+    await document.fonts.ready;
+    await Promise.all([
+      document.fonts.load('800 40px "Bricolage Grotesque"'),
+      document.fonts.load('600 24px "Bricolage Grotesque"'),
+      document.fonts.load('400 16px Inter'),
+      document.fonts.load('600 16px Inter')
+    ]);
+
+    // Clona só a arte, sem escala nem posicionamento da prévia, em tamanho real
+    const altura = REG_ALTURAS[regEstado.formato];
+    const clone = regCard.cloneNode(true);
+    clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+    clone.removeAttribute('id');
+    clone.style.transform = 'none';
+    clone.style.position = 'relative';
+    clone.style.left = '0';
+    clone.style.top = '0';
+    palco = document.createElement('div');
+    palco.style.cssText = 'position:fixed;left:-10000px;top:0;pointer-events:none;';
+    palco.appendChild(clone);
+    document.body.appendChild(palco);
+
+    const bruto = await html2canvas(clone, {
+      scale: REG_ESCALA, width: REG_LARGURA, height: altura,
+      backgroundColor: null, useCORS: true, logging: false, scrollX: 0, scrollY: 0
+    });
+
+    // Garante as dimensões exatas (1080x1920 ou 1080x1080)
+    const final = document.createElement('canvas');
+    final.width = 1080;
+    final.height = Math.round(altura * REG_ESCALA);
+    final.getContext('2d').drawImage(bruto, 0, 0, final.width, final.height);
+
+    const blob = await new Promise(ok => final.toBlob(ok, 'image/png'));
+    if (!blob) throw new Error('Falha ao gerar o PNG');
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `quebrando-silencios-registro-${regEstado.formato}.png`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 4000);
+  } catch (e) {
+    console.error('[Registro] Erro ao gerar a imagem:', e);
+    alert('Não foi possível gerar a imagem. Tente novamente.');
+  } finally {
+    if (palco) palco.remove();
+    if (btn) { btn.disabled = false; btn.innerHTML = rotulo; }
+  }
+}
+
+// =========================================================
+// 9. SALVAR NO BANCO (Supabase)
+// Só as colunas existentes em public.respostas_quiz.
+// A foto e o nome do registro NUNCA são enviados.
+// =========================================================
 async function salvarNoBancoDeDados(pontuacao, perfil, respostas) {
   if (!supabaseClient) {
     console.error("[Supabase] Cliente não inicializado — resposta NÃO foi enviada.");
@@ -693,28 +951,20 @@ async function salvarNoBancoDeDados(pontuacao, perfil, respostas) {
       .insert([dadosParaSalvar]);
 
     if (error) {
+      // Falha de salvamento não interrompe a experiência do participante
       console.error("[Supabase] Erro ao salvar:", {
         message: error.message,
         details: error.details,
         hint: error.hint,
         code: error.code
       });
-      alert("Não foi possível registrar suas respostas. Tente novamente.");
-      salvamentoIniciado = false;
       return;
     }
 
     console.log("[Supabase] Resposta do quiz salva com sucesso.");
   } catch (erro) {
     console.error("[Supabase] Erro inesperado:", erro);
-    salvamentoIniciado = false;
   }
-}
-
-function compartilharResultado() {
-  const perfil = document.getElementById("resultado-perfil").innerText;
-  const mensagem = `Participei do Desafio de Reflexão do projeto Quebrando Silêncios e meu resultado foi: ${perfil}. Vamos refletir e construir práticas antirracistas!`;
-  window.open("https://wa.me/?text=" + encodeURIComponent(mensagem), "_blank");
 }
 
 function reiniciarQuiz() {
@@ -724,5 +974,6 @@ function reiniciarQuiz() {
   classificacaoCasos = {};
   casoSelecionadoId = null;
   salvamentoIniciado = false;
+  resetarRegistro();
   trocarTela("quiz-intro");
 }
